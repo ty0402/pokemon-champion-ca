@@ -537,6 +537,106 @@ const metaSets = [
     sets: [
       { name: 'Mega Kangaskhan', item: 'Kangaskhanite', ability: 'Scrappy', nature: 'Jolly', statPoints: { hp: 12, atk: 32, def: 4, spa: 0, spd: 0, spe: 32 }, moves: ['Fake Out', 'Double-Edge', 'Sucker Punch', 'Protect'] }
     ]
+  },
+  {
+    species: 'Mega Charizard X',
+    rank: 'Mega',
+    sourceName: 'Charizard',
+    note: '热门扩展（Mega 体系）：Mega Charizard X 在当前 Mega 环境中是常见的中高速物攻核心。',
+    archetypes: extractMovesetLabels('Charizard'),
+    sets: [
+      { name: 'Dragon Dance Mega Charizard X', item: 'Charizardite X', ability: 'Tough Claws', nature: 'Jolly', statPoints: { hp: 8, atk: 32, def: 0, spa: 0, spd: 0, spe: 24 }, moves: ['Flare Blitz', 'Dragon Claw', 'Dragon Dance', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Garchomp',
+    rank: 'Mega',
+    sourceName: 'Garchomp',
+    note: '热门扩展（Mega 体系）：Mega Garchomp 是常见的地龙高压输出位，常作为中速推进核心。',
+    archetypes: extractMovesetLabels('Garchomp'),
+    sets: [
+      { name: 'Standard Mega Garchomp', item: 'Garchompite', ability: 'Sand Force', nature: 'Jolly', statPoints: { hp: 12, atk: 32, def: 0, spa: 0, spd: 0, spe: 20 }, moves: ['Earthquake', 'Dragon Claw', 'Rock Slide', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Tyranitar',
+    rank: 'Mega',
+    sourceName: 'Tyranitar',
+    note: '热门扩展（Mega 体系）：Mega Tyranitar 仍是稳定的中盘压制点，沙暴队和常规队都能携带。',
+    archetypes: extractMovesetLabels('Tyranitar'),
+    sets: [
+      { name: 'Dragon Dance Mega Tyranitar', item: 'Tyranitarite', ability: 'Sand Stream', nature: 'Adamant', statPoints: { hp: 16, atk: 32, def: 4, spa: 0, spd: 8, spe: 4 }, moves: ['Rock Slide', 'Crunch', 'Dragon Dance', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Scizor',
+    rank: 'Mega',
+    sourceName: 'Scizor',
+    note: '热门扩展（Mega 体系）：Mega Scizor 凭借 Technician 加成和优先级压制，是高频后排收割位。',
+    archetypes: extractMovesetLabels('Scizor'),
+    sets: [
+      { name: 'Bulky Offense Mega Scizor', item: 'Scizorite', ability: 'Technician', nature: 'Adamant', statPoints: { hp: 20, atk: 32, def: 12, spa: 0, spd: 8, spe: 0 }, moves: ['Bullet Punch', 'Knock Off', 'Close Combat', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Gardevoir',
+    rank: 'Mega',
+    sourceName: 'Gardevoir',
+    note: '热门扩展（Mega 体系）：Mega Gardevoir 以 Pixilate 高强度语音输出和控场能力见长。',
+    archetypes: extractMovesetLabels('Gardevoir'),
+    sets: [
+      { name: 'Pixilate Mega Gardevoir', item: 'Gardevoirite', ability: 'Pixilate', nature: 'Timid', statPoints: { hp: 8, atk: 0, def: 4, spa: 32, spd: 0, spe: 24 }, moves: ['Hyper Voice', 'Moonblast', 'Calm Mind', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Gyarados',
+    rank: 'Mega',
+    sourceName: 'Gyarados',
+    note: '热门扩展（Mega 体系）：Mega Gyarados 兼具 Dragon Dance 破局能力与优良耐性，是常见的进攻终结点。',
+    archetypes: extractMovesetLabels('Gyarados'),
+    sets: [
+      { name: 'Dragon Dance Mega Gyarados', item: 'Gyaradosite', ability: 'Mold Breaker', nature: 'Jolly', statPoints: { hp: 12, atk: 32, def: 4, spa: 0, spd: 0, spe: 20 }, moves: ['Aqua Tail', 'Crunch', 'Dragon Dance', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Venusaur',
+    rank: 'Mega',
+    sourceName: 'Venusaur',
+    note: '热门扩展（Mega 体系）：Mega Venusaur 是高耐久草毒核心，常用于对抗水地与持续消耗局。',
+    archetypes: extractMovesetLabels('Venusaur'),
+    sets: [
+      { name: 'Bulky Mega Venusaur', item: 'Venusaurite', ability: 'Thick Fat', nature: 'Calm', statPoints: { hp: 32, atk: 0, def: 12, spa: 16, spd: 20, spe: 0 }, moves: ['Giga Drain', 'Earth Power', 'Leech Seed', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Medicham',
+    rank: 'Mega',
+    sourceName: 'Medicham',
+    note: '热门扩展（Mega 体系）：Mega Medicham 借助 Pure Power 的爆发打点，常用于快速撕开防线。',
+    archetypes: extractMovesetLabels('Medicham'),
+    sets: [
+      { name: 'Fast Mega Medicham', item: 'Medichamite', ability: 'Pure Power', nature: 'Jolly', statPoints: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, moves: ['Fake Out', 'High Jump Kick', 'Ice Punch', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Pinsir',
+    rank: 'Mega',
+    sourceName: 'Pinsir',
+    note: '热门扩展（Mega 体系）：Mega Pinsir 依靠 Aerilate 的先制压制和高物攻，常用于残局收割。',
+    archetypes: extractMovesetLabels('Pinsir'),
+    sets: [
+      { name: 'Aerilate Mega Pinsir', item: 'Pinsirite', ability: 'Aerilate', nature: 'Jolly', statPoints: { hp: 8, atk: 32, def: 0, spa: 0, spd: 0, spe: 24 }, moves: ['Quick Attack', 'Close Combat', 'Bug Bite', 'Protect'] }
+    ]
+  },
+  {
+    species: 'Mega Meganium',
+    rank: 'Mega',
+    sourceName: 'Meganium',
+    note: '热门扩展（Mega 体系）：Mega Meganium 在当前队伍样本中常作为草系范围压制与场地协同位。',
+    archetypes: extractMovesetLabels('Meganium'),
+    sets: [
+      { name: 'Doubles Mega Meganium', item: 'Meganiumite', ability: 'Mega Sol', nature: 'Modest', statPoints: { hp: 28, atk: 0, def: 0, spa: 32, spd: 0, spe: 6 }, moves: ['Giga Drain', 'Dazzling Gleam', 'Weather Ball', 'Protect'] }
+    ]
   }
 ];
 
