@@ -1,0 +1,2311 @@
+{
+  "generatedAt": "2026-04-13T11:34:18.049Z",
+  "sourceNotes": {
+    "rosterSource": "Game8 Pokemon Champions roster page",
+    "moveSource": "Game8 Pokemon Champions move list page",
+    "statSource": "PokeAPI /pokemon endpoint with Scarlet-Violet learnsets filtered by Champions move pool",
+    "topMetaSource": "Game8 Doubles tier list page"
+  },
+  "counts": {
+    "rosterPageNames": 202,
+    "matchedRoster": 36,
+    "movePageNames": 493,
+    "matchedMoves": 490
+  },
+  "unmatchedRoster": [
+    "Singles",
+    "Doubles",
+    "Mega Evolutions",
+    "Best Starter",
+    "Best Builds",
+    "Best Teams",
+    "Master Ball Replica Teams",
+    "How to Transfer Pokemon With Pokemon HOME",
+    "Best Pokemon to Recruit First",
+    "Reroll Guide: Best Pokemon to Reroll",
+    "Normal-type Pokemon",
+    "Fire-type Pokemon",
+    "Water-type Pokemon",
+    "Electric-type Pokemon",
+    "Grass-type Pokemon",
+    "Ice-type Pokemon",
+    "Fighting-type Pokemon",
+    "Poison-type Pokemon",
+    "Ground-type Pokemon",
+    "Flying-type Pokemon",
+    "Psychic-type Pokemon",
+    "Bug-type Pokemon",
+    "Rock-type Pokemon",
+    "Ghost-type Pokemon",
+    "Dragon-type Pokemon",
+    "Dark-type Pokemon",
+    "Steel-type Pokemon",
+    "Fairy-type Pokemon",
+    "Generation 1 Pokemon",
+    "Generation 2 Pokemon",
+    "Generation 3 Pokemon",
+    "Generation 4 Pokemon",
+    "Generation 5 Pokemon",
+    "Generation 6 Pokemon",
+    "Generation 7 Pokemon",
+    "Generation 8 Pokemon",
+    "Generation 9 Pokemon",
+    "Frost Rotom",
+    "Maushold",
+    "All Replica Team Codes (Master Ball Rank)",
+    "Best Rain Team",
+    "Pokemon Home Connectivity and Features",
+    "Confirmed Battle Mechanics",
+    "How to Train Pokemon",
+    "What Are Stat Points?",
+    "Stat Alignment Explained",
+    "What are Victory Points",
+    "Available Battle Modes",
+    "Battle Formats Guide",
+    "Pokemon Recruitment Guide",
+    "How to Obtain Pokemon",
+    "Priority Brackets Explained",
+    "Pokemon Type Chart",
+    "Should You Buy the Starter Pack?",
+    "How to Set Nicknames",
+    "What Are Base Stats?",
+    "How to Equip Mega Stones",
+    "How to Change Your Name and Gender",
+    "Are There IVs?",
+    "How to Get and Use Training Tickets",
+    "How to Get and Use Teammate Tickets",
+    "How to Use Quick Coupons",
+    "Should You Buy the Premium Battle Pass?",
+    "Should You Buy the Annual Membership?",
+    "Best Items to Buy from the Shop",
+    "What is Extremely Effective and Mostly Ineffective?",
+    "All Daily Tasks and Activities",
+    "How to Increase Box Size",
+    "How to Change Moves",
+    "Can You Play Offline?",
+    "Are There Eggs and Egg Moves?",
+    "How to Battle with Friends",
+    "How to Release Pokemon From Your Box",
+    "What to Do First",
+    "When to Switch in Battle?",
+    "All Weather Conditions Explained",
+    "Tips For Pokemon Selection",
+    "How to Increase Critical Hit Chance",
+    "All Status Conditions and Effects Explained",
+    "Can You Change Pokemon Forms?",
+    "All Terrains and Their Effects",
+    "How to Get Pokemon in Unique Poke Balls",
+    "Physical Moves",
+    "Special Moves",
+    "Status Moves",
+    "Grass-Type Moves",
+    "Water-Type Moves",
+    "Fire-Type Moves",
+    "Electric-Type Moves",
+    "Ice-Type Moves",
+    "Fighting-Type Moves",
+    "Ground-Type Moves",
+    "Poison-Type Moves",
+    "Flying-Type Moves",
+    "Psychic-Type Moves",
+    "Bug-Type Moves",
+    "Rock-Type Moves",
+    "Ghost-Type Moves",
+    "Dragon-Type Moves",
+    "Dark-Type Moves",
+    "Steel-Type Moves",
+    "Fairy-Type Moves",
+    "Normal-Type Moves",
+    "Contact Moves",
+    "Recoil Moves",
+    "Priority Moves",
+    "Punching Moves",
+    "Multi-Target Moves",
+    "Sound Moves",
+    "Slicing Moves",
+    "Biting Moves",
+    "Ball and Bomb Moves",
+    "Aura and Pulse Moves",
+    "Moves with Secondary Effects",
+    "Moves with 60 Power or Less",
+    "Stat-Boosting Moves",
+    "Stat-Lowering Moves",
+    "Status Inflicting Moves",
+    "Multi-Hit Moves",
+    "High Critical-Hit Moves",
+    "Powder/Spore Moves",
+    "Entry Hazard Moves",
+    "New Abilities",
+    "All Legends Z-A Mega Evolution Abilities",
+    "Defense Items",
+    "Power Boost Item",
+    "Recovery Items",
+    "Stat Boost Items",
+    "Other Items",
+    "Berries",
+    "Character Customization",
+    "All Beauty Marks",
+    "All Mouth Designs",
+    "All Eyebrows",
+    "All Eyebrow Colors",
+    "All Eyelash Colors",
+    "All Eyelash Designs",
+    "All Eye Designs",
+    "All Freckle Designs",
+    "All Lip Designs",
+    "All Hairstyles",
+    "All Hair Color",
+    "All Glasses",
+    "All Gloves",
+    "All Hats",
+    "All Headbands",
+    "All Leggings",
+    "All Color Contacts",
+    "All Bags",
+    "All Pants",
+    "All Pre-Battle Poses",
+    "All Shirts",
+    "All Battle Songs",
+    "Machamp Mystery Gift Code",
+    "Latest News",
+    "Pokemon World Championships 2026",
+    "Coming to Switch and Mobile",
+    "Shiny Pokemon Confirmed",
+    "Mega Stones Collaboration Event",
+    "Dragonite Early Download Bonus",
+    "Season 1 Battle Pass Rewards",
+    "Do You Need Nintendo Switch Online?",
+    "Can You Trade Pokemon?",
+    "When Will Maintenance End?",
+    "All Known Bugs and Fixes",
+    "Warm-Up Challenge Event"
+  ],
+  "unmatchedMoves": [
+    "Physical",
+    "Status",
+    "Special"
+  ],
+  "topMeta": [
+    "Best Pokemon For Doubles",
+    "Tier List Criteria",
+    "Incineroar",
+    "Sneasler",
+    "Garchomp",
+    "Kingambit",
+    "Sinistcha",
+    "Whimsicott",
+    "Charizard",
+    "Gengar",
+    "Eternal Flower Floette",
+    "Tyranitar",
+    "Wash Rotom"
+  ],
+  "pokemonManifest": [
+    {
+      "display": "Eternal Flower Floette",
+      "api": "floette-eternal"
+    },
+    {
+      "display": "Incineroar",
+      "api": "incineroar"
+    },
+    {
+      "display": "Whimsicott",
+      "api": "whimsicott"
+    },
+    {
+      "display": "Garchomp",
+      "api": "garchomp"
+    },
+    {
+      "display": "Sinistcha",
+      "api": "sinistcha"
+    },
+    {
+      "display": "Delphox",
+      "api": "delphox"
+    },
+    {
+      "display": "Hawlucha",
+      "api": "hawlucha"
+    },
+    {
+      "display": "Gengar",
+      "api": "gengar"
+    },
+    {
+      "display": "Charizard",
+      "api": "charizard"
+    },
+    {
+      "display": "Tyranitar",
+      "api": "tyranitar"
+    },
+    {
+      "display": "Excadrill",
+      "api": "excadrill"
+    },
+    {
+      "display": "Greninja",
+      "api": "greninja"
+    },
+    {
+      "display": "Hatterene",
+      "api": "hatterene"
+    },
+    {
+      "display": "Pelipper",
+      "api": "pelipper"
+    },
+    {
+      "display": "Sneasler",
+      "api": "sneasler"
+    },
+    {
+      "display": "Froslass",
+      "api": "froslass"
+    },
+    {
+      "display": "Starmie",
+      "api": "starmie"
+    },
+    {
+      "display": "Meganium",
+      "api": "meganium"
+    },
+    {
+      "display": "Primarina",
+      "api": "primarina"
+    },
+    {
+      "display": "Wash Rotom",
+      "api": "rotom-wash"
+    },
+    {
+      "display": "Hippowdon",
+      "api": "hippowdon"
+    },
+    {
+      "display": "Meowscarada",
+      "api": "meowscarada"
+    },
+    {
+      "display": "Dragonite",
+      "api": "dragonite"
+    },
+    {
+      "display": "Kingambit",
+      "api": "kingambit"
+    },
+    {
+      "display": "Glimmora",
+      "api": "glimmora"
+    },
+    {
+      "display": "Weavile",
+      "api": "weavile"
+    },
+    {
+      "display": "Basculegion (Male)",
+      "api": "basculegion-male"
+    },
+    {
+      "display": "Orthworm",
+      "api": "orthworm"
+    },
+    {
+      "display": "Politoed",
+      "api": "politoed"
+    },
+    {
+      "display": "Corviknight",
+      "api": "corviknight"
+    },
+    {
+      "display": "Dragapult",
+      "api": "dragapult"
+    },
+    {
+      "display": "Clefable",
+      "api": "clefable"
+    },
+    {
+      "display": "Hydreigon",
+      "api": "hydreigon"
+    },
+    {
+      "display": "Kangaskhan",
+      "api": "kangaskhan"
+    },
+    {
+      "display": "Scizor",
+      "api": "scizor"
+    },
+    {
+      "display": "Aerodactyl",
+      "api": "aerodactyl"
+    }
+  ],
+  "legalMoves": [
+    {
+      "display": "Accelerock",
+      "api": "accelerock"
+    },
+    {
+      "display": "Acid Armor",
+      "api": "acid-armor"
+    },
+    {
+      "display": "Acid Spray",
+      "api": "acid-spray"
+    },
+    {
+      "display": "Acrobatics",
+      "api": "acrobatics"
+    },
+    {
+      "display": "Acupressure",
+      "api": "acupressure"
+    },
+    {
+      "display": "Aerial Ace",
+      "api": "aerial-ace"
+    },
+    {
+      "display": "After You",
+      "api": "after-you"
+    },
+    {
+      "display": "Agility",
+      "api": "agility"
+    },
+    {
+      "display": "Air Cutter",
+      "api": "air-cutter"
+    },
+    {
+      "display": "Air Slash",
+      "api": "air-slash"
+    },
+    {
+      "display": "Alluring Voice",
+      "api": "alluring-voice"
+    },
+    {
+      "display": "Ally Switch",
+      "api": "ally-switch"
+    },
+    {
+      "display": "Amnesia",
+      "api": "amnesia"
+    },
+    {
+      "display": "Ancient Power",
+      "api": "ancient-power"
+    },
+    {
+      "display": "Apple Acid",
+      "api": "apple-acid"
+    },
+    {
+      "display": "Aqua Cutter",
+      "api": "aqua-cutter"
+    },
+    {
+      "display": "Aqua Jet",
+      "api": "aqua-jet"
+    },
+    {
+      "display": "Aqua Ring",
+      "api": "aqua-ring"
+    },
+    {
+      "display": "Aqua Step",
+      "api": "aqua-step"
+    },
+    {
+      "display": "Aqua Tail",
+      "api": "aqua-tail"
+    },
+    {
+      "display": "Armor Cannon",
+      "api": "armor-cannon"
+    },
+    {
+      "display": "Aromatic Mist",
+      "api": "aromatic-mist"
+    },
+    {
+      "display": "Assurance",
+      "api": "assurance"
+    },
+    {
+      "display": "Attract",
+      "api": "attract"
+    },
+    {
+      "display": "Aura Sphere",
+      "api": "aura-sphere"
+    },
+    {
+      "display": "Aura Wheel",
+      "api": "aura-wheel"
+    },
+    {
+      "display": "Aurora Veil",
+      "api": "aurora-veil"
+    },
+    {
+      "display": "Avalanche",
+      "api": "avalanche"
+    },
+    {
+      "display": "Axe Kick",
+      "api": "axe-kick"
+    },
+    {
+      "display": "Baby-Doll Eyes",
+      "api": "baby-doll-eyes"
+    },
+    {
+      "display": "Baneful Bunker",
+      "api": "baneful-bunker"
+    },
+    {
+      "display": "Baton Pass",
+      "api": "baton-pass"
+    },
+    {
+      "display": "Beak Blast",
+      "api": "beak-blast"
+    },
+    {
+      "display": "Beat Up",
+      "api": "beat-up"
+    },
+    {
+      "display": "Belch",
+      "api": "belch"
+    },
+    {
+      "display": "Belly Drum",
+      "api": "belly-drum"
+    },
+    {
+      "display": "Bind",
+      "api": "bind"
+    },
+    {
+      "display": "Bite",
+      "api": "bite"
+    },
+    {
+      "display": "Bitter Blade",
+      "api": "bitter-blade"
+    },
+    {
+      "display": "Bitter Malice",
+      "api": "bitter-malice"
+    },
+    {
+      "display": "Blast Burn",
+      "api": "blast-burn"
+    },
+    {
+      "display": "Blaze Kick",
+      "api": "blaze-kick"
+    },
+    {
+      "display": "Blizzard",
+      "api": "blizzard"
+    },
+    {
+      "display": "Block",
+      "api": "block"
+    },
+    {
+      "display": "Body Press",
+      "api": "body-press"
+    },
+    {
+      "display": "Body Slam",
+      "api": "body-slam"
+    },
+    {
+      "display": "Bone Rush",
+      "api": "bone-rush"
+    },
+    {
+      "display": "Boomburst",
+      "api": "boomburst"
+    },
+    {
+      "display": "Bounce",
+      "api": "bounce"
+    },
+    {
+      "display": "Brave Bird",
+      "api": "brave-bird"
+    },
+    {
+      "display": "Breaking Swipe",
+      "api": "breaking-swipe"
+    },
+    {
+      "display": "Brick Break",
+      "api": "brick-break"
+    },
+    {
+      "display": "Brutal Swing",
+      "api": "brutal-swing"
+    },
+    {
+      "display": "Bug Bite",
+      "api": "bug-bite"
+    },
+    {
+      "display": "Bug Buzz",
+      "api": "bug-buzz"
+    },
+    {
+      "display": "Bulk Up",
+      "api": "bulk-up"
+    },
+    {
+      "display": "Bulldoze",
+      "api": "bulldoze"
+    },
+    {
+      "display": "Bullet Punch",
+      "api": "bullet-punch"
+    },
+    {
+      "display": "Bullet Seed",
+      "api": "bullet-seed"
+    },
+    {
+      "display": "Burn Up",
+      "api": "burn-up"
+    },
+    {
+      "display": "Burning Jealousy",
+      "api": "burning-jealousy"
+    },
+    {
+      "display": "Calm Mind",
+      "api": "calm-mind"
+    },
+    {
+      "display": "Ceaseless Edge",
+      "api": "ceaseless-edge"
+    },
+    {
+      "display": "Charge",
+      "api": "charge"
+    },
+    {
+      "display": "Charge Beam",
+      "api": "charge-beam"
+    },
+    {
+      "display": "Charm",
+      "api": "charm"
+    },
+    {
+      "display": "Chilling Water",
+      "api": "chilling-water"
+    },
+    {
+      "display": "Chilly Reception",
+      "api": "chilly-reception"
+    },
+    {
+      "display": "Circle Throw",
+      "api": "circle-throw"
+    },
+    {
+      "display": "Clanging Scales",
+      "api": "clanging-scales"
+    },
+    {
+      "display": "Clangorous Soul",
+      "api": "clangorous-soul"
+    },
+    {
+      "display": "Clear Smog",
+      "api": "clear-smog"
+    },
+    {
+      "display": "Close Combat",
+      "api": "close-combat"
+    },
+    {
+      "display": "Coaching",
+      "api": "coaching"
+    },
+    {
+      "display": "Coil",
+      "api": "coil"
+    },
+    {
+      "display": "Comeuppance",
+      "api": "comeuppance"
+    },
+    {
+      "display": "Confuse Ray",
+      "api": "confuse-ray"
+    },
+    {
+      "display": "Copycat",
+      "api": "copycat"
+    },
+    {
+      "display": "Corrosive Gas",
+      "api": "corrosive-gas"
+    },
+    {
+      "display": "Cosmic Power",
+      "api": "cosmic-power"
+    },
+    {
+      "display": "Cotton Guard",
+      "api": "cotton-guard"
+    },
+    {
+      "display": "Cotton Spore",
+      "api": "cotton-spore"
+    },
+    {
+      "display": "Counter",
+      "api": "counter"
+    },
+    {
+      "display": "Covet",
+      "api": "covet"
+    },
+    {
+      "display": "Crabhammer",
+      "api": "crabhammer"
+    },
+    {
+      "display": "Cross Chop",
+      "api": "cross-chop"
+    },
+    {
+      "display": "Cross Poison",
+      "api": "cross-poison"
+    },
+    {
+      "display": "Crunch",
+      "api": "crunch"
+    },
+    {
+      "display": "Crush Claw",
+      "api": "crush-claw"
+    },
+    {
+      "display": "Curse",
+      "api": "curse"
+    },
+    {
+      "display": "Dark Pulse",
+      "api": "dark-pulse"
+    },
+    {
+      "display": "Darkest Lariat",
+      "api": "darkest-lariat"
+    },
+    {
+      "display": "Dazzling Gleam",
+      "api": "dazzling-gleam"
+    },
+    {
+      "display": "Decorate",
+      "api": "decorate"
+    },
+    {
+      "display": "Defog",
+      "api": "defog"
+    },
+    {
+      "display": "Destiny Bond",
+      "api": "destiny-bond"
+    },
+    {
+      "display": "Detect",
+      "api": "detect"
+    },
+    {
+      "display": "Dig",
+      "api": "dig"
+    },
+    {
+      "display": "Dire Claw",
+      "api": "dire-claw"
+    },
+    {
+      "display": "Disable",
+      "api": "disable"
+    },
+    {
+      "display": "Discharge",
+      "api": "discharge"
+    },
+    {
+      "display": "Dive",
+      "api": "dive"
+    },
+    {
+      "display": "Double Hit",
+      "api": "double-hit"
+    },
+    {
+      "display": "Double Team",
+      "api": "double-team"
+    },
+    {
+      "display": "Double-Edge",
+      "api": "double-edge"
+    },
+    {
+      "display": "Draco Meteor",
+      "api": "draco-meteor"
+    },
+    {
+      "display": "Dragon Cheer",
+      "api": "dragon-cheer"
+    },
+    {
+      "display": "Dragon Claw",
+      "api": "dragon-claw"
+    },
+    {
+      "display": "Dragon Dance",
+      "api": "dragon-dance"
+    },
+    {
+      "display": "Dragon Darts",
+      "api": "dragon-darts"
+    },
+    {
+      "display": "Dragon Pulse",
+      "api": "dragon-pulse"
+    },
+    {
+      "display": "Dragon Rush",
+      "api": "dragon-rush"
+    },
+    {
+      "display": "Dragon Tail",
+      "api": "dragon-tail"
+    },
+    {
+      "display": "Drain Punch",
+      "api": "drain-punch"
+    },
+    {
+      "display": "Draining Kiss",
+      "api": "draining-kiss"
+    },
+    {
+      "display": "Drill Peck",
+      "api": "drill-peck"
+    },
+    {
+      "display": "Drill Run",
+      "api": "drill-run"
+    },
+    {
+      "display": "Dual Wingbeat",
+      "api": "dual-wingbeat"
+    },
+    {
+      "display": "Dynamic Punch",
+      "api": "dynamic-punch"
+    },
+    {
+      "display": "Earth Power",
+      "api": "earth-power"
+    },
+    {
+      "display": "Earthquake",
+      "api": "earthquake"
+    },
+    {
+      "display": "Eerie Impulse",
+      "api": "eerie-impulse"
+    },
+    {
+      "display": "Eerie Spell",
+      "api": "eerie-spell"
+    },
+    {
+      "display": "Electric Terrain",
+      "api": "electric-terrain"
+    },
+    {
+      "display": "Electrify",
+      "api": "electrify"
+    },
+    {
+      "display": "Electro Ball",
+      "api": "electro-ball"
+    },
+    {
+      "display": "Electro Shot",
+      "api": "electro-shot"
+    },
+    {
+      "display": "Electroweb",
+      "api": "electroweb"
+    },
+    {
+      "display": "Encore",
+      "api": "encore"
+    },
+    {
+      "display": "Endeavor",
+      "api": "endeavor"
+    },
+    {
+      "display": "Endure",
+      "api": "endure"
+    },
+    {
+      "display": "Energy Ball",
+      "api": "energy-ball"
+    },
+    {
+      "display": "Entrainment",
+      "api": "entrainment"
+    },
+    {
+      "display": "Eruption",
+      "api": "eruption"
+    },
+    {
+      "display": "Expanding Force",
+      "api": "expanding-force"
+    },
+    {
+      "display": "Explosion",
+      "api": "explosion"
+    },
+    {
+      "display": "Extrasensory",
+      "api": "extrasensory"
+    },
+    {
+      "display": "Extreme Speed",
+      "api": "extreme-speed"
+    },
+    {
+      "display": "Facade",
+      "api": "facade"
+    },
+    {
+      "display": "Fairy Lock",
+      "api": "fairy-lock"
+    },
+    {
+      "display": "Fake Out",
+      "api": "fake-out"
+    },
+    {
+      "display": "Fake Tears",
+      "api": "fake-tears"
+    },
+    {
+      "display": "Feather Dance",
+      "api": "feather-dance"
+    },
+    {
+      "display": "Feint",
+      "api": "feint"
+    },
+    {
+      "display": "Fell Stinger",
+      "api": "fell-stinger"
+    },
+    {
+      "display": "Fickle Beam",
+      "api": "fickle-beam"
+    },
+    {
+      "display": "Fiery Dance",
+      "api": "fiery-dance"
+    },
+    {
+      "display": "Final Gambit",
+      "api": "final-gambit"
+    },
+    {
+      "display": "Fire Blast",
+      "api": "fire-blast"
+    },
+    {
+      "display": "Fire Fang",
+      "api": "fire-fang"
+    },
+    {
+      "display": "Fire Lash",
+      "api": "fire-lash"
+    },
+    {
+      "display": "Fire Punch",
+      "api": "fire-punch"
+    },
+    {
+      "display": "Fire Spin",
+      "api": "fire-spin"
+    },
+    {
+      "display": "First Impression",
+      "api": "first-impression"
+    },
+    {
+      "display": "Fissure",
+      "api": "fissure"
+    },
+    {
+      "display": "Flail",
+      "api": "flail"
+    },
+    {
+      "display": "Flame Charge",
+      "api": "flame-charge"
+    },
+    {
+      "display": "Flamethrower",
+      "api": "flamethrower"
+    },
+    {
+      "display": "Flare Blitz",
+      "api": "flare-blitz"
+    },
+    {
+      "display": "Flash Cannon",
+      "api": "flash-cannon"
+    },
+    {
+      "display": "Flatter",
+      "api": "flatter"
+    },
+    {
+      "display": "Fling",
+      "api": "fling"
+    },
+    {
+      "display": "Flip Turn",
+      "api": "flip-turn"
+    },
+    {
+      "display": "Flower Trick",
+      "api": "flower-trick"
+    },
+    {
+      "display": "Fly",
+      "api": "fly"
+    },
+    {
+      "display": "Flying Press",
+      "api": "flying-press"
+    },
+    {
+      "display": "Focus Blast",
+      "api": "focus-blast"
+    },
+    {
+      "display": "Focus Energy",
+      "api": "focus-energy"
+    },
+    {
+      "display": "Focus Punch",
+      "api": "focus-punch"
+    },
+    {
+      "display": "Follow Me",
+      "api": "follow-me"
+    },
+    {
+      "display": "Forest's Curse",
+      "api": "forests-curse"
+    },
+    {
+      "display": "Foul Play",
+      "api": "foul-play"
+    },
+    {
+      "display": "Freeze-Dry",
+      "api": "freeze-dry"
+    },
+    {
+      "display": "Frenzy Plant",
+      "api": "frenzy-plant"
+    },
+    {
+      "display": "Frost Breath",
+      "api": "frost-breath"
+    },
+    {
+      "display": "Future Sight",
+      "api": "future-sight"
+    },
+    {
+      "display": "Gastro Acid",
+      "api": "gastro-acid"
+    },
+    {
+      "display": "Giga Drain",
+      "api": "giga-drain"
+    },
+    {
+      "display": "Giga Impact",
+      "api": "giga-impact"
+    },
+    {
+      "display": "Gigaton Hammer",
+      "api": "gigaton-hammer"
+    },
+    {
+      "display": "Glare",
+      "api": "glare"
+    },
+    {
+      "display": "Grass Knot",
+      "api": "grass-knot"
+    },
+    {
+      "display": "Grassy Glide",
+      "api": "grassy-glide"
+    },
+    {
+      "display": "Grassy Terrain",
+      "api": "grassy-terrain"
+    },
+    {
+      "display": "Grav Apple",
+      "api": "grav-apple"
+    },
+    {
+      "display": "Gravity",
+      "api": "gravity"
+    },
+    {
+      "display": "Growth",
+      "api": "growth"
+    },
+    {
+      "display": "Guard Split",
+      "api": "guard-split"
+    },
+    {
+      "display": "Guard Swap",
+      "api": "guard-swap"
+    },
+    {
+      "display": "Guillotine",
+      "api": "guillotine"
+    },
+    {
+      "display": "Gunk Shot",
+      "api": "gunk-shot"
+    },
+    {
+      "display": "Gyro Ball",
+      "api": "gyro-ball"
+    },
+    {
+      "display": "Hammer Arm",
+      "api": "hammer-arm"
+    },
+    {
+      "display": "Hard Press",
+      "api": "hard-press"
+    },
+    {
+      "display": "Haze",
+      "api": "haze"
+    },
+    {
+      "display": "Head Smash",
+      "api": "head-smash"
+    },
+    {
+      "display": "Headlong Rush",
+      "api": "headlong-rush"
+    },
+    {
+      "display": "Heal Bell",
+      "api": "heal-bell"
+    },
+    {
+      "display": "Heal Pulse",
+      "api": "heal-pulse"
+    },
+    {
+      "display": "Healing Wish",
+      "api": "healing-wish"
+    },
+    {
+      "display": "Heat Crash",
+      "api": "heat-crash"
+    },
+    {
+      "display": "Heat Wave",
+      "api": "heat-wave"
+    },
+    {
+      "display": "Heavy Slam",
+      "api": "heavy-slam"
+    },
+    {
+      "display": "Helping Hand",
+      "api": "helping-hand"
+    },
+    {
+      "display": "Hex",
+      "api": "hex"
+    },
+    {
+      "display": "High Horsepower",
+      "api": "high-horsepower"
+    },
+    {
+      "display": "High Jump Kick",
+      "api": "high-jump-kick"
+    },
+    {
+      "display": "Horn Drill",
+      "api": "horn-drill"
+    },
+    {
+      "display": "Horn Leech",
+      "api": "horn-leech"
+    },
+    {
+      "display": "Howl",
+      "api": "howl"
+    },
+    {
+      "display": "Hurricane",
+      "api": "hurricane"
+    },
+    {
+      "display": "Hydro Cannon",
+      "api": "hydro-cannon"
+    },
+    {
+      "display": "Hydro Pump",
+      "api": "hydro-pump"
+    },
+    {
+      "display": "Hyper Beam",
+      "api": "hyper-beam"
+    },
+    {
+      "display": "Hyper Voice",
+      "api": "hyper-voice"
+    },
+    {
+      "display": "Hypnosis",
+      "api": "hypnosis"
+    },
+    {
+      "display": "Ice Beam",
+      "api": "ice-beam"
+    },
+    {
+      "display": "Ice Fang",
+      "api": "ice-fang"
+    },
+    {
+      "display": "Ice Hammer",
+      "api": "ice-hammer"
+    },
+    {
+      "display": "Ice Punch",
+      "api": "ice-punch"
+    },
+    {
+      "display": "Ice Shard",
+      "api": "ice-shard"
+    },
+    {
+      "display": "Ice Spinner",
+      "api": "ice-spinner"
+    },
+    {
+      "display": "Icicle Crash",
+      "api": "icicle-crash"
+    },
+    {
+      "display": "Icicle Spear",
+      "api": "icicle-spear"
+    },
+    {
+      "display": "Icy Wind",
+      "api": "icy-wind"
+    },
+    {
+      "display": "Imprison",
+      "api": "imprison"
+    },
+    {
+      "display": "Infernal Parade",
+      "api": "infernal-parade"
+    },
+    {
+      "display": "Inferno",
+      "api": "inferno"
+    },
+    {
+      "display": "Infestation",
+      "api": "infestation"
+    },
+    {
+      "display": "Ingrain",
+      "api": "ingrain"
+    },
+    {
+      "display": "Instruct",
+      "api": "instruct"
+    },
+    {
+      "display": "Iron Defense",
+      "api": "iron-defense"
+    },
+    {
+      "display": "Iron Head",
+      "api": "iron-head"
+    },
+    {
+      "display": "Iron Tail",
+      "api": "iron-tail"
+    },
+    {
+      "display": "Jet Punch",
+      "api": "jet-punch"
+    },
+    {
+      "display": "King's Shield",
+      "api": "kings-shield"
+    },
+    {
+      "display": "Knock Off",
+      "api": "knock-off"
+    },
+    {
+      "display": "Kowtow Cleave",
+      "api": "kowtow-cleave"
+    },
+    {
+      "display": "Lash Out",
+      "api": "lash-out"
+    },
+    {
+      "display": "Last Resort",
+      "api": "last-resort"
+    },
+    {
+      "display": "Last Respects",
+      "api": "last-respects"
+    },
+    {
+      "display": "Lava Plume",
+      "api": "lava-plume"
+    },
+    {
+      "display": "Leaf Blade",
+      "api": "leaf-blade"
+    },
+    {
+      "display": "Leaf Storm",
+      "api": "leaf-storm"
+    },
+    {
+      "display": "Leech Life",
+      "api": "leech-life"
+    },
+    {
+      "display": "Leech Seed",
+      "api": "leech-seed"
+    },
+    {
+      "display": "Life Dew",
+      "api": "life-dew"
+    },
+    {
+      "display": "Light of Ruin",
+      "api": "light-of-ruin"
+    },
+    {
+      "display": "Light Screen",
+      "api": "light-screen"
+    },
+    {
+      "display": "Liquidation",
+      "api": "liquidation"
+    },
+    {
+      "display": "Lock-On",
+      "api": "lock-on"
+    },
+    {
+      "display": "Low Kick",
+      "api": "low-kick"
+    },
+    {
+      "display": "Low Sweep",
+      "api": "low-sweep"
+    },
+    {
+      "display": "Lumina Crash",
+      "api": "lumina-crash"
+    },
+    {
+      "display": "Lunge",
+      "api": "lunge"
+    },
+    {
+      "display": "Mach Punch",
+      "api": "mach-punch"
+    },
+    {
+      "display": "Magic Powder",
+      "api": "magic-powder"
+    },
+    {
+      "display": "Magic Room",
+      "api": "magic-room"
+    },
+    {
+      "display": "Magnet Rise",
+      "api": "magnet-rise"
+    },
+    {
+      "display": "Magnetic Flux",
+      "api": "magnetic-flux"
+    },
+    {
+      "display": "Matcha Gotcha",
+      "api": "matcha-gotcha"
+    },
+    {
+      "display": "Mean Look",
+      "api": "mean-look"
+    },
+    {
+      "display": "Mega Kick",
+      "api": "mega-kick"
+    },
+    {
+      "display": "Megahorn",
+      "api": "megahorn"
+    },
+    {
+      "display": "Memento",
+      "api": "memento"
+    },
+    {
+      "display": "Metal Burst",
+      "api": "metal-burst"
+    },
+    {
+      "display": "Metal Sound",
+      "api": "metal-sound"
+    },
+    {
+      "display": "Meteor Beam",
+      "api": "meteor-beam"
+    },
+    {
+      "display": "Meteor Mash",
+      "api": "meteor-mash"
+    },
+    {
+      "display": "Minimize",
+      "api": "minimize"
+    },
+    {
+      "display": "Mirror Coat",
+      "api": "mirror-coat"
+    },
+    {
+      "display": "Misty Explosion",
+      "api": "misty-explosion"
+    },
+    {
+      "display": "Misty Terrain",
+      "api": "misty-terrain"
+    },
+    {
+      "display": "Moonblast",
+      "api": "moonblast"
+    },
+    {
+      "display": "Moonlight",
+      "api": "moonlight"
+    },
+    {
+      "display": "Morning Sun",
+      "api": "morning-sun"
+    },
+    {
+      "display": "Mortal Spin",
+      "api": "mortal-spin"
+    },
+    {
+      "display": "Mountain Gale",
+      "api": "mountain-gale"
+    },
+    {
+      "display": "Mud Shot",
+      "api": "mud-shot"
+    },
+    {
+      "display": "Mud-Slap",
+      "api": "mud-slap"
+    },
+    {
+      "display": "Muddy Water",
+      "api": "muddy-water"
+    },
+    {
+      "display": "Mystical Fire",
+      "api": "mystical-fire"
+    },
+    {
+      "display": "Nasty Plot",
+      "api": "nasty-plot"
+    },
+    {
+      "display": "Night Daze",
+      "api": "night-daze"
+    },
+    {
+      "display": "Night Shade",
+      "api": "night-shade"
+    },
+    {
+      "display": "Night Slash",
+      "api": "night-slash"
+    },
+    {
+      "display": "Noble Roar",
+      "api": "noble-roar"
+    },
+    {
+      "display": "Nuzzle",
+      "api": "nuzzle"
+    },
+    {
+      "display": "Outrage",
+      "api": "outrage"
+    },
+    {
+      "display": "Overheat",
+      "api": "overheat"
+    },
+    {
+      "display": "Pain Split",
+      "api": "pain-split"
+    },
+    {
+      "display": "Parabolic Charge",
+      "api": "parabolic-charge"
+    },
+    {
+      "display": "Parting Shot",
+      "api": "parting-shot"
+    },
+    {
+      "display": "Payback",
+      "api": "payback"
+    },
+    {
+      "display": "Perish Song",
+      "api": "perish-song"
+    },
+    {
+      "display": "Petal Blizzard",
+      "api": "petal-blizzard"
+    },
+    {
+      "display": "Petal Dance",
+      "api": "petal-dance"
+    },
+    {
+      "display": "Phantom Force",
+      "api": "phantom-force"
+    },
+    {
+      "display": "Pin Missile",
+      "api": "pin-missile"
+    },
+    {
+      "display": "Play Rough",
+      "api": "play-rough"
+    },
+    {
+      "display": "Pluck",
+      "api": "pluck"
+    },
+    {
+      "display": "Poison Fang",
+      "api": "poison-fang"
+    },
+    {
+      "display": "Poison Jab",
+      "api": "poison-jab"
+    },
+    {
+      "display": "Poison Powder",
+      "api": "poison-powder"
+    },
+    {
+      "display": "Pollen Puff",
+      "api": "pollen-puff"
+    },
+    {
+      "display": "Poltergeist",
+      "api": "poltergeist"
+    },
+    {
+      "display": "Population Bomb",
+      "api": "population-bomb"
+    },
+    {
+      "display": "Pounce",
+      "api": "pounce"
+    },
+    {
+      "display": "Pound",
+      "api": "pound"
+    },
+    {
+      "display": "Power Gem",
+      "api": "power-gem"
+    },
+    {
+      "display": "Power Split",
+      "api": "power-split"
+    },
+    {
+      "display": "Power Swap",
+      "api": "power-swap"
+    },
+    {
+      "display": "Power Trick",
+      "api": "power-trick"
+    },
+    {
+      "display": "Power Trip",
+      "api": "power-trip"
+    },
+    {
+      "display": "Power Whip",
+      "api": "power-whip"
+    },
+    {
+      "display": "Protect",
+      "api": "protect"
+    },
+    {
+      "display": "Psych Up",
+      "api": "psych-up"
+    },
+    {
+      "display": "Psychic",
+      "api": "psychic"
+    },
+    {
+      "display": "Psychic Fangs",
+      "api": "psychic-fangs"
+    },
+    {
+      "display": "Psychic Noise",
+      "api": "psychic-noise"
+    },
+    {
+      "display": "Psychic Terrain",
+      "api": "psychic-terrain"
+    },
+    {
+      "display": "Psycho Cut",
+      "api": "psycho-cut"
+    },
+    {
+      "display": "Psyshield Bash",
+      "api": "psyshield-bash"
+    },
+    {
+      "display": "Psyshock",
+      "api": "psyshock"
+    },
+    {
+      "display": "Quash",
+      "api": "quash"
+    },
+    {
+      "display": "Quick Attack",
+      "api": "quick-attack"
+    },
+    {
+      "display": "Quick Guard",
+      "api": "quick-guard"
+    },
+    {
+      "display": "Quiver Dance",
+      "api": "quiver-dance"
+    },
+    {
+      "display": "Rage Powder",
+      "api": "rage-powder"
+    },
+    {
+      "display": "Raging Bull",
+      "api": "raging-bull"
+    },
+    {
+      "display": "Raging Fury",
+      "api": "raging-fury"
+    },
+    {
+      "display": "Rain Dance",
+      "api": "rain-dance"
+    },
+    {
+      "display": "Rapid Spin",
+      "api": "rapid-spin"
+    },
+    {
+      "display": "Razor Shell",
+      "api": "razor-shell"
+    },
+    {
+      "display": "Recover",
+      "api": "recover"
+    },
+    {
+      "display": "Recycle",
+      "api": "recycle"
+    },
+    {
+      "display": "Reflect",
+      "api": "reflect"
+    },
+    {
+      "display": "Reflect Type",
+      "api": "reflect-type"
+    },
+    {
+      "display": "Rest",
+      "api": "rest"
+    },
+    {
+      "display": "Reversal",
+      "api": "reversal"
+    },
+    {
+      "display": "Rising Voltage",
+      "api": "rising-voltage"
+    },
+    {
+      "display": "Roar",
+      "api": "roar"
+    },
+    {
+      "display": "Rock Blast",
+      "api": "rock-blast"
+    },
+    {
+      "display": "Rock Polish",
+      "api": "rock-polish"
+    },
+    {
+      "display": "Rock Slide",
+      "api": "rock-slide"
+    },
+    {
+      "display": "Rock Tomb",
+      "api": "rock-tomb"
+    },
+    {
+      "display": "Rock Wrecker",
+      "api": "rock-wrecker"
+    },
+    {
+      "display": "Role Play",
+      "api": "role-play"
+    },
+    {
+      "display": "Roost",
+      "api": "roost"
+    },
+    {
+      "display": "Round",
+      "api": "round"
+    },
+    {
+      "display": "Sacred Sword",
+      "api": "sacred-sword"
+    },
+    {
+      "display": "Safeguard",
+      "api": "safeguard"
+    },
+    {
+      "display": "Salt Cure",
+      "api": "salt-cure"
+    },
+    {
+      "display": "Sand Tomb",
+      "api": "sand-tomb"
+    },
+    {
+      "display": "Sandstorm",
+      "api": "sandstorm"
+    },
+    {
+      "display": "Scald",
+      "api": "scald"
+    },
+    {
+      "display": "Scale Shot",
+      "api": "scale-shot"
+    },
+    {
+      "display": "Scary Face",
+      "api": "scary-face"
+    },
+    {
+      "display": "Scorching Sands",
+      "api": "scorching-sands"
+    },
+    {
+      "display": "Screech",
+      "api": "screech"
+    },
+    {
+      "display": "Seed Bomb",
+      "api": "seed-bomb"
+    },
+    {
+      "display": "Seismic Toss",
+      "api": "seismic-toss"
+    },
+    {
+      "display": "Self-Destruct",
+      "api": "self-destruct"
+    },
+    {
+      "display": "Shadow Ball",
+      "api": "shadow-ball"
+    },
+    {
+      "display": "Shadow Claw",
+      "api": "shadow-claw"
+    },
+    {
+      "display": "Shadow Punch",
+      "api": "shadow-punch"
+    },
+    {
+      "display": "Shadow Sneak",
+      "api": "shadow-sneak"
+    },
+    {
+      "display": "Shed Tail",
+      "api": "shed-tail"
+    },
+    {
+      "display": "Sheer Cold",
+      "api": "sheer-cold"
+    },
+    {
+      "display": "Shell Side Arm",
+      "api": "shell-side-arm"
+    },
+    {
+      "display": "Shell Smash",
+      "api": "shell-smash"
+    },
+    {
+      "display": "Shelter",
+      "api": "shelter"
+    },
+    {
+      "display": "Simple Beam",
+      "api": "simple-beam"
+    },
+    {
+      "display": "Sing",
+      "api": "sing"
+    },
+    {
+      "display": "Skill Swap",
+      "api": "skill-swap"
+    },
+    {
+      "display": "Skitter Smack",
+      "api": "skitter-smack"
+    },
+    {
+      "display": "Sky Attack",
+      "api": "sky-attack"
+    },
+    {
+      "display": "Slack Off",
+      "api": "slack-off"
+    },
+    {
+      "display": "Sleep Powder",
+      "api": "sleep-powder"
+    },
+    {
+      "display": "Sleep Talk",
+      "api": "sleep-talk"
+    },
+    {
+      "display": "Sludge Bomb",
+      "api": "sludge-bomb"
+    },
+    {
+      "display": "Sludge Wave",
+      "api": "sludge-wave"
+    },
+    {
+      "display": "Smack Down",
+      "api": "smack-down"
+    },
+    {
+      "display": "Smart Strike",
+      "api": "smart-strike"
+    },
+    {
+      "display": "Snap Trap",
+      "api": "snap-trap"
+    },
+    {
+      "display": "Snarl",
+      "api": "snarl"
+    },
+    {
+      "display": "Snore",
+      "api": "snore"
+    },
+    {
+      "display": "Snowscape",
+      "api": "snowscape"
+    },
+    {
+      "display": "Soak",
+      "api": "soak"
+    },
+    {
+      "display": "Solar Beam",
+      "api": "solar-beam"
+    },
+    {
+      "display": "Solar Blade",
+      "api": "solar-blade"
+    },
+    {
+      "display": "Sparkling Aria",
+      "api": "sparkling-aria"
+    },
+    {
+      "display": "Speed Swap",
+      "api": "speed-swap"
+    },
+    {
+      "display": "Spicy Extract",
+      "api": "spicy-extract"
+    },
+    {
+      "display": "Spikes",
+      "api": "spikes"
+    },
+    {
+      "display": "Spiky Shield",
+      "api": "spiky-shield"
+    },
+    {
+      "display": "Spirit Shackle",
+      "api": "spirit-shackle"
+    },
+    {
+      "display": "Spit Up",
+      "api": "spit-up"
+    },
+    {
+      "display": "Spite",
+      "api": "spite"
+    },
+    {
+      "display": "Stealth Rock",
+      "api": "stealth-rock"
+    },
+    {
+      "display": "Steel Beam",
+      "api": "steel-beam"
+    },
+    {
+      "display": "Steel Roller",
+      "api": "steel-roller"
+    },
+    {
+      "display": "Steel Wing",
+      "api": "steel-wing"
+    },
+    {
+      "display": "Sticky Web",
+      "api": "sticky-web"
+    },
+    {
+      "display": "Stockpile",
+      "api": "stockpile"
+    },
+    {
+      "display": "Stomping Tantrum",
+      "api": "stomping-tantrum"
+    },
+    {
+      "display": "Stone Axe",
+      "api": "stone-axe"
+    },
+    {
+      "display": "Stone Edge",
+      "api": "stone-edge"
+    },
+    {
+      "display": "Stored Power",
+      "api": "stored-power"
+    },
+    {
+      "display": "Storm Throw",
+      "api": "storm-throw"
+    },
+    {
+      "display": "Strength Sap",
+      "api": "strength-sap"
+    },
+    {
+      "display": "String Shot",
+      "api": "string-shot"
+    },
+    {
+      "display": "Struggle Bug",
+      "api": "struggle-bug"
+    },
+    {
+      "display": "Stuff Cheeks",
+      "api": "stuff-cheeks"
+    },
+    {
+      "display": "Stun Spore",
+      "api": "stun-spore"
+    },
+    {
+      "display": "Substitute",
+      "api": "substitute"
+    },
+    {
+      "display": "Sucker Punch",
+      "api": "sucker-punch"
+    },
+    {
+      "display": "Sunny Day",
+      "api": "sunny-day"
+    },
+    {
+      "display": "Super Fang",
+      "api": "super-fang"
+    },
+    {
+      "display": "Supercell Slam",
+      "api": "supercell-slam"
+    },
+    {
+      "display": "Superpower",
+      "api": "superpower"
+    },
+    {
+      "display": "Surf",
+      "api": "surf"
+    },
+    {
+      "display": "Swagger",
+      "api": "swagger"
+    },
+    {
+      "display": "Swallow",
+      "api": "swallow"
+    },
+    {
+      "display": "Sweet Kiss",
+      "api": "sweet-kiss"
+    },
+    {
+      "display": "Sweet Scent",
+      "api": "sweet-scent"
+    },
+    {
+      "display": "Switcheroo",
+      "api": "switcheroo"
+    },
+    {
+      "display": "Swords Dance",
+      "api": "swords-dance"
+    },
+    {
+      "display": "Synthesis",
+      "api": "synthesis"
+    },
+    {
+      "display": "Syrup Bomb",
+      "api": "syrup-bomb"
+    },
+    {
+      "display": "Tail Slap",
+      "api": "tail-slap"
+    },
+    {
+      "display": "Tailwind",
+      "api": "tailwind"
+    },
+    {
+      "display": "Taunt",
+      "api": "taunt"
+    },
+    {
+      "display": "Tearful Look",
+      "api": "tearful-look"
+    },
+    {
+      "display": "Teatime",
+      "api": "teatime"
+    },
+    {
+      "display": "Teeter Dance",
+      "api": "teeter-dance"
+    },
+    {
+      "display": "Temper Flare",
+      "api": "temper-flare"
+    },
+    {
+      "display": "Terrain Pulse",
+      "api": "terrain-pulse"
+    },
+    {
+      "display": "Thief",
+      "api": "thief"
+    },
+    {
+      "display": "Thrash",
+      "api": "thrash"
+    },
+    {
+      "display": "Throat Chop",
+      "api": "throat-chop"
+    },
+    {
+      "display": "Thunder",
+      "api": "thunder"
+    },
+    {
+      "display": "Thunder Fang",
+      "api": "thunder-fang"
+    },
+    {
+      "display": "Thunder Punch",
+      "api": "thunder-punch"
+    },
+    {
+      "display": "Thunder Wave",
+      "api": "thunder-wave"
+    },
+    {
+      "display": "Thunderbolt",
+      "api": "thunderbolt"
+    },
+    {
+      "display": "Tickle",
+      "api": "tickle"
+    },
+    {
+      "display": "Tidy Up",
+      "api": "tidy-up"
+    },
+    {
+      "display": "Torch Song",
+      "api": "torch-song"
+    },
+    {
+      "display": "Torment",
+      "api": "torment"
+    },
+    {
+      "display": "Toxic",
+      "api": "toxic"
+    },
+    {
+      "display": "Toxic Spikes",
+      "api": "toxic-spikes"
+    },
+    {
+      "display": "Toxic Thread",
+      "api": "toxic-thread"
+    },
+    {
+      "display": "Trailblaze",
+      "api": "trailblaze"
+    },
+    {
+      "display": "Transform",
+      "api": "transform"
+    },
+    {
+      "display": "Tri Attack",
+      "api": "tri-attack"
+    },
+    {
+      "display": "Trick",
+      "api": "trick"
+    },
+    {
+      "display": "Trick Room",
+      "api": "trick-room"
+    },
+    {
+      "display": "Trick-or-Treat",
+      "api": "trick-or-treat"
+    },
+    {
+      "display": "Triple Arrows",
+      "api": "triple-arrows"
+    },
+    {
+      "display": "Triple Axel",
+      "api": "triple-axel"
+    },
+    {
+      "display": "Trop Kick",
+      "api": "trop-kick"
+    },
+    {
+      "display": "Twin Beam",
+      "api": "twin-beam"
+    },
+    {
+      "display": "U-turn",
+      "api": "u-turn"
+    },
+    {
+      "display": "Upper Hand",
+      "api": "upper-hand"
+    },
+    {
+      "display": "Uproar",
+      "api": "uproar"
+    },
+    {
+      "display": "Vacuum Wave",
+      "api": "vacuum-wave"
+    },
+    {
+      "display": "Venoshock",
+      "api": "venoshock"
+    },
+    {
+      "display": "Volt Switch",
+      "api": "volt-switch"
+    },
+    {
+      "display": "Volt Tackle",
+      "api": "volt-tackle"
+    },
+    {
+      "display": "Water Pulse",
+      "api": "water-pulse"
+    },
+    {
+      "display": "Water Shuriken",
+      "api": "water-shuriken"
+    },
+    {
+      "display": "Water Spout",
+      "api": "water-spout"
+    },
+    {
+      "display": "Waterfall",
+      "api": "waterfall"
+    },
+    {
+      "display": "Wave Crash",
+      "api": "wave-crash"
+    },
+    {
+      "display": "Weather Ball",
+      "api": "weather-ball"
+    },
+    {
+      "display": "Whirlpool",
+      "api": "whirlpool"
+    },
+    {
+      "display": "Whirlwind",
+      "api": "whirlwind"
+    },
+    {
+      "display": "Wide Guard",
+      "api": "wide-guard"
+    },
+    {
+      "display": "Wild Charge",
+      "api": "wild-charge"
+    },
+    {
+      "display": "Will-O-Wisp",
+      "api": "will-o-wisp"
+    },
+    {
+      "display": "Wish",
+      "api": "wish"
+    },
+    {
+      "display": "Wonder Room",
+      "api": "wonder-room"
+    },
+    {
+      "display": "Wood Hammer",
+      "api": "wood-hammer"
+    },
+    {
+      "display": "Worry Seed",
+      "api": "worry-seed"
+    },
+    {
+      "display": "Wrap",
+      "api": "wrap"
+    },
+    {
+      "display": "X-Scissor",
+      "api": "x-scissor"
+    },
+    {
+      "display": "Yawn",
+      "api": "yawn"
+    },
+    {
+      "display": "Zap Cannon",
+      "api": "zap-cannon"
+    },
+    {
+      "display": "Zen Headbutt",
+      "api": "zen-headbutt"
+    }
+  ]
+}
