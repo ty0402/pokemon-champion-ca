@@ -557,7 +557,10 @@
     return Math.floor(speed);
   }
 
-  function calcMoveDamage(attacker, defender, move, field) {
+  /**
+   * @param {string} offenseSide - 'mine' 我方出手打对手 / 'opp' 对手出手打我方（决定威吓、光墙对应哪一侧）
+   */
+  function calcMoveDamage(attacker, defender, move, field, offenseSide = 'mine') {
     if (!move || move.power <= 0 || (!isPhysical(move) && !isSpecial(move))) {
       return {
         moveName: move ? move.name : 'Unknown',
@@ -577,7 +580,10 @@
     let defenseBase = isPhysical(move) ? defStats.def : defStats.spd;
 
     let attackStage = 0;
-    if (field.intimidated && isPhysical(move)) attackStage -= 1;
+    if (isPhysical(move)) {
+      if (offenseSide === 'mine' && field.intimidated) attackStage -= 1;
+      if (offenseSide === 'opp' && field.opponentIntimidated) attackStage -= 1;
+    }
     const defenseStage = 0;
 
     let attackStat = Math.max(1, Math.floor(attackBase * stageMultiplier(attackStage)));
@@ -595,7 +601,9 @@
     defenseStat = applySandSpDefBoost(defenseStat, defender, field, move);
     defenseStat = applySnowIceDefBoost(defenseStat, defender, field, move);
 
-    if (field.defenderScreen) {
+    const screenActive =
+      (offenseSide === 'mine' && field.defenderScreen) || (offenseSide === 'opp' && field.attackerScreen);
+    if (screenActive) {
       defenseStat = Math.floor(defenseStat * (isSpreadHitInDoubles(move, field) ? 1.33 : 1.5));
     }
 

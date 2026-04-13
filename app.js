@@ -147,8 +147,13 @@
       defenderTailwind: false,
       trickRoom: false,
       intimidated: false,
+      /** 对手出手时若中威吓，物攻端 -1 阶段 */
+      opponentIntimidated: false,
       spreadDamage: true,
-      defenderScreen: false
+      /** 我方打对手时：对手场上有光墙/反射壁 */
+      defenderScreen: false,
+      /** 对手打我方时：我方场上有光墙/反射壁 */
+      attackerScreen: false
     },
     /** null = 对手性格沿用右侧模板；否则为手动选择的性格 */
     defenderSpeedNatureOverride: null,
@@ -672,8 +677,12 @@
   }
 
   function paintDamagePanel(myBuild, oppBuild) {
-    const myResults = myBuild.moves.map((name) => engine.calcMoveDamage(myBuild, oppBuild, movesByName.get(name), state.field));
-    const oppResults = oppBuild.moves.map((name) => engine.calcMoveDamage(oppBuild, myBuild, movesByName.get(name), state.field));
+    const myResults = myBuild.moves.map((name) =>
+      engine.calcMoveDamage(myBuild, oppBuild, movesByName.get(name), state.field, 'mine')
+    );
+    const oppResults = oppBuild.moves.map((name) =>
+      engine.calcMoveDamage(oppBuild, myBuild, movesByName.get(name), state.field, 'opp')
+    );
     const bestMove = myResults.filter((row) => row.max > 0).sort((a, b) => b.percentMax - a.percentMax)[0];
     const dangerMove = oppResults.filter((row) => row.max > 0).sort((a, b) => b.percentMax - a.percentMax)[0];
     const utilityHint = getOpponentUtilityHintLine(state.selectedMeta);
