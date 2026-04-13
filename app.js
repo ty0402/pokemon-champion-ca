@@ -511,12 +511,13 @@
 
   function renderSummary() {
     const summary = document.getElementById('datasetSummary');
+    const updated =
+      data.generatedAt != null
+        ? new Date(data.generatedAt).toLocaleString('zh-CN', { dateStyle: 'medium', timeStyle: 'short' })
+        : '—';
     summary.innerHTML = `
-      <span class="pill">可选条目 ${data.species.length}</span>
-      <span class="pill">合法招式 ${data.moves.length}</span>
-      <span class="pill">全量道具 ${data.items.length}</span>
-      <span class="pill">Launch 图鉴 ${data.source.launchRoster.total}</span>
-      <span class="pill">热门对手 ${data.metaSets.length}</span>
+      <span class="pill">赛制：Pokémon Champions 双打</span>
+      <span class="pill">数据更新：${updated}</span>
     `;
   }
 
@@ -700,6 +701,7 @@
       .join('');
 
     document.getElementById('speedWorkbench').innerHTML = `
+      <div class="wb-priority-bar"><strong>先手</strong>：<span id="wbRelation">${relation}</span></div>
       <div class="speed-workbench-grid">
         <div class="speed-workbench-card">
           <span class="small-text">我方有效速度</span>
@@ -712,7 +714,7 @@
             <div class="wb-nature-static" title="在左侧「我的队伍」中修改">${localLabel(myBuild.nature, natureZh)}（队伍编辑）</div>
           </div>
           <div class="speed-slider-row">
-            <label>Spe 点数（0–${maxStatPoints}）</label>
+            <label>Spe 0–${maxStatPoints}</label>
             <input type="range" class="wb-spe-range" id="wbAttackerSpe" min="0" max="${maxStatPoints}" step="1" value="${mySpe}" />
             <span class="wb-spe-readout" id="wbAttackerSpeReadout">${mySpe}</span>
           </div>
@@ -728,14 +730,13 @@
             <select id="wbDefenderNature" class="wb-nature-select">${natureOpts}</select>
           </div>
           <div class="speed-slider-row">
-            <label>Spe 点数（0–${maxStatPoints}）</label>
+            <label>Spe 0–${maxStatPoints}</label>
             <input type="range" class="wb-spe-range" id="wbDefenderSpe" min="0" max="${maxStatPoints}" step="1" value="${effSpe}" />
             <span class="wb-spe-readout" id="wbDefenderSpeReadout">${effSpe}</span>
           </div>
         </div>
       </div>
-      <p class="small-text" style="margin:12px 0 0;line-height:1.65;"><strong>先手</strong>：<span id="wbRelation">${relation}</span></p>
-      <p class="small-text" style="margin:8px 0 0;color:var(--muted);">拖动 Spe 或修改对手性格会刷新速度与下方伤害；切换右侧模板会恢复对手默认性格与 Spe。</p>
+      <p class="small-text wb-speed-hint">拖动 Spe 或改对手性格会刷新速度与下方伤害；换右侧模板会恢复对手默认性格与 Spe。</p>
     `;
 
     const sw = document.getElementById('speedWorkbench');

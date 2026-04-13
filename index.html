@@ -110,31 +110,40 @@
     .summary-card strong { font-size: 1.4rem; }
 
     .speed-workbench-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+    .wb-priority-bar {
+      margin: 0 0 12px; padding: 10px 12px; border-radius: 14px;
+      border: 1px solid var(--line); background: rgba(255,255,255,0.05);
+      font-size: 0.88rem; line-height: 1.5; color: var(--text);
+    }
+    .wb-priority-bar strong { color: #ffcfaa; font-weight: 800; }
+    .wb-speed-hint { margin: 10px 0 0; color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
+
     .speed-workbench-card {
       border: 1px solid var(--line); border-radius: 18px; background: var(--panel-soft);
-      padding: 14px 16px; display: grid; gap: 10px;
-      grid-template-rows: auto auto minmax(34px, auto) auto 1fr;
+      padding: 12px 12px; display: grid; gap: 8px;
+      grid-template-rows: auto auto minmax(28px, auto) auto 1fr;
     }
-    .speed-workbench-card .wb-speed-num { font-size: 1.4rem; font-weight: 800; margin: 0; }
-    .wb-chip-slot { min-height: 34px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-    .wb-nature-block { display: grid; gap: 6px; align-content: start; }
-    .wb-field-label { margin: 0; color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+    .speed-workbench-card > .small-text { font-size: 0.78rem; }
+    .speed-workbench-card .wb-speed-num { font-size: 1.2rem; font-weight: 800; margin: 0; }
+    .wb-chip-slot { min-height: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+    .wb-nature-block { display: grid; gap: 4px; align-content: start; }
+    .wb-field-label { margin: 0; color: var(--muted); font-size: 0.72rem; font-weight: 600; }
     .wb-nature-static {
       width: 100%; box-sizing: border-box; margin: 0;
-      border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
-      color: var(--text); padding: 10px 12px; font: inherit; line-height: 1.35;
-      min-height: 42px; display: flex; align-items: center;
+      border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
+      color: var(--text); padding: 6px 9px; font: inherit; font-size: 0.8rem; line-height: 1.35;
+      min-height: 32px; display: flex; align-items: center;
     }
     select.wb-nature-select {
       width: 100%; box-sizing: border-box; margin: 0;
-      border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
-      color: var(--text); padding: 10px 12px; font: inherit; line-height: 1.35;
-      min-height: 42px; cursor: pointer;
+      border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
+      color: var(--text); padding: 6px 9px; font: inherit; font-size: 0.8rem; line-height: 1.35;
+      min-height: 32px; cursor: pointer;
     }
-    .speed-slider-row { display: grid; gap: 6px; }
-    .speed-slider-row label { color: var(--muted); font-size: 0.82rem; font-weight: 600; }
-    input[type="range"].wb-spe-range { width: 100%; accent-color: var(--accent); height: 28px; }
-    .wb-spe-readout { font-size: 0.85rem; color: var(--text); font-weight: 700; }
+    .speed-workbench-card .speed-slider-row { display: grid; gap: 4px; }
+    .speed-workbench-card .speed-slider-row label { color: var(--muted); font-size: 0.72rem; font-weight: 600; }
+    .speed-workbench-card input[type="range"].wb-spe-range { width: 100%; accent-color: var(--accent); height: 22px; }
+    .speed-workbench-card .wb-spe-readout { font-size: 0.78rem; color: var(--text); font-weight: 700; }
     .info-row, .damage-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
     .info-row { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 8px 0; }
     .info-row:last-child { border-bottom: 0; }
@@ -158,15 +167,9 @@
     <section class="hero">
       <h1>Champions Matchup Lab</h1>
       <p>
-        这是可直接上线使用的 Champions 对战计算器：左侧手动配置队伍，中间实时计算速度线与伤害，右侧按当前环境快速选择热门对手和常见配置。
-        图鉴与招式池基于 2026-04-13 的 Champions 结构化数据生成。
+        左侧配置队伍，中间查看速度线与伤害，右侧选择热门对手模板。
       </p>
       <div id="datasetSummary" class="dataset-summary"></div>
-      <div class="hero-pills">
-        <span class="pill">赛制：Pokémon Champions Doubles</span>
-        <span class="pill">能力值输入：Champions 0-32 点数</span>
-        <span class="pill">伤害：内置 damage engine 接口</span>
-      </div>
     </section>
 
     <section class="layout">
@@ -188,10 +191,6 @@
       </section>
 
       <section class="panel">
-        <div class="panel-head">
-          <h2>对位工作台</h2>
-          <p>当前选中的我方宝可梦会和右侧所选热门对手模板即时比对。</p>
-        </div>
         <div class="panel-body">
           <div class="matchup-banner">
             <h3 id="matchupTitle">-</h3>
