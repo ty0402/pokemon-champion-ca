@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Champions Matchup Lab</title>
+  <style>
+    :root {
+      --bg: #08131d;
+      --panel: rgba(14, 24, 36, 0.92);
+      --panel-soft: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.1);
+      --text: #edf4ff;
+      --muted: #98adc0;
+      --accent: #ff974d;
+      --accent-2: #4bc6b3;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 151, 77, 0.22), transparent 28%),
+        radial-gradient(circle at right 16%, rgba(75, 198, 179, 0.18), transparent 26%),
+        linear-gradient(135deg, #040a11, #0b1926 45%, #102436);
+      min-height: 100vh;
+    }
+
+    .app { width: min(1540px, 96vw); margin: 20px auto 28px; display: grid; gap: 18px; }
+    .hero, .panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .hero { padding: 28px; }
+    .hero h1 { margin: 0 0 10px; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.08; }
+    .hero p { margin: 0; color: var(--muted); line-height: 1.75; max-width: 1100px; }
+    .dataset-summary, .hero-pills, .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hero-pills, .dataset-summary { margin-top: 16px; }
+
+    .pill, .tag-chip, .type-chip {
+      border-radius: 999px; padding: 7px 11px; font-size: 0.8rem; font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.07); color: var(--text);
+    }
+    .tag-chip.good { background: rgba(75, 198, 179, 0.16); color: #9af0e1; }
+    .tag-chip.warn { background: rgba(255, 151, 77, 0.15); color: #ffd5b5; }
+
+    .layout { display: grid; grid-template-columns: 1.12fr 1.1fr 0.92fr; gap: 18px; align-items: start; }
+    .panel-head { padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+    .panel-head h2, .panel-head h3 { margin: 0 0 6px; font-size: 1.08rem; }
+    .panel-head p { margin: 0; color: var(--muted); line-height: 1.65; font-size: 0.9rem; }
+    .panel-body { padding: 18px 20px 22px; display: grid; gap: 16px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    button {
+      border: 0; border-radius: 12px; padding: 11px 16px; font-weight: 700; font-size: 0.92rem; cursor: pointer;
+      transition: transform 180ms ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(120deg, var(--accent), #ffbe70); color: #201100; }
+    .btn-secondary { background: rgba(255,255,255,0.07); color: var(--text); border: 1px solid var(--line); }
+
+    .team-list, .meta-list, .set-list { display: grid; gap: 12px; }
+    .slot-picker { display: flex; flex-wrap: wrap; gap: 8px; }
+    .slot-pill {
+      border-radius: 999px; padding: 10px 14px; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05); color: var(--text); font-weight: 700;
+    }
+    .slot-pill.active { border-color: rgba(255, 151, 77, 0.45); background: rgba(255, 151, 77, 0.14); }
+    .slot-card, .meta-card, .set-card, .section, .field-panel, .summary-card, .meta-info-card {
+      border: 1px solid var(--line); border-radius: 18px; background: var(--panel-soft); padding: 14px;
+    }
+    .slot-card.active, .meta-card.active, .set-card.active { border-color: rgba(255, 151, 77, 0.45); box-shadow: 0 0 0 1px rgba(255,151,77,0.18); }
+    .slot-head, .meta-top { display: flex; gap: 12px; align-items: center; cursor: pointer; }
+    .slot-title { margin: 0 0 4px; font-size: 1rem; font-weight: 800; }
+    .slot-subtitle, .small-text { margin: 0; color: var(--muted); font-size: 0.83rem; line-height: 1.6; }
+    .small-title { margin: 0 0 8px; font-size: 0.9rem; font-weight: 700; }
+
+    .avatar {
+      width: 68px; height: 68px; border-radius: 16px; overflow: hidden; flex-shrink: 0;
+      border: 1px solid var(--line); background: rgba(255,255,255,0.07); display: grid; place-items: center;
+    }
+    .avatar.small { width: 56px; height: 56px; border-radius: 14px; }
+    .avatar img { width: 100%; height: 100%; object-fit: contain; }
+
+    .field-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .field-grid.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    label { display: grid; gap: 6px; color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+    select, input {
+      width: 100%; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
+      color: var(--text); padding: 10px 12px; font: inherit;
+    }
+
+    .matchup-banner {
+      border: 1px solid var(--line); border-radius: 18px; padding: 16px;
+      background: linear-gradient(135deg, rgba(255,151,77,0.12), rgba(75,198,179,0.12));
+    }
+    .matchup-banner h3 { margin: 0 0 6px; font-size: 1.12rem; }
+    .field-panel { display: grid; gap: 12px; }
+    .toggle-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .toggle { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,0.04); }
+    .toggle input { width: auto; accent-color: var(--accent); }
+
+    .summary-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-card strong { font-size: 1.4rem; }
+    .info-row, .damage-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .info-row { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 8px 0; }
+    .info-row:last-child { border-bottom: 0; }
+    .section-kicker { font-size: 0.82rem; font-weight: 800; color: #ffcfaa; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .damage-section { display: grid; gap: 10px; }
+    .damage-row { display: grid; gap: 6px; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+    .bar { width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), #ffd166); }
+
+    .footnote { color: var(--muted); font-size: 0.8rem; line-height: 1.65; }
+
+    @media (max-width: 1220px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) {
+      .field-grid, .field-grid.six, .summary-grid, .toggle-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <h1>Champions Matchup Lab</h1>
+      <p>
+        这是可直接上线使用的 Champions 对战计算器：左侧手动配置队伍，中间实时计算速度线与伤害，右侧按当前环境快速选择热门对手和常见配置。
+        图鉴与招式池基于 2026-04-13 的 Champions 结构化数据生成。
+      </p>
+      <div id="datasetSummary" class="dataset-summary"></div>
+      <div class="hero-pills">
+        <span class="pill">赛制：Pokémon Champions Doubles</span>
+        <span class="pill">能力值输入：Champions 0-32 点数</span>
+        <span class="pill">伤害：内置 damage engine 接口</span>
+      </div>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>我的队伍</h2>
+          <p>可手动配置全量可选宝可梦、道具、性格、特性、0-32 点数，以及该宝可梦当前合法招式。</p>
+        </div>
+        <div class="panel-body">
+          <div class="toolbar">
+            <button id="loadSampleBtn" class="btn-primary" type="button">载入热门示例队伍</button>
+            <button id="resetBtn" class="btn-secondary" type="button">重置为默认空白队</button>
+          </div>
+          <div id="slotPicker" class="slot-picker"></div>
+          <div id="teamEditor" class="section"></div>
+          <div id="teamList" class="team-list"></div>
+          <p class="footnote">当前版本面向线上使用，支持完整队伍配置、热门对位选择与实时速度线/伤害计算。</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>对位工作台</h2>
+          <p>当前选中的我方宝可梦会和右侧所选热门对手模板即时比对。</p>
+        </div>
+        <div class="panel-body">
+          <div class="matchup-banner">
+            <h3 id="matchupTitle">-</h3>
+            <p id="matchupSubtitle" class="small-text">-</p>
+          </div>
+
+          <div class="field-panel">
+            <div class="field-grid">
+              <label>天气
+                <select data-field-control="weather">
+                  <option value="none">无天气</option>
+                  <option value="sun">晴天</option>
+                  <option value="rain">雨天</option>
+                  <option value="sand">沙暴</option>
+                </select>
+              </label>
+              <label>地形
+                <select data-field-control="terrain">
+                  <option value="none">无地形</option>
+                  <option value="grassy">青草场地</option>
+                </select>
+              </label>
+              <label>我方强化
+                <select data-field-control="attackerBoost">
+                  <option value="0">无强化</option>
+                  <option value="1">+1</option>
+                  <option value="2">+2</option>
+                </select>
+              </label>
+              <label>对手强化
+                <select data-field-control="defenderBoost">
+                  <option value="0">无强化</option>
+                  <option value="1">+1</option>
+                  <option value="2">+2</option>
+                </select>
+              </label>
+            </div>
+            <div class="toggle-grid">
+              <label class="toggle"><span>我方顺风</span><input type="checkbox" data-field-control="attackerTailwind" /></label>
+              <label class="toggle"><span>对手顺风</span><input type="checkbox" data-field-control="defenderTailwind" /></label>
+              <label class="toggle"><span>戏法空间</span><input type="checkbox" data-field-control="trickRoom" /></label>
+              <label class="toggle"><span>我方受威吓</span><input type="checkbox" data-field-control="intimidated" /></label>
+              <label class="toggle"><span>双打分摊伤害</span><input type="checkbox" data-field-control="spreadDamage" checked /></label>
+              <label class="toggle"><span>对手有墙</span><input type="checkbox" data-field-control="defenderScreen" /></label>
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-card">
+              <span class="small-text">我方有效速度</span>
+              <strong id="mySpeedValue">-</strong>
+              <div id="mySpeedTags" class="chip-row"></div>
+            </div>
+            <div class="summary-card">
+              <span class="small-text">对手有效速度</span>
+              <strong id="oppSpeedValue">-</strong>
+              <div id="oppSpeedTags" class="chip-row"></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 style="margin:0;">速度线</h3>
+            <div id="speedPanel"></div>
+          </div>
+
+          <div class="section">
+            <h3 style="margin:0;">伤害计算</h3>
+            <div id="damagePanel"></div>
+          </div>
+
+          <p class="footnote">当前 damage engine 已抽成独立接口；计算已考虑 STAB、属性克制、天气、围巾、顺风、威吓、屏障与双打分摊。</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h3>当前热门环境</h3>
+          <p>右侧模板来自当前 Doubles tier/build 资料，并为每只热门宝可梦提供多套常见点数和配招。</p>
+        </div>
+        <div class="panel-body">
+          <label>筛选热门宝可梦
+            <input id="metaFilterInput" type="text" placeholder="输入名字或 rank，例如 Incineroar / A+" />
+          </label>
+          <div id="metaList" class="meta-list"></div>
+          <div id="metaMoreWrap"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./data/app-data.js"></script>
+  <script src="./data/zh-maps.js"></script>
+  <script src="./damage-engine.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
