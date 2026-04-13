@@ -5,6 +5,28 @@
   const speciesByName = new Map(data.species.map((entry) => [entry.name, entry]));
   const movesById = new Map(data.moves.map((entry) => [entry.id, entry]));
   const movesByName = new Map(data.moves.map((entry) => [entry.name, entry]));
+
+  /** 非「变化/功能」分类但有双打控场价值的招式（如击掌） */
+  const DOUBLES_UTILITY_MOVE_NAMES = new Set([
+    'Fake Out',
+    'Follow Me',
+    'Rage Powder',
+    'Helping Hand',
+    'Tailwind',
+    'Trick Room',
+    'Wide Guard',
+    'Quick Guard',
+    'Ally Switch',
+    'Coaching',
+    'Life Dew',
+    'Decorate'
+  ]);
+
+  function isUtilityOrStatusMove(move) {
+    if (!move) return false;
+    if (move.category === 'Status' || move.power <= 0) return true;
+    return DOUBLES_UTILITY_MOVE_NAMES.has(move.name);
+  }
   const naturesByName = new Map(data.natures.map((entry) => [entry.name, entry]));
   const items = data.items;
   const maxStatPoints = data.statPointCap;
@@ -532,51 +554,34 @@
     return '双方同速';
   }
 
-  function getKeyMoveTags(row, frequency) {
-    const tags = [];
-    if (frequency >= 0.5) tags.push('高频');
-    else if (frequency >= 0.25) tags.push('常见');
-    if (row.typeEffectiveness > 1) tags.push('属性克制');
-    if (row.percentMax >= 95) tags.push('高斩杀');
-    else if (row.percentMax >= 70) tags.push('高压制');
-    if (row.category === 'Status') tags.push('功能招');
-    return tags;
-  }
-
-  function getOpponentKeyMoves(metaIndex, myBuild, oppBuild) {
+  /** 从热门模板汇总「变化/功能」向招式，不做伤害计算 */
+  function getOpponentUtilityHintLine(metaIndex) {
     const meta = data.metaSets[metaIndex];
     const moveCounter = new Map();
     let totalSets = 0;
-
     for (const set of meta.sets) {
       totalSets += 1;
-      const uniqueMoves = new Set(set.moves || []);
-      uniqueMoves.forEach((moveName) => {
+      for (const moveName of set.moves || []) {
         moveCounter.set(moveName, (moveCounter.get(moveName) || 0) + 1);
-      });
+      }
     }
-
-    const keyMoves = [];
+    const rows = [];
     for (const [moveName, count] of moveCounter.entries()) {
-      const moveData = movesByName.get(moveName);
-      if (!moveData) continue;
-      const row = engine.calcMoveDamage(oppBuild, myBuild, moveData, state.field);
-      const frequency = totalSets > 0 ? count / totalSets : 0;
-      const score = frequency * 60 + Math.min(100, row.percentMax) * 0.4;
-      keyMoves.push({
-        moveName,
-        frequency,
-        frequencyText: `${Math.round(frequency * 100)}%`,
-        ko: row.ko,
-        percentMax: row.percentMax,
-        score,
-        tags: getKeyMoveTags(row, frequency)
-      });
+      const m = movesByName.get(moveName);
+      if (!m || !isUtilityOrStatusMove(m)) continue;
+      const freq = totalSets > 0 ? count / totalSets : 0;
+      rows.push({ moveName, freq });
     }
-
-    return keyMoves
-      .sort((a, b) => b.score - a.score || b.frequency - a.frequency || b.percentMax - a.percentMax)
-      .slice(0, 8);
+    rows.sort((a, b) => b.freq - a.freq || a.moveName.localeCompare(b.moveName));
+    const top = rows.slice(0, 5);
+    if (!top.length) return '';
+    return top
+      .map(({ moveName, freq }) => {
+        const zh = localLabel(moveName, moveZh);
+        const pct = Math.round(freq * 100);
+        return pct >= 35 ? `${zh}（约${pct}%套）` : zh;
+      })
+      .join(' · ');
   }
 
   function mergeOppWorkbench(oppRaw) {
@@ -600,9 +605,7 @@
     const oppResults = oppBuild.moves.map((name) => engine.calcMoveDamage(oppBuild, myBuild, movesByName.get(name), state.field));
     const bestMove = myResults.filter((row) => row.max > 0).sort((a, b) => b.percentMax - a.percentMax)[0];
     const dangerMove = oppResults.filter((row) => row.max > 0).sort((a, b) => b.percentMax - a.percentMax)[0];
-    const keyMoves = getOpponentKeyMoves(state.selectedMeta, myBuild, oppBuild);
-    const leadKeyMove = keyMoves[0];
-    const extraKeyMoves = keyMoves.slice(1);
+    const utilityHint = getOpponentUtilityHintLine(state.selectedMeta);
 
     document.getElementById('damagePanel').innerHTML = `
       <section class="damage-section">
@@ -615,39 +618,10 @@
         <p class="small-text">${dangerMove ? `最危险：${localLabel(dangerMove.moveName, moveZh)} · ${dangerMove.ko}` : '当前对手主要为功能压制。'}</p>
         ${oppResults.map(renderDamageRow).join('')}
       </section>
-      <section class="damage-section">
-        <div class="section-kicker">关键招式提示</div>
-        ${leadKeyMove ? `
-          <article class="damage-row">
-            <div class="damage-head">
-              <strong>${localLabel(leadKeyMove.moveName, moveZh)}</strong>
-              <span>出现率 ${leadKeyMove.frequencyText}</span>
-            </div>
-            <p class="small-text">${leadKeyMove.ko}</p>
-            <div class="chip-row">
-              ${leadKeyMove.tags.map((tag) => `<span class="tag-chip">${tag}</span>`).join('')}
-            </div>
-          </article>
-          ${extraKeyMoves.length ? `
-            <details class="set-card">
-              <summary style="cursor:pointer; font-weight:700;">查看其余 ${extraKeyMoves.length} 个关键招式</summary>
-              <div class="set-list" style="margin-top:10px;">
-                ${extraKeyMoves.map((entry) => `
-                  <article class="damage-row">
-                    <div class="damage-head">
-                      <strong>${localLabel(entry.moveName, moveZh)}</strong>
-                      <span>出现率 ${entry.frequencyText}</span>
-                    </div>
-                    <p class="small-text">${entry.ko}</p>
-                    <div class="chip-row">
-                      ${entry.tags.map((tag) => `<span class="tag-chip">${tag}</span>`).join('')}
-                    </div>
-                  </article>
-                `).join('')}
-              </div>
-            </details>
-          ` : ''}
-        ` : '<p class="small-text">该宝可梦暂无可计算的关键招式。</p>'}
+      <section class="damage-section damage-hint-block">
+        <div class="section-kicker">热门变化 / 功能招</div>
+        <p class="key-setup-line">汇总右侧该精灵各常见模板中的变化类与击掌等控场招，仅供意识参考。</p>
+        <p class="key-setup-line">${utilityHint || '当前模板以输出为主，无突出共识功能招。'}</p>
       </section>
     `;
   }
@@ -736,7 +710,6 @@
           </div>
         </div>
       </div>
-      <p class="small-text wb-speed-hint">拖动 Spe 或改对手性格会刷新速度与下方伤害；换右侧模板会恢复对手默认性格与 Spe。</p>
     `;
 
     const sw = document.getElementById('speedWorkbench');
