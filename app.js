@@ -156,6 +156,8 @@
     defenderSpeOverride: null,
     /** 右侧模板在可 Mega 时：是否按 Mega 种族/特性参与中间计算 */
     defenderMegaActive: false,
+    /** 左侧 6 个槽位各自：携带 Mega 石或可 Mega 时是否按 Mega 参与中间计算 */
+    attackerMegaBySlot: Array.from({ length: 6 }, () => false),
     team: []
   };
 
@@ -229,16 +231,28 @@
     });
   }
 
+  function attackerMegaDefaultForBuild(build) {
+    if (build.species.startsWith('Mega ')) return true;
+    if (megaStoneItemNames.has(build.item)) return true;
+    return false;
+  }
+
+  function syncAttackerMegaDefaultsForTeam() {
+    state.attackerMegaBySlot = state.team.map((b) => attackerMegaDefaultForBuild(b));
+  }
+
   function loadSampleTeam() {
     state.team = sampleMetaNames.map((name) => {
       const metaIndex = data.metaSets.findIndex((entry) => entry.species === name);
       return metaIndex >= 0 ? buildFromMeta(metaIndex, 0) : createBuild(name);
     });
     while (state.team.length < 6) state.team.push(createBuild(data.species[state.team.length].name));
+    syncAttackerMegaDefaultsForTeam();
   }
 
   function resetTeam() {
     state.team = Array.from({ length: 6 }, (_, index) => createBuild(data.species[index].name));
+    syncAttackerMegaDefaultsForTeam();
   }
 
   function renderTypeChips(types) {
@@ -331,7 +345,8 @@
     const activeBuild = state.team[state.selectedSlot];
     ensureValidBuild(activeBuild);
     const activeSpecies = getSpecies(activeBuild.species);
-    const activeStats = engine.calcStats(hydrateBuild(activeBuild), { level: 50 });
+    const myCalc = finalizeAttackerBuildForCalc({ ...activeBuild });
+    const activeStats = engine.calcStats(hydrateBuild(myCalc), { level: 50 });
 
     teamEditor.innerHTML = `
       <div class="slot-head" style="cursor:default;">
@@ -370,7 +385,13 @@
           </label>
         `).join('')}
       </div>
-      <p class="small-text">Lv.50 实数：HP ${activeStats.hp} / Atk ${activeStats.atk} / Def ${activeStats.def} / SpA ${activeStats.spa} / SpD ${activeStats.spd} / Spe ${activeStats.spe}</p>
+      <p class="small-text">Lv.50 实数（与中间速度/伤害一致）：HP ${activeStats.hp} / Atk ${activeStats.atk} / Def ${activeStats.def} / SpA ${activeStats.spa} / SpD ${activeStats.spd} / Spe ${activeStats.spe}</p>
+      ${
+        attackerHasMegaOption(activeBuild)
+          ? `<label class="toggle" style="margin-top:10px;"><span>本槽 Mega 形态参与计算</span><input type="checkbox" id="teamAttackerMegaToggle" ${state.attackerMegaBySlot[state.selectedSlot] ? 'checked' : ''} /></label>
+          <p class="small-text" style="margin-top:6px;">携带对应 Mega 石或已选 Mega 形态时可关闭，按非 Mega 种族值与合法特性估算。</p>`
+          : ''
+      }
       <p class="small-text">当前配置：${localLabel(activeBuild.item, itemZh)} / ${localLabel(activeBuild.ability, abilityZh)} / ${localLabel(activeBuild.nature, natureZh)}</p>
     `;
 
@@ -401,6 +422,14 @@
     teamEditor.querySelectorAll('select, input').forEach((node) => {
       node.addEventListener('change', handleBuildChange);
     });
+
+    const teamMega = document.getElementById('teamAttackerMegaToggle');
+    if (teamMega) {
+      teamMega.addEventListener('change', (e) => {
+        state.attackerMegaBySlot[state.selectedSlot] = e.target.checked;
+        renderAll();
+      });
+    }
   }
 
   function handleBuildChange(event) {
@@ -423,6 +452,7 @@
       build.moves[Number(field.split('-')[1])] = event.target.value;
     }
     ensureValidBuild(build);
+    state.attackerMegaBySlot[slot] = attackerMegaDefaultForBuild(build);
     renderAll();
   }
 
@@ -572,10 +602,10 @@
     return { ...oppRaw, nature, statPoints: { ...oppRaw.statPoints, spe } };
   }
 
-  function getEffectiveOppSpecies(merged) {
-    const declared = merged.species;
-    const item = merged.item;
-    if (state.defenderMegaActive) {
+  function getEffectiveSpeciesForMega(raw, megaActive) {
+    const declared = raw.species;
+    const item = raw.item;
+    if (megaActive) {
       if (megaStoneItemNames.has(item)) {
         const mega = resolveMegaFormForStone(item, declared);
         if (mega) return mega;
@@ -585,6 +615,25 @@
     }
     if (declared.startsWith('Mega ')) return megaFormToBaseSpecies(declared);
     return declared;
+  }
+
+  function getEffectiveOppSpecies(merged) {
+    return getEffectiveSpeciesForMega(merged, state.defenderMegaActive);
+  }
+
+  function finalizeAttackerBuildForCalc(raw) {
+    const megaOn = state.attackerMegaBySlot[state.selectedSlot] ?? false;
+    const species = getEffectiveSpeciesForMega(raw, megaOn);
+    const sp = getSpecies(species);
+    let ability = raw.ability;
+    if (!sp.abilities.includes(ability)) ability = sp.abilities[0] || '';
+    const out = { ...raw, species, ability };
+    ensureValidBuild(out);
+    return out;
+  }
+
+  function attackerHasMegaOption(build) {
+    return build.species.startsWith('Mega ') || megaStoneItemNames.has(build.item);
   }
 
   function finalizeOppBuildForCalc(merged) {
@@ -612,7 +661,9 @@
   }
 
   function getWorkbenchBuilds() {
-    const myBuild = hydrateBuild(state.team[state.selectedSlot]);
+    const myRaw = { ...state.team[state.selectedSlot] };
+    const myCalc = finalizeAttackerBuildForCalc(myRaw);
+    const myBuild = hydrateBuild(myCalc);
     const oppTpl = buildFromMeta(state.selectedMeta, state.selectedSet);
     const oppMerged = mergeOppWorkbench(oppTpl);
     const oppCalc = finalizeOppBuildForCalc({ ...oppMerged });
@@ -694,7 +745,13 @@
     const oppSpeed = engine.calcSpeed(oppBuild, state.field, 'defender');
     const relation = relationText(mySpeed, oppSpeed);
 
-    document.getElementById('matchupTitle').textContent = `${localLabel(myBuild.speciesData.name, speciesZh)} vs ${localLabel(oppBuild.speciesData.name, speciesZh)}`;
+    const mySlot = state.selectedSlot;
+    const myMegaTag = attackerHasMegaOption(state.team[mySlot])
+      ? state.attackerMegaBySlot[mySlot]
+        ? '（我方 Mega）'
+        : '（我方非 Mega）'
+      : '';
+    document.getElementById('matchupTitle').textContent = `${localLabel(myBuild.speciesData.name, speciesZh)}${myMegaTag} vs ${localLabel(oppBuild.speciesData.name, speciesZh)}`;
     const setName = translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name);
     const oppTouched = state.defenderSpeedNatureOverride != null || state.defenderSpeOverride != null;
     const megaLine =
@@ -730,6 +787,11 @@
             <input type="range" class="wb-spe-range" id="wbAttackerSpe" min="0" max="${maxStatPoints}" step="1" value="${mySpe}" />
             <span class="wb-spe-readout" id="wbAttackerSpeReadout">${mySpe}</span>
           </div>
+          ${
+            attackerHasMegaOption(state.team[state.selectedSlot])
+              ? `<label class="toggle" style="margin-top:6px;"><span>我方 Mega 参与计算</span><input type="checkbox" id="wbAttackerMegaToggle" ${state.attackerMegaBySlot[state.selectedSlot] ? 'checked' : ''} /></label>`
+              : ''
+          }
         </div>
         <div class="speed-workbench-card">
           <span class="small-text">对手有效速度</span>
@@ -766,6 +828,14 @@
         megaWrap.style.display = 'none';
         megaWrap.innerHTML = '';
       }
+    }
+
+    const wbAtkMega = document.getElementById('wbAttackerMegaToggle');
+    if (wbAtkMega) {
+      wbAtkMega.addEventListener('change', (e) => {
+        state.attackerMegaBySlot[state.selectedSlot] = e.target.checked;
+        renderAll();
+      });
     }
 
     const sw = document.getElementById('speedWorkbench');
