@@ -35,84 +35,60 @@
     items.filter((item) => /ite(\s[XY])?$/.test(item.name)).map((item) => item.name)
   );
 
-  const MEGA_SPECIES_TO_STONE = {
-    'Mega Abomasnow': 'Abomasite',
-    'Mega Absol': 'Absolite',
-    'Mega Aerodactyl': 'Aerodactylite',
-    'Mega Aggron': 'Aggronite',
-    'Mega Alakazam': 'Alakazite',
-    'Mega Altaria': 'Altarianite',
-    'Mega Ampharos': 'Ampharosite',
-    'Mega Audino': 'Audinite',
-    'Mega Banette': 'Banettite',
-    'Mega Beedrill': 'Beedrillite',
-    'Mega Blastoise': 'Blastoisinite',
-    'Mega Camerupt': 'Cameruptite',
-    'Mega Chandelure': 'Chandelurite',
-    'Mega Charizard X': 'Charizardite X',
-    'Mega Charizard Y': 'Charizardite Y',
-    'Mega Chesnaught': 'Chesnaughtite',
-    'Mega Chimecho': 'Chimechite',
-    'Mega Clefable': 'Clefablite',
-    'Mega Crabominable': 'Crabominite',
-    'Mega Delphox': 'Delphoxite',
-    'Mega Dragonite': 'Dragoninite',
-    'Mega Drampa': 'Drampanite',
-    'Mega Emboar': 'Emboarite',
-    'Mega Excadrill': 'Excadrite',
-    'Mega Feraligatr': 'Feraligite',
-    'Mega Floette': 'Floettite',
-    'Mega Froslass': 'Froslassite',
-    'Mega Gallade': 'Galladite',
-    'Mega Garchomp': 'Garchompite',
-    'Mega Gardevoir': 'Gardevoirite',
-    'Mega Gengar': 'Gengarite',
-    'Mega Glalie': 'Glalitite',
-    'Mega Glimmora': 'Glimmoranite',
-    'Mega Golurk': 'Golurkite',
-    'Mega Greninja': 'Greninjite',
-    'Mega Gyarados': 'Gyaradosite',
-    'Mega Hawlucha': 'Hawluchanite',
-    'Mega Heracross': 'Heracronite',
-    'Mega Houndoom': 'Houndoominite',
-    'Mega Kangaskhan': 'Kangaskhanite',
-    'Mega Lopunny': 'Lopunnite',
-    'Mega Lucario': 'Lucarionite',
-    'Mega Manectric': 'Manectite',
-    'Mega Medicham': 'Medichamite',
-    'Mega Meganium': 'Meganiumite',
-    'Mega Meowstic (Female)': 'Meowsticite',
-    'Mega Meowstic (Male)': 'Meowsticite',
-    'Mega Pidgeot': 'Pidgeotite',
-    'Mega Pinsir': 'Pinsirite',
-    'Mega Sableye': 'Sablenite',
-    'Mega Scizor': 'Scizorite',
-    'Mega Scovillain': 'Scovillainite',
-    'Mega Sharpedo': 'Sharpedonite',
-    'Mega Skarmory': 'Skarmorite',
-    'Mega Slowbro': 'Slowbronite',
-    'Mega Starmie': 'Starminite',
-    'Mega Steelix': 'Steelixite',
-    'Mega Tyranitar': 'Tyranitarite',
-    'Mega Venusaur': 'Venusaurite',
-    'Mega Victreebel': 'Victreebelite'
-  };
+  const MEGA_SPECIES_TO_STONE = data.megaSpeciesToStone || {};
+
+  function megaFormToBaseSpecies(megaName) {
+    if (megaName === 'Mega Charizard X' || megaName === 'Mega Charizard Y') return 'Charizard';
+    if (megaName === 'Mega Floette') return 'Eternal Flower Floette';
+    if (megaName.startsWith('Mega ')) return megaName.slice(5);
+    return megaName;
+  }
+
+  function stonesUnlockableFromBase(baseName) {
+    const stones = [];
+    for (const [mega, stone] of Object.entries(MEGA_SPECIES_TO_STONE)) {
+      if (megaFormToBaseSpecies(mega) === baseName) stones.push(stone);
+    }
+    return stones;
+  }
+
+  function resolveMegaFormForStone(stone, templateSpecies) {
+    const candidates = Object.entries(MEGA_SPECIES_TO_STONE)
+      .filter(([, s]) => s === stone)
+      .map(([m]) => m);
+    if (!candidates.length) return null;
+    if (candidates.length === 1) return candidates[0];
+    const declaredBase = templateSpecies.startsWith('Mega ') ? megaFormToBaseSpecies(templateSpecies) : templateSpecies;
+    const match = candidates.find((m) => megaFormToBaseSpecies(m) === declaredBase);
+    return match || candidates[0];
+  }
 
   function firstNonMegaItemName() {
     return items.find((item) => !megaStoneItemNames.has(item.name))?.name || items[0]?.name || '';
   }
 
   function itemsForSpeciesDropdown(speciesName, currentItem) {
-    const stoneName = MEGA_SPECIES_TO_STONE[speciesName];
     const nonMega = items.filter((item) => !megaStoneItemNames.has(item.name));
-    let list = nonMega;
-    if (stoneName) {
+    let list = [...nonMega];
+
+    const prependStone = (stoneName) => {
       const stone = items.find((item) => item.name === stoneName);
-      if (stone) list = [stone, ...nonMega];
+      if (!stone) return;
+      list = list.filter((item) => item.name !== stoneName);
+      list.unshift(stone);
+    };
+
+    const directStone = MEGA_SPECIES_TO_STONE[speciesName];
+    if (directStone) prependStone(directStone);
+
+    const baseForStones = speciesName.startsWith('Mega ') ? megaFormToBaseSpecies(speciesName) : speciesName;
+    for (const s of stonesUnlockableFromBase(baseForStones)) {
+      prependStone(s);
     }
+
     if (currentItem && !list.some((item) => item.name === currentItem)) {
       const extra = items.find((item) => item.name === currentItem);
-      if (extra) list = [extra, ...list];
+      if (extra) list.unshift(extra);
     }
     return list;
   }
@@ -178,6 +154,8 @@
     defenderSpeedNatureOverride: null,
     /** null = 对手 Spe 点数沿用右侧模板；否则为速度区滑条值 */
     defenderSpeOverride: null,
+    /** 右侧模板在可 Mega 时：是否按 Mega 种族/特性参与中间计算 */
+    defenderMegaActive: false,
     team: []
   };
 
@@ -455,6 +433,7 @@
     if (!filteredIndexes.includes(state.selectedMeta)) {
       state.selectedMeta = filteredIndexes[0] ?? 0;
       state.selectedSet = 0;
+      state.defenderMegaActive = defenderMegaDefault(state.selectedMeta, state.selectedSet);
     }
 
     if (!filteredIndexes.length) {
@@ -512,6 +491,7 @@
       node.addEventListener('click', () => {
         state.selectedMeta = Number(node.dataset.meta);
         state.selectedSet = 0;
+        state.defenderMegaActive = defenderMegaDefault(state.selectedMeta, state.selectedSet);
         state.defenderSpeedNatureOverride = null;
         state.defenderSpeOverride = null;
         renderAll();
@@ -522,6 +502,7 @@
       node.addEventListener('click', (event) => {
         event.stopPropagation();
         state.selectedSet = Number(node.dataset.set);
+        state.defenderMegaActive = defenderMegaDefault(state.selectedMeta, state.selectedSet);
         state.defenderSpeedNatureOverride = null;
         state.defenderSpeOverride = null;
         renderAll();
@@ -591,11 +572,52 @@
     return { ...oppRaw, nature, statPoints: { ...oppRaw.statPoints, spe } };
   }
 
+  function getEffectiveOppSpecies(merged) {
+    const declared = merged.species;
+    const item = merged.item;
+    if (state.defenderMegaActive) {
+      if (megaStoneItemNames.has(item)) {
+        const mega = resolveMegaFormForStone(item, declared);
+        if (mega) return mega;
+      }
+      if (declared.startsWith('Mega ')) return declared;
+      return declared;
+    }
+    if (declared.startsWith('Mega ')) return megaFormToBaseSpecies(declared);
+    return declared;
+  }
+
+  function finalizeOppBuildForCalc(merged) {
+    const species = getEffectiveOppSpecies(merged);
+    const sp = getSpecies(species);
+    let ability = merged.ability;
+    if (!sp.abilities.includes(ability)) ability = sp.abilities[0] || '';
+    const out = { ...merged, species, ability };
+    ensureValidBuild(out);
+    return out;
+  }
+
+  function defenderMegaDefault(metaIndex, setIndex) {
+    const meta = data.metaSets[metaIndex];
+    const set = meta.sets[setIndex];
+    if (meta.species.startsWith('Mega ')) return true;
+    if (megaStoneItemNames.has(set.item)) return true;
+    return false;
+  }
+
+  function opponentHasMegaOption(metaIndex, setIndex) {
+    const meta = data.metaSets[metaIndex];
+    const set = meta.sets[setIndex];
+    return meta.species.startsWith('Mega ') || megaStoneItemNames.has(set.item);
+  }
+
   function getWorkbenchBuilds() {
     const myBuild = hydrateBuild(state.team[state.selectedSlot]);
-    const oppRaw = buildFromMeta(state.selectedMeta, state.selectedSet);
-    const oppBuild = hydrateBuild(mergeOppWorkbench(oppRaw));
-    return { myBuild, oppBuild, oppRaw };
+    const oppTpl = buildFromMeta(state.selectedMeta, state.selectedSet);
+    const oppMerged = mergeOppWorkbench(oppTpl);
+    const oppCalc = finalizeOppBuildForCalc({ ...oppMerged });
+    const oppBuild = hydrateBuild(oppCalc);
+    return { myBuild, oppBuild, oppRaw: oppMerged };
   }
 
   function paintDamagePanel(myBuild, oppBuild) {
@@ -641,6 +663,18 @@
     const rd = document.getElementById('wbDefenderSpeReadout');
     if (ra) ra.textContent = String(state.team[state.selectedSlot].statPoints.spe);
     if (rd) rd.textContent = String(effSpe);
+    const subEl = document.getElementById('matchupSubtitle');
+    if (subEl && getFilteredMetaIndexes().length) {
+      const setName = translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name);
+      const oppTouched = state.defenderSpeedNatureOverride != null || state.defenderSpeOverride != null;
+      const megaLine =
+        opponentHasMegaOption(state.selectedMeta, state.selectedSet) && state.defenderMegaActive
+          ? ' · 对手按 Mega 计算'
+          : opponentHasMegaOption(state.selectedMeta, state.selectedSet)
+            ? ' · 对手按非 Mega 计算'
+            : '';
+      subEl.textContent = `当前对手模板：${setName}${megaLine}${oppTouched ? ' · 对手在速度区已微调' : ''}`;
+    }
     paintDamagePanel(myBuild, oppBuild);
     const speInput = document.querySelector(`input[data-slot="${state.selectedSlot}"][data-field="stat-spe"]`);
     if (speInput) speInput.value = String(state.team[state.selectedSlot].statPoints.spe);
@@ -663,7 +697,13 @@
     document.getElementById('matchupTitle').textContent = `${localLabel(myBuild.speciesData.name, speciesZh)} vs ${localLabel(oppBuild.speciesData.name, speciesZh)}`;
     const setName = translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name);
     const oppTouched = state.defenderSpeedNatureOverride != null || state.defenderSpeOverride != null;
-    document.getElementById('matchupSubtitle').textContent = `当前对手模板：${setName}${oppTouched ? ' · 对手在速度区已微调' : ''}`;
+    const megaLine =
+      opponentHasMegaOption(state.selectedMeta, state.selectedSet) && state.defenderMegaActive
+        ? ' · 对手按 Mega 计算'
+        : opponentHasMegaOption(state.selectedMeta, state.selectedSet)
+          ? ' · 对手按非 Mega 计算'
+          : '';
+    document.getElementById('matchupSubtitle').textContent = `当前对手模板：${setName}${megaLine}${oppTouched ? ' · 对手在速度区已微调' : ''}`;
 
     const mySpe = state.team[state.selectedSlot].statPoints.spe;
     const effSpe = state.defenderSpeOverride != null ? state.defenderSpeOverride : oppRaw.statPoints.spe;
@@ -709,6 +749,24 @@
         </div>
       </div>
     `;
+
+    const megaWrap = document.getElementById('defenderMegaWrap');
+    if (megaWrap) {
+      if (opponentHasMegaOption(state.selectedMeta, state.selectedSet)) {
+        megaWrap.style.display = 'block';
+        megaWrap.innerHTML = `
+          <label class="toggle"><span>对手 Mega 形态参与计算</span><input type="checkbox" id="defenderMegaToggle" ${state.defenderMegaActive ? 'checked' : ''} /></label>
+          <p class="footnote" style="margin:6px 0 0;">关闭时按对应非 Mega 的种族值与合法特性；模板已带 Mega 石时可对比「已 Mega / 未 Mega」。</p>
+        `;
+        megaWrap.querySelector('#defenderMegaToggle').addEventListener('change', (e) => {
+          state.defenderMegaActive = e.target.checked;
+          refreshWorkbenchCalcs();
+        });
+      } else {
+        megaWrap.style.display = 'none';
+        megaWrap.innerHTML = '';
+      }
+    }
 
     const sw = document.getElementById('speedWorkbench');
     sw.oninput = (e) => {

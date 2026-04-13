@@ -1,5 +1,67 @@
 window.APP_DATA = {
-  "generatedAt": "2026-04-13T16:41:46.923Z",
+  "generatedAt": "2026-04-13T16:57:41.158Z",
+  "megaSpeciesToStone": {
+    "Mega Abomasnow": "Abomasite",
+    "Mega Absol": "Absolite",
+    "Mega Aerodactyl": "Aerodactylite",
+    "Mega Aggron": "Aggronite",
+    "Mega Alakazam": "Alakazite",
+    "Mega Altaria": "Altarianite",
+    "Mega Ampharos": "Ampharosite",
+    "Mega Audino": "Audinite",
+    "Mega Banette": "Banettite",
+    "Mega Beedrill": "Beedrillite",
+    "Mega Blastoise": "Blastoisinite",
+    "Mega Camerupt": "Cameruptite",
+    "Mega Chandelure": "Chandelurite",
+    "Mega Charizard X": "Charizardite X",
+    "Mega Charizard Y": "Charizardite Y",
+    "Mega Chesnaught": "Chesnaughtite",
+    "Mega Chimecho": "Chimechite",
+    "Mega Clefable": "Clefablite",
+    "Mega Crabominable": "Crabominite",
+    "Mega Delphox": "Delphoxite",
+    "Mega Dragonite": "Dragoninite",
+    "Mega Drampa": "Drampanite",
+    "Mega Emboar": "Emboarite",
+    "Mega Excadrill": "Excadrite",
+    "Mega Feraligatr": "Feraligite",
+    "Mega Floette": "Floettite",
+    "Mega Froslass": "Froslassite",
+    "Mega Gallade": "Galladite",
+    "Mega Garchomp": "Garchompite",
+    "Mega Gardevoir": "Gardevoirite",
+    "Mega Gengar": "Gengarite",
+    "Mega Glalie": "Glalitite",
+    "Mega Glimmora": "Glimmoranite",
+    "Mega Golurk": "Golurkite",
+    "Mega Greninja": "Greninjite",
+    "Mega Gyarados": "Gyaradosite",
+    "Mega Hawlucha": "Hawluchanite",
+    "Mega Heracross": "Heracronite",
+    "Mega Houndoom": "Houndoominite",
+    "Mega Kangaskhan": "Kangaskhanite",
+    "Mega Lopunny": "Lopunnite",
+    "Mega Lucario": "Lucarionite",
+    "Mega Manectric": "Manectite",
+    "Mega Medicham": "Medichamite",
+    "Mega Meganium": "Meganiumite",
+    "Mega Meowstic (Female)": "Meowsticite",
+    "Mega Meowstic (Male)": "Meowsticite",
+    "Mega Pidgeot": "Pidgeotite",
+    "Mega Pinsir": "Pinsirite",
+    "Mega Sableye": "Sablenite",
+    "Mega Scizor": "Scizorite",
+    "Mega Scovillain": "Scovillainite",
+    "Mega Sharpedo": "Sharpedonite",
+    "Mega Skarmory": "Skarmorite",
+    "Mega Slowbro": "Slowbronite",
+    "Mega Starmie": "Starminite",
+    "Mega Steelix": "Steelixite",
+    "Mega Tyranitar": "Tyranitarite",
+    "Mega Venusaur": "Venusaurite",
+    "Mega Victreebel": "Victreebelite"
+  },
   "source": {
     "teamBuilderMapping": 727,
     "rosterArticle": 501889,
@@ -29811,7 +29873,7 @@ window.APP_DATA = {
       "sets": [
         {
           "name": "Bulky Support Incineroar",
-          "item": "Mental Herb",
+          "item": "Sitrus Berry",
           "ability": "Intimidate",
           "nature": "Careful",
           "statPoints": {
@@ -30013,6 +30075,26 @@ window.APP_DATA = {
             "Dragon Claw",
             "Rock Slide",
             "Swords Dance"
+          ]
+        },
+        {
+          "name": "Standard Offensive Garchomp（Mega石 · Garchompite）",
+          "item": "Garchompite",
+          "ability": "Sand Force",
+          "nature": "Jolly",
+          "statPoints": {
+            "hp": 2,
+            "atk": 32,
+            "def": 0,
+            "spa": 0,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Earthquake",
+            "Dragon Claw",
+            "Rock Slide",
+            "Protect"
           ]
         }
       ]
@@ -30480,6 +30562,26 @@ window.APP_DATA = {
             "Dragon Dance",
             "Protect"
           ]
+        },
+        {
+          "name": "Bulky Offense Tyranitar（Mega石 · Tyranitarite）",
+          "item": "Tyranitarite",
+          "ability": "Sand Stream",
+          "nature": "Adamant",
+          "statPoints": {
+            "hp": 20,
+            "atk": 32,
+            "def": 6,
+            "spa": 0,
+            "spd": 12,
+            "spe": 0
+          },
+          "moves": [
+            "Rock Slide",
+            "Crunch",
+            "Low Kick",
+            "Ice Punch"
+          ]
         }
       ]
     },
@@ -30691,6 +30793,26 @@ window.APP_DATA = {
             "Dragon Dance",
             "Protect"
           ]
+        },
+        {
+          "name": "Standard Physical Dragonite（Mega石 · Dragoninite）",
+          "item": "Dragoninite",
+          "ability": "Multiscale",
+          "nature": "Adamant",
+          "statPoints": {
+            "hp": 20,
+            "atk": 32,
+            "def": 4,
+            "spa": 0,
+            "spd": 8,
+            "spe": 10
+          },
+          "moves": [
+            "Extreme Speed",
+            "Dragon Claw",
+            "Low Kick",
+            "Protect"
+          ]
         }
       ]
     },
@@ -30845,6 +30967,26 @@ window.APP_DATA = {
             "Earth Power",
             "Sludge Bomb",
             "Protect"
+          ]
+        },
+        {
+          "name": "Entry Hazard Glimmora（Mega石 · Glimmoranite）",
+          "item": "Glimmoranite",
+          "ability": "Adaptability",
+          "nature": "Timid",
+          "statPoints": {
+            "hp": 2,
+            "atk": 0,
+            "def": 0,
+            "spa": 32,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Mortal Spin",
+            "Power Gem",
+            "Earth Power",
+            "Stealth Rock"
           ]
         }
       ]
@@ -31027,6 +31169,26 @@ window.APP_DATA = {
             "Rock Slide",
             "Protect"
           ]
+        },
+        {
+          "name": "Sand Offense Excadrill（Mega石 · Excadrite）",
+          "item": "Excadrite",
+          "ability": "Piercing Drill",
+          "nature": "Jolly",
+          "statPoints": {
+            "hp": 0,
+            "atk": 32,
+            "def": 0,
+            "spa": 0,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Earthquake",
+            "Iron Head",
+            "Rock Slide",
+            "Protect"
+          ]
         }
       ]
     },
@@ -31044,6 +31206,26 @@ window.APP_DATA = {
           "name": "Fast Utility Froslass",
           "item": "Focus Sash",
           "ability": "Cursed Body",
+          "nature": "Timid",
+          "statPoints": {
+            "hp": 0,
+            "atk": 0,
+            "def": 4,
+            "spa": 28,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Icy Wind",
+            "Shadow Ball",
+            "Will-O-Wisp",
+            "Protect"
+          ]
+        },
+        {
+          "name": "Fast Utility Froslass（Mega石 · Froslassite）",
+          "item": "Froslassite",
+          "ability": "Snow Warning",
           "nature": "Timid",
           "statPoints": {
             "hp": 0,
@@ -31250,6 +31432,26 @@ window.APP_DATA = {
             "Taunt",
             "Protect"
           ]
+        },
+        {
+          "name": "Fast Tailwind Aerodactyl（Mega石 · Aerodactylite）",
+          "item": "Aerodactylite",
+          "ability": "Tough Claws",
+          "nature": "Jolly",
+          "statPoints": {
+            "hp": 0,
+            "atk": 32,
+            "def": 0,
+            "spa": 0,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Rock Slide",
+            "Tailwind",
+            "Taunt",
+            "Protect"
+          ]
         }
       ]
     },
@@ -31266,6 +31468,26 @@ window.APP_DATA = {
           "name": "Sun Pressure Delphox",
           "item": "Charcoal",
           "ability": "Blaze",
+          "nature": "Timid",
+          "statPoints": {
+            "hp": 8,
+            "atk": 0,
+            "def": 0,
+            "spa": 32,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Heat Wave",
+            "Psychic",
+            "Will-O-Wisp",
+            "Protect"
+          ]
+        },
+        {
+          "name": "Sun Pressure Delphox（Mega石 · Delphoxite）",
+          "item": "Delphoxite",
+          "ability": "Levitate",
           "nature": "Timid",
           "statPoints": {
             "hp": 8,
@@ -31312,6 +31534,26 @@ window.APP_DATA = {
             "Coaching",
             "Protect"
           ]
+        },
+        {
+          "name": "Unburden Hawlucha（Mega石 · Hawluchanite）",
+          "item": "Hawluchanite",
+          "ability": "No Guard",
+          "nature": "Jolly",
+          "statPoints": {
+            "hp": 0,
+            "atk": 32,
+            "def": 0,
+            "spa": 0,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Close Combat",
+            "Acrobatics",
+            "Coaching",
+            "Protect"
+          ]
         }
       ]
     },
@@ -31328,6 +31570,26 @@ window.APP_DATA = {
         {
           "name": "Protean Greninja",
           "item": "Focus Sash",
+          "ability": "Protean",
+          "nature": "Timid",
+          "statPoints": {
+            "hp": 0,
+            "atk": 0,
+            "def": 0,
+            "spa": 32,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Hydro Pump",
+            "Ice Beam",
+            "Dark Pulse",
+            "Protect"
+          ]
+        },
+        {
+          "name": "Protean Greninja（Mega石 · Greninjite）",
+          "item": "Greninjite",
           "ability": "Protean",
           "nature": "Timid",
           "statPoints": {
@@ -31376,6 +31638,26 @@ window.APP_DATA = {
             "Ice Beam",
             "Protect"
           ]
+        },
+        {
+          "name": "Fast Utility Starmie（Mega石 · Starminite）",
+          "item": "Starminite",
+          "ability": "Huge Power",
+          "nature": "Timid",
+          "statPoints": {
+            "hp": 0,
+            "atk": 0,
+            "def": 4,
+            "spa": 28,
+            "spd": 0,
+            "spe": 32
+          },
+          "moves": [
+            "Hydro Pump",
+            "Psychic",
+            "Ice Beam",
+            "Protect"
+          ]
         }
       ]
     },
@@ -31393,6 +31675,26 @@ window.APP_DATA = {
           "name": "Support Meganium",
           "item": "Leftovers",
           "ability": "Overgrow",
+          "nature": "Calm",
+          "statPoints": {
+            "hp": 32,
+            "atk": 0,
+            "def": 12,
+            "spa": 8,
+            "spd": 20,
+            "spe": 0
+          },
+          "moves": [
+            "Giga Drain",
+            "Helping Hand",
+            "Light Screen",
+            "Protect"
+          ]
+        },
+        {
+          "name": "Support Meganium（Mega石 · Meganiumite）",
+          "item": "Meganiumite",
+          "ability": "Mega Sol",
           "nature": "Calm",
           "statPoints": {
             "hp": 32,
@@ -31595,6 +31897,26 @@ window.APP_DATA = {
             "Helping Hand",
             "Protect"
           ]
+        },
+        {
+          "name": "Support Clefable（Mega石 · Clefablite）",
+          "item": "Clefablite",
+          "ability": "Magic Bounce",
+          "nature": "Calm",
+          "statPoints": {
+            "hp": 32,
+            "atk": 0,
+            "def": 12,
+            "spa": 8,
+            "spd": 20,
+            "spe": 0
+          },
+          "moves": [
+            "Follow Me",
+            "Moonblast",
+            "Helping Hand",
+            "Protect"
+          ]
         }
       ]
     },
@@ -31624,329 +31946,6 @@ window.APP_DATA = {
             "Fake Out",
             "Double-Edge",
             "Sucker Punch",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Charizard X",
-      "rank": "Mega",
-      "sourceName": "Charizard",
-      "note": "热门扩展（Mega 体系）：Mega Charizard X 在当前 Mega 环境中是常见的中高速物攻核心。",
-      "archetypes": [
-        "Mega Charizard X Dragon Dance",
-        "Singles Charizard Team Mega Charizard Y",
-        "Aaron Zheng's Sun Team Mega Charizard Y",
-        "Mega Charizard Y Drought Wallbreaker",
-        "Singles Charizard Team Hippowdon",
-        "Singles Charizard Team Wash Rotom"
-      ],
-      "sets": [
-        {
-          "name": "Dragon Dance Mega Charizard X",
-          "item": "Charizardite X",
-          "ability": "Tough Claws",
-          "nature": "Jolly",
-          "statPoints": {
-            "hp": 8,
-            "atk": 32,
-            "def": 0,
-            "spa": 0,
-            "spd": 0,
-            "spe": 24
-          },
-          "moves": [
-            "Flare Blitz",
-            "Dragon Claw",
-            "Dragon Dance",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Garchomp",
-      "rank": "Mega",
-      "sourceName": "Garchomp",
-      "note": "热门扩展（Mega 体系）：Mega Garchomp 是常见的地龙高压输出位，常作为中速推进核心。",
-      "archetypes": [
-        "Aaron Zheng's Sun Team Garchomp",
-        "Doubles Choice Scarf Garchomp",
-        "Standard Offensive Garchomp",
-        "Singles Choice Scarf Garchomp"
-      ],
-      "sets": [
-        {
-          "name": "Standard Mega Garchomp",
-          "item": "Garchompite",
-          "ability": "Sand Force",
-          "nature": "Jolly",
-          "statPoints": {
-            "hp": 12,
-            "atk": 32,
-            "def": 0,
-            "spa": 0,
-            "spd": 0,
-            "spe": 20
-          },
-          "moves": [
-            "Earthquake",
-            "Dragon Claw",
-            "Rock Slide",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Tyranitar",
-      "rank": "Mega",
-      "sourceName": "Tyranitar",
-      "note": "热门扩展（Mega 体系）：Mega Tyranitar 仍是稳定的中盘压制点，沙暴队和常规队都能携带。",
-      "archetypes": [
-        "Bulky Offense Tyranitar",
-        "Dragon Dance Tyranitar",
-        "Dragon Dance Mega Tyranitar"
-      ],
-      "sets": [
-        {
-          "name": "Dragon Dance Mega Tyranitar",
-          "item": "Tyranitarite",
-          "ability": "Sand Stream",
-          "nature": "Adamant",
-          "statPoints": {
-            "hp": 16,
-            "atk": 32,
-            "def": 4,
-            "spa": 0,
-            "spd": 8,
-            "spe": 4
-          },
-          "moves": [
-            "Rock Slide",
-            "Crunch",
-            "Dragon Dance",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Scizor",
-      "rank": "Mega",
-      "sourceName": "Scizor",
-      "note": "热门扩展（Mega 体系）：Mega Scizor 凭借 Technician 加成和优先级压制，是高频后排收割位。",
-      "archetypes": [],
-      "sets": [
-        {
-          "name": "Bulky Offense Mega Scizor",
-          "item": "Scizorite",
-          "ability": "Technician",
-          "nature": "Adamant",
-          "statPoints": {
-            "hp": 20,
-            "atk": 32,
-            "def": 12,
-            "spa": 0,
-            "spd": 8,
-            "spe": 0
-          },
-          "moves": [
-            "Bullet Punch",
-            "Knock Off",
-            "Close Combat",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Gardevoir",
-      "rank": "Mega",
-      "sourceName": "Gardevoir",
-      "note": "热门扩展（Mega 体系）：Mega Gardevoir 以 Pixilate 高强度语音输出和控场能力见长。",
-      "archetypes": [
-        "Perish Trap Mega Gengar",
-        "Offensive Mega Gengar",
-        "Gengar Movesets and Best Builds"
-      ],
-      "sets": [
-        {
-          "name": "Pixilate Mega Gardevoir",
-          "item": "Gardevoirite",
-          "ability": "Pixilate",
-          "nature": "Timid",
-          "statPoints": {
-            "hp": 8,
-            "atk": 0,
-            "def": 4,
-            "spa": 32,
-            "spd": 0,
-            "spe": 24
-          },
-          "moves": [
-            "Hyper Voice",
-            "Moonblast",
-            "Calm Mind",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Gyarados",
-      "rank": "Mega",
-      "sourceName": "Tyranitar",
-      "note": "热门扩展（Mega 体系）：Mega Gyarados 兼具 Dragon Dance 破局能力与优良耐性，是常见的进攻终结点。",
-      "archetypes": [
-        "Bulky Offense Tyranitar",
-        "Dragon Dance Tyranitar",
-        "Dragon Dance Mega Tyranitar"
-      ],
-      "sets": [
-        {
-          "name": "Dragon Dance Mega Gyarados",
-          "item": "Gyaradosite",
-          "ability": "Mold Breaker",
-          "nature": "Jolly",
-          "statPoints": {
-            "hp": 12,
-            "atk": 32,
-            "def": 4,
-            "spa": 0,
-            "spd": 0,
-            "spe": 20
-          },
-          "moves": [
-            "Aqua Tail",
-            "Crunch",
-            "Dragon Dance",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Venusaur",
-      "rank": "Mega",
-      "sourceName": "Whimsicott",
-      "note": "热门扩展（Mega 体系）：Mega Venusaur 是高耐久草毒核心，常用于对抗水地与持续消耗局。",
-      "archetypes": [
-        "Prankster Support Whimsicott"
-      ],
-      "sets": [
-        {
-          "name": "Bulky Mega Venusaur",
-          "item": "Venusaurite",
-          "ability": "Thick Fat",
-          "nature": "Calm",
-          "statPoints": {
-            "hp": 32,
-            "atk": 0,
-            "def": 12,
-            "spa": 16,
-            "spd": 20,
-            "spe": 0
-          },
-          "moves": [
-            "Giga Drain",
-            "Earth Power",
-            "Leech Seed",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Medicham",
-      "rank": "Mega",
-      "sourceName": "Hawlucha",
-      "note": "热门扩展（Mega 体系）：Mega Medicham 借助 Pure Power 的爆发打点，常用于快速撕开防线。",
-      "archetypes": [
-        "Entrainment Mega Hawlucha"
-      ],
-      "sets": [
-        {
-          "name": "Fast Mega Medicham",
-          "item": "Medichamite",
-          "ability": "Pure Power",
-          "nature": "Jolly",
-          "statPoints": {
-            "hp": 0,
-            "atk": 32,
-            "def": 0,
-            "spa": 0,
-            "spd": 0,
-            "spe": 32
-          },
-          "moves": [
-            "Fake Out",
-            "High Jump Kick",
-            "Ice Punch",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Pinsir",
-      "rank": "Mega",
-      "sourceName": "Hawlucha",
-      "note": "热门扩展（Mega 体系）：Mega Pinsir 依靠 Aerilate 的先制压制和高物攻，常用于残局收割。",
-      "archetypes": [
-        "Entrainment Mega Hawlucha"
-      ],
-      "sets": [
-        {
-          "name": "Aerilate Mega Pinsir",
-          "item": "Pinsirite",
-          "ability": "Aerilate",
-          "nature": "Jolly",
-          "statPoints": {
-            "hp": 8,
-            "atk": 32,
-            "def": 0,
-            "spa": 0,
-            "spd": 0,
-            "spe": 24
-          },
-          "moves": [
-            "Quick Attack",
-            "Close Combat",
-            "Bug Bite",
-            "Protect"
-          ]
-        }
-      ]
-    },
-    {
-      "species": "Mega Meganium",
-      "rank": "Mega",
-      "sourceName": "Meganium",
-      "note": "热门扩展（Mega 体系）：Mega Meganium 在当前队伍样本中常作为草系范围压制与场地协同位。",
-      "archetypes": [
-        "Singles Mega Meganium",
-        "Doubles Mega Meganium"
-      ],
-      "sets": [
-        {
-          "name": "Doubles Mega Meganium",
-          "item": "Meganiumite",
-          "ability": "Mega Sol",
-          "nature": "Modest",
-          "statPoints": {
-            "hp": 28,
-            "atk": 0,
-            "def": 0,
-            "spa": 32,
-            "spd": 0,
-            "spe": 6
-          },
-          "moves": [
-            "Giga Drain",
-            "Dazzling Gleam",
-            "Weather Ball",
             "Protect"
           ]
         }

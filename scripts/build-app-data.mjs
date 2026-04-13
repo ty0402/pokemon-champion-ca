@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const root = '/Users/taoye/Documents/Playground/pokemon-champion-ca';
+const root = '/Users/taoye/Documents/Playground/pokemon-personality-team';
 const dataDir = path.join(root, 'data');
 
 const teamBuilder = JSON.parse(fs.readFileSync(path.join(dataDir, 'game8-team-builder-727.json'), 'utf8'));
@@ -90,6 +90,25 @@ function extractMovesetLabels(speciesName) {
   return labels.slice(0, 6);
 }
 
+const MEGA_SPECIES_TO_STONE = JSON.parse(
+  fs.readFileSync(path.join(dataDir, 'mega-species-to-stone.json'), 'utf8')
+);
+
+function megaFormToBaseSpecies(megaName) {
+  if (megaName === 'Mega Charizard X' || megaName === 'Mega Charizard Y') return 'Charizard';
+  if (megaName === 'Mega Floette') return 'Eternal Flower Floette';
+  if (megaName.startsWith('Mega ')) return megaName.slice(5);
+  return megaName;
+}
+
+function megasForBase(baseName) {
+  const out = [];
+  for (const [mega, stone] of Object.entries(MEGA_SPECIES_TO_STONE)) {
+    if (megaFormToBaseSpecies(mega) === baseName) out.push({ mega, stone });
+  }
+  return out;
+}
+
 const metaSets = [
   {
     species: 'Incineroar',
@@ -98,7 +117,7 @@ const metaSets = [
     note: 'Game8 当前双打环境的总轴心，Fake Out、Parting Shot、Snarl 与 Intimidate 的压缩度依然最强。',
     archetypes: extractMovesetLabels('Incineroar'),
     sets: [
-      { name: 'Bulky Support Incineroar', item: 'Mental Herb', ability: 'Intimidate', nature: 'Careful', statPoints: { hp: 32, atk: 8, def: 10, spa: 0, spd: 16, spe: 0 }, moves: ['Fake Out', 'Flare Blitz', 'Parting Shot', 'Snarl'] },
+      { name: 'Bulky Support Incineroar', item: 'Sitrus Berry', ability: 'Intimidate', nature: 'Careful', statPoints: { hp: 32, atk: 8, def: 10, spa: 0, spd: 16, spe: 0 }, moves: ['Fake Out', 'Flare Blitz', 'Parting Shot', 'Snarl'] },
       { name: 'Shuca Pivot Incineroar', item: 'Shuca Berry', ability: 'Intimidate', nature: 'Careful', statPoints: { hp: 28, atk: 10, def: 10, spa: 0, spd: 14, spe: 2 }, moves: ['Fake Out', 'Flare Blitz', 'Parting Shot', 'Taunt'] },
       { name: 'Offensive Utility Incineroar', item: 'Sitrus Berry', ability: 'Intimidate', nature: 'Adamant', statPoints: { hp: 12, atk: 32, def: 4, spa: 0, spd: 8, spe: 4 }, moves: ['Fake Out', 'Flare Blitz', 'Throat Chop', 'Parting Shot'] }
     ]
@@ -518,111 +537,32 @@ const metaSets = [
     sets: [
       { name: 'Mega Kangaskhan', item: 'Kangaskhanite', ability: 'Scrappy', nature: 'Jolly', statPoints: { hp: 12, atk: 32, def: 4, spa: 0, spd: 0, spe: 32 }, moves: ['Fake Out', 'Double-Edge', 'Sucker Punch', 'Protect'] }
     ]
-  },
-  {
-    species: 'Mega Charizard X',
-    rank: 'Mega',
-    sourceName: 'Charizard',
-    note: '热门扩展（Mega 体系）：Mega Charizard X 在当前 Mega 环境中是常见的中高速物攻核心。',
-    archetypes: extractMovesetLabels('Charizard'),
-    sets: [
-      { name: 'Dragon Dance Mega Charizard X', item: 'Charizardite X', ability: 'Tough Claws', nature: 'Jolly', statPoints: { hp: 8, atk: 32, def: 0, spa: 0, spd: 0, spe: 24 }, moves: ['Flare Blitz', 'Dragon Claw', 'Dragon Dance', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Garchomp',
-    rank: 'Mega',
-    sourceName: 'Garchomp',
-    note: '热门扩展（Mega 体系）：Mega Garchomp 是常见的地龙高压输出位，常作为中速推进核心。',
-    archetypes: extractMovesetLabels('Garchomp'),
-    sets: [
-      { name: 'Standard Mega Garchomp', item: 'Garchompite', ability: 'Sand Force', nature: 'Jolly', statPoints: { hp: 12, atk: 32, def: 0, spa: 0, spd: 0, spe: 20 }, moves: ['Earthquake', 'Dragon Claw', 'Rock Slide', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Tyranitar',
-    rank: 'Mega',
-    sourceName: 'Tyranitar',
-    note: '热门扩展（Mega 体系）：Mega Tyranitar 仍是稳定的中盘压制点，沙暴队和常规队都能携带。',
-    archetypes: extractMovesetLabels('Tyranitar'),
-    sets: [
-      { name: 'Dragon Dance Mega Tyranitar', item: 'Tyranitarite', ability: 'Sand Stream', nature: 'Adamant', statPoints: { hp: 16, atk: 32, def: 4, spa: 0, spd: 8, spe: 4 }, moves: ['Rock Slide', 'Crunch', 'Dragon Dance', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Scizor',
-    rank: 'Mega',
-    sourceName: 'Scizor',
-    note: '热门扩展（Mega 体系）：Mega Scizor 凭借 Technician 加成和优先级压制，是高频后排收割位。',
-    archetypes: extractMovesetLabels('Scizor'),
-    sets: [
-      { name: 'Bulky Offense Mega Scizor', item: 'Scizorite', ability: 'Technician', nature: 'Adamant', statPoints: { hp: 20, atk: 32, def: 12, spa: 0, spd: 8, spe: 0 }, moves: ['Bullet Punch', 'Knock Off', 'Close Combat', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Gardevoir',
-    rank: 'Mega',
-    sourceName: 'Gardevoir',
-    note: '热门扩展（Mega 体系）：Mega Gardevoir 以 Pixilate 高强度语音输出和控场能力见长。',
-    archetypes: extractMovesetLabels('Gengar'),
-    sets: [
-      { name: 'Pixilate Mega Gardevoir', item: 'Gardevoirite', ability: 'Pixilate', nature: 'Timid', statPoints: { hp: 8, atk: 0, def: 4, spa: 32, spd: 0, spe: 24 }, moves: ['Hyper Voice', 'Moonblast', 'Calm Mind', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Gyarados',
-    rank: 'Mega',
-    sourceName: 'Tyranitar',
-    note: '热门扩展（Mega 体系）：Mega Gyarados 兼具 Dragon Dance 破局能力与优良耐性，是常见的进攻终结点。',
-    archetypes: extractMovesetLabels('Tyranitar'),
-    sets: [
-      { name: 'Dragon Dance Mega Gyarados', item: 'Gyaradosite', ability: 'Mold Breaker', nature: 'Jolly', statPoints: { hp: 12, atk: 32, def: 4, spa: 0, spd: 0, spe: 20 }, moves: ['Aqua Tail', 'Crunch', 'Dragon Dance', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Venusaur',
-    rank: 'Mega',
-    sourceName: 'Whimsicott',
-    note: '热门扩展（Mega 体系）：Mega Venusaur 是高耐久草毒核心，常用于对抗水地与持续消耗局。',
-    archetypes: extractMovesetLabels('Whimsicott'),
-    sets: [
-      { name: 'Bulky Mega Venusaur', item: 'Venusaurite', ability: 'Thick Fat', nature: 'Calm', statPoints: { hp: 32, atk: 0, def: 12, spa: 16, spd: 20, spe: 0 }, moves: ['Giga Drain', 'Earth Power', 'Leech Seed', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Medicham',
-    rank: 'Mega',
-    sourceName: 'Hawlucha',
-    note: '热门扩展（Mega 体系）：Mega Medicham 借助 Pure Power 的爆发打点，常用于快速撕开防线。',
-    archetypes: extractMovesetLabels('Hawlucha'),
-    sets: [
-      { name: 'Fast Mega Medicham', item: 'Medichamite', ability: 'Pure Power', nature: 'Jolly', statPoints: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, moves: ['Fake Out', 'High Jump Kick', 'Ice Punch', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Pinsir',
-    rank: 'Mega',
-    sourceName: 'Hawlucha',
-    note: '热门扩展（Mega 体系）：Mega Pinsir 依靠 Aerilate 的先制压制和高物攻，常用于残局收割。',
-    archetypes: extractMovesetLabels('Hawlucha'),
-    sets: [
-      { name: 'Aerilate Mega Pinsir', item: 'Pinsirite', ability: 'Aerilate', nature: 'Jolly', statPoints: { hp: 8, atk: 32, def: 0, spa: 0, spd: 0, spe: 24 }, moves: ['Quick Attack', 'Close Combat', 'Bug Bite', 'Protect'] }
-    ]
-  },
-  {
-    species: 'Mega Meganium',
-    rank: 'Mega',
-    sourceName: 'Meganium',
-    note: '热门扩展（Mega 体系）：Mega Meganium 在当前队伍样本中常作为草系范围压制与场地协同位。',
-    archetypes: extractMovesetLabels('Meganium'),
-    sets: [
-      { name: 'Doubles Mega Meganium', item: 'Meganiumite', ability: 'Mega Sol', nature: 'Modest', statPoints: { hp: 28, atk: 0, def: 0, spa: 32, spd: 0, spe: 6 }, moves: ['Giga Drain', 'Dazzling Gleam', 'Weather Ball', 'Protect'] }
-    ]
   }
 ];
 
+const speciesByNameMap = new Map(species.map((s) => [s.name, s]));
+
+for (const meta of metaSets) {
+  if (meta.species.startsWith('Mega ')) continue;
+  const pairs = megasForBase(meta.species);
+  for (const { mega, stone } of pairs) {
+    if (meta.sets.some((s) => s.item === stone)) continue;
+    const tpl = meta.sets[0];
+    const megaSp = speciesByNameMap.get(mega);
+    meta.sets.push({
+      name: `${tpl.name}（Mega石 · ${stone}）`,
+      item: stone,
+      ability: megaSp?.abilities?.[0] || tpl.ability,
+      nature: tpl.nature,
+      statPoints: { ...tpl.statPoints },
+      moves: [...tpl.moves]
+    });
+  }
+}
+
 const payload = {
   generatedAt: new Date().toISOString(),
+  megaSpeciesToStone: MEGA_SPECIES_TO_STONE,
   source: {
     teamBuilderMapping: 727,
     rosterArticle: 501889,
