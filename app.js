@@ -738,6 +738,9 @@
   function renderDamageRow(result) {
     const effectText = result.typeEffectiveness === 0 ? '无效' : result.typeEffectiveness > 1 ? `${result.typeEffectiveness}x 克制` : result.typeEffectiveness < 1 ? `${result.typeEffectiveness}x 抵抗` : '等倍';
     const barWidth = Math.min(100, result.percentMax || 0);
+    const accHtml = result.accuracyText
+      ? `<p class="damage-acc">命中 · ${result.accuracyText}</p>`
+      : '';
     return `
       <article class="damage-row">
         <div class="damage-head">
@@ -745,6 +748,7 @@
           <span>${result.ko}</span>
         </div>
         <p class="small-text">${result.min}-${result.max} (${result.percentMin.toFixed(1)}% - ${result.percentMax.toFixed(1)}%) · ${effectText}</p>
+        ${accHtml}
         <div class="bar"><span style="width:${barWidth}%"></span></div>
       </article>
     `;

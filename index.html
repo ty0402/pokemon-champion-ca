@@ -6,6 +6,8 @@
   <title>Champions Matchup Lab</title>
   <style>
     :root {
+      --select-bg: #1a2836;
+      --select-fg: #edf4ff;
       --bg: #08131d;
       --panel: rgba(14, 24, 36, 0.92);
       --panel-soft: rgba(255, 255, 255, 0.05);
@@ -18,6 +20,7 @@
     }
 
     * { box-sizing: border-box; }
+    html { color-scheme: dark; }
     body {
       margin: 0;
       font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -102,8 +105,12 @@
     .field-grid.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     label { display: grid; gap: 6px; color: var(--muted); font-size: 0.82rem; font-weight: 600; }
     select, input {
-      width: 100%; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
-      color: var(--text); padding: 10px 12px; font: inherit;
+      width: 100%; border-radius: 12px; border: 1px solid var(--line);
+      background-color: var(--select-bg); color: var(--select-fg); padding: 10px 12px; font: inherit;
+    }
+    select option {
+      background-color: var(--select-bg);
+      color: var(--select-fg);
     }
 
     .matchup-banner {
@@ -145,8 +152,9 @@
     }
     select.wb-nature-select {
       width: 100%; box-sizing: border-box; margin: 0;
-      border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,0.06);
-      color: var(--text); padding: 4px 8px; font: inherit; font-size: 0.74rem; line-height: 1.3;
+      border-radius: 8px; border: 1px solid var(--line);
+      background-color: var(--select-bg); color: var(--select-fg);
+      padding: 4px 8px; font: inherit; font-size: 0.74rem; line-height: 1.3;
       min-height: 26px; cursor: pointer;
     }
     .speed-workbench-card .speed-slider-row { display: grid; gap: 2px; }
@@ -164,6 +172,7 @@
     .key-setup-line { margin: 0; font-size: 0.76rem; color: var(--muted); line-height: 1.45; }
     .workbench-body .damage-section > .small-text { font-size: 0.78rem; margin: 0; }
     .damage-row { display: grid; gap: 5px; padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+    .damage-row .damage-acc { margin: 0; font-size: 0.68rem; color: var(--muted); line-height: 1.35; }
     .bar { width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
     .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), #ffd166); }
 
@@ -218,6 +227,7 @@
                   <option value="sun">晴天</option>
                   <option value="rain">雨天</option>
                   <option value="sand">沙暴</option>
+                  <option value="snow">雪天</option>
                 </select>
               </label>
               <label>地形
@@ -250,7 +260,7 @@
             <div id="damagePanel"></div>
           </div>
 
-          <p class="footnote">伤害计算含：天气（火/水倍率、沙暴特防、气象球）、场地（草/电/超能增伤、薄雾下龙伤减半）、相关特性（叶绿素/悠游自在/拨沙/冲浪之尾、沙之力、厚脂肪等）、围巾、顺风、威吓、光墙与双打分摊。强化等级暂未建模。</p>
+            <p class="footnote">伤害计算含：天气（晴/雨火水倍率、沙暴特防、雪天冰系物防×1.5、气象球）、场地（草/电/超能增伤、薄雾下龙伤减半）、相关特性（叶绿素/悠游自在/拨沙/拨雪/冲浪之尾、沙之力、厚脂肪等）、围巾、顺风、威吓、光墙与双打分摊。个别招式命中率会随天气在面板小字中标注。强化等级暂未建模。</p>
         </div>
       </section>
 

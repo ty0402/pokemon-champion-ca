@@ -114,14 +114,37 @@
     return field && field.weather && field.weather !== 'none';
   }
 
+  function isSnowWeather(field) {
+    return field && (field.weather === 'snow' || field.weather === 'hail');
+  }
+
   /** 气象球：随当前天气改属性与威力 */
   function getEffectiveMoveTypeAndPower(move, field, attacker) {
     if (move.name === 'Weather Ball' && weatherActive(field)) {
       if (field.weather === 'sun') return { type: 'Fire', power: 100 };
       if (field.weather === 'rain') return { type: 'Water', power: 100 };
       if (field.weather === 'sand') return { type: 'Rock', power: 100 };
+      if (isSnowWeather(field)) return { type: 'Ice', power: 100 };
     }
     return { type: resolveMoveType(attacker, move), power: move.power };
+  }
+
+  /** 显示用：考虑天气对个别招式命中率的影响（含变化类，供面板小字） */
+  function getMoveAccuracyLabel(move, field) {
+    if (!move) return '';
+    const accRaw = move.accuracy;
+    if (accRaw === 0 || accRaw === undefined || accRaw === null) return '必中';
+    let acc = Number(accRaw);
+    if (Number.isNaN(acc)) return '';
+    const w = field && field.weather ? field.weather : 'none';
+    let eff = acc;
+    if (move.name === 'Blizzard' && isSnowWeather(field)) eff = 100;
+    if (move.name === 'Thunder' && w === 'rain') eff = 100;
+    if (move.name === 'Hurricane' && w === 'rain') eff = 100;
+    if (move.name === 'Hurricane' && w === 'sun') eff = 50;
+    if (eff >= 100) return eff !== acc ? `必中（${acc}%→天气）` : '必中';
+    if (eff !== acc) return `${eff}%（原${acc}%，天气）`;
+    return `${acc}%`;
   }
 
   function getWeatherModifier(field, moveType) {
@@ -182,6 +205,14 @@
     return defenseStat;
   }
 
+  /** 第九世代起：雪天下冰系物防 ×1.5（仅物理伤害） */
+  function applySnowIceDefBoost(defenseStat, defender, field, move) {
+    if (!field || !isSnowWeather(field) || !isPhysical(move)) return defenseStat;
+    const types = defender.speciesData.types || [];
+    if (types.includes('Ice')) return Math.floor(defenseStat * 1.5);
+    return defenseStat;
+  }
+
   /** 双打中命中多个目标时单体伤害 ×0.75（与数据里 range 文案对齐） */
   function isSpreadHitInDoubles(move, field) {
     if (!field || !field.spreadDamage) return false;
@@ -222,6 +253,7 @@
     if (ability === 'Chlorophyll' && w === 'sun') speed *= 2;
     if (ability === 'Swift Swim' && w === 'rain') speed *= 2;
     if (ability === 'Sand Rush' && w === 'sand') speed *= 2;
+    if (ability === 'Slush Rush' && isSnowWeather(field)) speed *= 2;
     if (ability === 'Surge Surfer' && tr === 'electric') speed *= 2;
     if (build.item === 'Choice Scarf') speed = Math.floor(speed * 1.5);
     if (field[side === 'attacker' ? 'attackerTailwind' : 'defenderTailwind']) speed *= 2;
@@ -237,7 +269,8 @@
         percentMin: 0,
         percentMax: 0,
         ko: '状态招式',
-        typeEffectiveness: 1
+        typeEffectiveness: 1,
+        accuracyText: getMoveAccuracyLabel(move, field)
       };
     }
 
@@ -253,6 +286,7 @@
     let attackStat = Math.max(1, Math.floor(attackBase * stageMultiplier(attackStage)));
     let defenseStat = Math.max(1, Math.floor(defenseBase * stageMultiplier(defenseStage)));
     defenseStat = applySandSpDefBoost(defenseStat, defender, field, move);
+    defenseStat = applySnowIceDefBoost(defenseStat, defender, field, move);
 
     if (field.defenderScreen) {
       defenseStat = Math.floor(defenseStat * (isSpreadHitInDoubles(move, field) ? 1.33 : 1.5));
@@ -281,6 +315,8 @@
     else if (percentMin * 2 >= 100) ko = '稳定二确';
     else if (percentMax * 2 >= 100) ko = '高概率二确';
 
+    const accuracyText = getMoveAccuracyLabel(move, field);
+
     return {
       moveName: move.name,
       min,
@@ -290,7 +326,8 @@
       ko,
       typeEffectiveness,
       category: move.category,
-      type: moveType
+      type: moveType,
+      accuracyText
     };
   }
 
