@@ -224,20 +224,9 @@
                 <select data-field-control="terrain">
                   <option value="none">无地形</option>
                   <option value="grassy">青草场地</option>
-                </select>
-              </label>
-              <label>我方强化
-                <select data-field-control="attackerBoost">
-                  <option value="0">无强化</option>
-                  <option value="1">+1</option>
-                  <option value="2">+2</option>
-                </select>
-              </label>
-              <label>对手强化
-                <select data-field-control="defenderBoost">
-                  <option value="0">无强化</option>
-                  <option value="1">+1</option>
-                  <option value="2">+2</option>
+                  <option value="electric">电气场地</option>
+                  <option value="psychic">精神场地</option>
+                  <option value="misty">薄雾场地</option>
                 </select>
               </label>
             </div>
@@ -261,7 +250,7 @@
             <div id="damagePanel"></div>
           </div>
 
-          <p class="footnote">当前 damage engine 已抽成独立接口；计算已考虑 STAB、属性克制、天气、围巾、顺风、威吓、屏障与双打分摊。</p>
+          <p class="footnote">伤害计算含：天气（火/水倍率、沙暴特防、气象球）、场地（草/电/超能增伤、薄雾下龙伤减半）、相关特性（叶绿素/悠游自在/拨沙/冲浪之尾、沙之力、厚脂肪等）、围巾、顺风、威吓、光墙与双打分摊。强化等级暂未建模。</p>
         </div>
       </section>
 

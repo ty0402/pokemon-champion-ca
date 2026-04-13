@@ -167,8 +167,6 @@
     field: {
       weather: 'none',
       terrain: 'none',
-      attackerBoost: 0,
-      defenderBoost: 0,
       attackerTailwind: false,
       defenderTailwind: false,
       trickRoom: false,
@@ -756,7 +754,7 @@
     document.querySelectorAll('[data-field-control]').forEach((node) => {
       node.addEventListener('change', () => {
         const key = node.dataset.fieldControl;
-        state.field[key] = node.type === 'checkbox' ? node.checked : (key.includes('Boost') ? Number(node.value) : node.value);
+        state.field[key] = node.type === 'checkbox' ? node.checked : node.value;
         renderAll();
       });
     });
