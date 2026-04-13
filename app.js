@@ -107,8 +107,31 @@
   const abilityZh = zhMaps.abilityZh || {};
 
   const natureZh = {
-    Adamant: '固执', Jolly: '爽朗', Careful: '慎重', Calm: '沉着', Bold: '大胆', Timid: '胆小',
-    Modest: '内敛', Quiet: '冷静', Impish: '淘气', Naive: '天真', Hasty: '急躁'
+    Hardy: '勤奋',
+    Lonely: '怕寂寞',
+    Brave: '勇敢',
+    Adamant: '固执',
+    Naughty: '顽皮',
+    Bold: '大胆',
+    Docile: '坦率',
+    Relaxed: '悠闲',
+    Impish: '淘气',
+    Lax: '乐天',
+    Timid: '胆小',
+    Hasty: '急躁',
+    Serious: '认真',
+    Jolly: '爽朗',
+    Naive: '天真',
+    Modest: '内敛',
+    Mild: '慢吞吞',
+    Quiet: '冷静',
+    Bashful: '害羞',
+    Rash: '马虎',
+    Calm: '沉着',
+    Gentle: '温顺',
+    Sassy: '自大',
+    Careful: '慎重',
+    Quirky: '浮躁'
   };
 
   const moveZh = zhMaps.moveZh || {};
@@ -681,9 +704,12 @@
         <div class="speed-workbench-card">
           <span class="small-text">我方有效速度</span>
           <p class="wb-speed-num" id="wbMySpeed">${mySpeed}</p>
-          <div class="chip-row">
+          <div class="wb-chip-slot chip-row">
             ${state.field.attackerTailwind ? '<span class="tag-chip good">顺风</span>' : ''}
-            <span class="tag-chip" style="opacity:0.9;">性格：${localLabel(myBuild.nature, natureZh)}（左侧队伍）</span>
+          </div>
+          <div class="wb-nature-block">
+            <span class="wb-field-label">性格</span>
+            <div class="wb-nature-static" title="在左侧「我的队伍」中修改">${localLabel(myBuild.nature, natureZh)}（队伍编辑）</div>
           </div>
           <div class="speed-slider-row">
             <label>Spe 点数（0–${maxStatPoints}）</label>
@@ -694,11 +720,13 @@
         <div class="speed-workbench-card">
           <span class="small-text">对手有效速度</span>
           <p class="wb-speed-num" id="wbOppSpeed">${oppSpeed}</p>
-          <div class="chip-row">${state.field.defenderTailwind ? '<span class="tag-chip warn">顺风</span>' : ''}</div>
-          <label class="speed-slider-row" style="margin:0;">
-            <span style="color:var(--muted);font-size:0.82rem;font-weight:600;">性格（默认右侧模板）</span>
-            <select id="wbDefenderNature">${natureOpts}</select>
-          </label>
+          <div class="wb-chip-slot chip-row">
+            ${state.field.defenderTailwind ? '<span class="tag-chip warn">顺风</span>' : ''}
+          </div>
+          <div class="wb-nature-block">
+            <span class="wb-field-label">性格（默认右侧模板）</span>
+            <select id="wbDefenderNature" class="wb-nature-select">${natureOpts}</select>
+          </div>
           <div class="speed-slider-row">
             <label>Spe 点数（0–${maxStatPoints}）</label>
             <input type="range" class="wb-spe-range" id="wbDefenderSpe" min="0" max="${maxStatPoints}" step="1" value="${effSpe}" />
@@ -755,7 +783,7 @@
       node.addEventListener('change', () => {
         const key = node.dataset.fieldControl;
         state.field[key] = node.type === 'checkbox' ? node.checked : (key.includes('Boost') ? Number(node.value) : node.value);
-        renderWorkbench();
+        renderAll();
       });
     });
   }

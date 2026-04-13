@@ -131,10 +131,23 @@
     return 1;
   }
 
+  /** 双打中命中多个目标时单体伤害 ×0.75（与数据里 range 文案对齐） */
+  function isSpreadHitInDoubles(move, field) {
+    if (!field || !field.spreadDamage) return false;
+    const r = move.range || '';
+    return (
+      r === 'All Opponents' ||
+      r === 'Whole Field' ||
+      r === 'All Adjacent Foes' ||
+      r === 'All Adjacent' ||
+      r === 'All Other Pokemon'
+    );
+  }
+
   function getFieldMoveModifier(field, moveType, move) {
     let modifier = 1;
     if (field.terrain === 'grassy' && moveType === 'Grass') modifier *= 1.3;
-    if (field.spreadDamage && ['All Adjacent Foes', 'All Adjacent', 'All Other Pokemon'].includes(move.range)) modifier *= 0.75;
+    if (isSpreadHitInDoubles(move, field)) modifier *= 0.75;
     return modifier;
   }
 
@@ -186,7 +199,7 @@
     let defenseStat = Math.max(1, Math.floor(defenseBase * stageMultiplier(defenseStage)));
 
     if (field.defenderScreen) {
-      defenseStat = Math.floor(defenseStat * (field.spreadDamage ? 1.33 : 1.5));
+      defenseStat = Math.floor(defenseStat * (isSpreadHitInDoubles(move, field) ? 1.33 : 1.5));
     }
 
     const moveType = resolveMoveType(attacker, move);
