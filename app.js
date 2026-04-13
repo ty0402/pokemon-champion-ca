@@ -283,8 +283,24 @@
     return types.map((type) => `<span class="type-chip" style="background:${(typeColors[type] || '#fff')}22; color:${typeColors[type] || '#fff'};">${type}</span>`).join('');
   }
 
+  function isMegaSpeciesName(name) {
+    return typeof name === 'string' && name.startsWith('Mega ');
+  }
+
   function renderSpeciesOptions(current) {
-    return data.species.map((species) => `<option value="${species.name}" ${species.name === current ? 'selected' : ''}>${localLabel(species.name, speciesZh)}</option>`).join('');
+    const byName = (a, b) => a.name.localeCompare(b.name, 'en');
+    const baseSpecies = data.species.filter((s) => !isMegaSpeciesName(s.name)).slice().sort(byName);
+    const megaSpecies = data.species.filter((s) => isMegaSpeciesName(s.name)).slice().sort(byName);
+    const optionRow = (species) =>
+      `<option value="${species.name}" ${species.name === current ? 'selected' : ''}>${localLabel(species.name, speciesZh)}</option>`;
+    const chunks = [];
+    if (baseSpecies.length) {
+      chunks.push(`<optgroup label="普通形态（非 Mega）">${baseSpecies.map(optionRow).join('')}</optgroup>`);
+    }
+    if (megaSpecies.length) {
+      chunks.push(`<optgroup label="Mega 形态">${megaSpecies.map(optionRow).join('')}</optgroup>`);
+    }
+    return chunks.join('');
   }
 
   function renderNatureOptions(current) {
@@ -377,7 +393,7 @@
         <div class="avatar"><img src="${activeSpecies.imageUrl}" alt="${activeSpecies.name}" loading="lazy" /></div>
         <div>
           <p class="slot-title">当前编辑：${state.selectedSlot + 1}. ${localLabel(activeSpecies.name, speciesZh)}</p>
-          <p class="slot-subtitle">这里就是我方宝可梦的选择区，先选物种，再改点数和招式。</p>
+          <p class="slot-subtitle">这里就是我方宝可梦的选择区；物种下拉分「普通形态」与「Mega 形态」两组，再改点数和招式。</p>
           <div class="chip-row">${renderTypeChips(activeSpecies.types)}</div>
         </div>
       </div>
