@@ -22,8 +22,15 @@
 
   const natureZh = {
     Adamant: '固执', Jolly: '爽朗', Careful: '慎重', Calm: '沉着', Bold: '大胆', Timid: '胆小',
-    Modest: '内敛', Quiet: '冷静', Impish: '淘气'
+    Modest: '内敛', Quiet: '冷静', Impish: '淘气', Naive: '天真', Hasty: '急躁'
   };
+
+  const SPEED_NATURES = [
+    { name: 'Jolly', zh: '爽朗' },
+    { name: 'Timid', zh: '胆小' },
+    { name: 'Naive', zh: '天真' },
+    { name: 'Hasty', zh: '急躁' }
+  ];
 
   const moveZh = zhMaps.moveZh || {};
 
@@ -45,6 +52,8 @@
       spreadDamage: true,
       defenderScreen: false
     },
+    /** null = 对手使用右侧模板中的性格；否则覆盖为指定加速性格（速度线与对位伤害一并重算） */
+    defenderSpeedNatureOverride: null,
     team: []
   };
 
@@ -404,17 +413,6 @@
     return '双方同速';
   }
 
-  function speedAdvice(myBuild, oppBuild, mySpeed, oppSpeed) {
-    const diff = mySpeed - oppSpeed;
-    if (diff >= 0) return `当前快 ${diff} 点，已经过线。`;
-    for (let points = myBuild.statPoints.spe; points <= maxStatPoints; points += 1) {
-      const candidate = hydrateBuild({ ...myBuild, statPoints: { ...myBuild.statPoints, spe: points } });
-      const speed = engine.calcSpeed(candidate, state.field, 'attacker');
-      if (speed > oppSpeed) return `当前慢 ${Math.abs(diff)} 点。若只改速度点数，至少需要 ${points} Spe 点数。`;
-    }
-    return `当前慢 ${Math.abs(diff)} 点，仅靠速度点数难以反超，建议顺风、围巾或换更快形态。`;
-  }
-
   function getKeyMoveTags(row, frequency) {
     const tags = [];
     if (frequency >= 0.5) tags.push('高频');
@@ -476,26 +474,54 @@
     }
 
     const myBuild = hydrateBuild(state.team[state.selectedSlot]);
-    const oppBuild = hydrateBuild(buildFromMeta(state.selectedMeta, state.selectedSet));
-    const myStats = engine.calcStats(myBuild, { level: 50 });
-    const oppStats = engine.calcStats(oppBuild, { level: 50 });
+    const oppRaw = buildFromMeta(state.selectedMeta, state.selectedSet);
+    const oppMerged = state.defenderSpeedNatureOverride
+      ? { ...oppRaw, nature: state.defenderSpeedNatureOverride }
+      : oppRaw;
+    const oppBuild = hydrateBuild(oppMerged);
     const mySpeed = engine.calcSpeed(myBuild, state.field, 'attacker');
     const oppSpeed = engine.calcSpeed(oppBuild, state.field, 'defender');
     const relation = relationText(mySpeed, oppSpeed);
 
     document.getElementById('matchupTitle').textContent = `${localLabel(myBuild.speciesData.name, speciesZh)} vs ${localLabel(oppBuild.speciesData.name, speciesZh)}`;
-    document.getElementById('matchupSubtitle').textContent = `${relation} · 当前对手模板：${translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name)}`;
+    const setName = translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name);
+    const oppNatureNote = state.defenderSpeedNatureOverride
+      ? ` · 对手性格按速度区手动设为 ${localLabel(state.defenderSpeedNatureOverride, natureZh)}`
+      : '';
+    document.getElementById('matchupSubtitle').textContent = `当前对手模板：${setName}${oppNatureNote}`;
     document.getElementById('mySpeedValue').textContent = String(mySpeed);
     document.getElementById('oppSpeedValue').textContent = String(oppSpeed);
     document.getElementById('mySpeedTags').innerHTML = `<span class="tag-chip">${localLabel(myBuild.nature, natureZh)}</span><span class="tag-chip">Spe ${myBuild.statPoints.spe}</span>${state.field.attackerTailwind ? '<span class="tag-chip good">顺风</span>' : ''}`;
     document.getElementById('oppSpeedTags').innerHTML = `<span class="tag-chip">${localLabel(oppBuild.nature, natureZh)}</span><span class="tag-chip">Spe ${oppBuild.statPoints.spe}</span>${state.field.defenderTailwind ? '<span class="tag-chip warn">顺风</span>' : ''}`;
 
+    const defenderPickValue = state.defenderSpeedNatureOverride || '';
     document.getElementById('speedPanel').innerHTML = `
-      <div class="info-row"><strong>先手判断</strong><span>${relation}</span></div>
-      <div class="info-row"><strong>速度差</strong><span>${Math.abs(mySpeed - oppSpeed)} 点</span></div>
-      <div class="info-row"><strong>点数建议</strong><span>${speedAdvice(state.team[state.selectedSlot], buildFromMeta(state.selectedMeta, state.selectedSet), mySpeed, oppSpeed)}</span></div>
-      <div class="info-row"><strong>基础实数</strong><span>我方 ${myStats.spe} / 对手 ${oppStats.spe}</span></div>
+      <p class="small-text" style="margin:0 0 12px;line-height:1.65;"><strong>先手</strong>：${relation}</p>
+      <p class="small-text" style="margin:0 0 10px;color:var(--muted);">有效速度数值见上方卡片；改性格后速度线与对位伤害会一起刷新。</p>
+      <div class="toolbar" style="margin-bottom:12px;align-items:center;">
+        <span class="small-text" style="color:var(--muted);white-space:nowrap;">我方加速性格</span>
+        ${SPEED_NATURES.map(({ name, zh }) => `<button type="button" class="btn-secondary" data-speed-nature-attacker="${name}">${zh}</button>`).join('')}
+      </div>
+      <label class="small-text" style="display:grid;gap:6px;color:var(--muted);">对手速度性格
+        <select id="defenderSpeedNaturePick" style="color:var(--text);">
+          <option value="" ${defenderPickValue === '' ? 'selected' : ''}>使用右侧模板</option>
+          ${SPEED_NATURES.map(({ name, zh }) => `<option value="${name}" ${defenderPickValue === name ? 'selected' : ''}>${zh}</option>`).join('')}
+        </select>
+      </label>
     `;
+
+    document.querySelectorAll('[data-speed-nature-attacker]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.team[state.selectedSlot].nature = btn.dataset.speedNatureAttacker;
+        ensureValidBuild(state.team[state.selectedSlot]);
+        renderAll();
+      });
+    });
+    const defenderPick = document.getElementById('defenderSpeedNaturePick');
+    defenderPick.addEventListener('change', () => {
+      state.defenderSpeedNatureOverride = defenderPick.value || null;
+      renderAll();
+    });
 
     const myResults = myBuild.moves.map((name) => engine.calcMoveDamage(myBuild, oppBuild, movesByName.get(name), state.field));
     const oppResults = oppBuild.moves.map((name) => engine.calcMoveDamage(oppBuild, myBuild, movesByName.get(name), state.field));
