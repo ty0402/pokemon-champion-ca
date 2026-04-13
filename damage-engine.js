@@ -434,10 +434,23 @@
     return 1;
   }
 
-  function getAttackerAbilityDamageMod(attacker, moveType, move, field, typeEffectiveness) {
+  function getAttackerAbilityDamageMod(attacker, moveType, move, field, typeEffectiveness, offenseSide) {
     const ability = attacker.ability || '';
     const w = field && field.weather ? field.weather : 'none';
     let mod = 1;
+
+    const mine = offenseSide === 'mine';
+    const opp = offenseSide === 'opp';
+    if (ability === 'Guts' && isPhysical(move) && ((mine && field.ablGutsBurnMine) || (opp && field.ablGutsBurnOpp))) mod *= 1.5;
+    if (ability === 'Toxic Boost' && isPhysical(move) && ((mine && field.ablToxicBoostMine) || (opp && field.ablToxicBoostOpp))) mod *= 1.5;
+    if (ability === 'Flare Boost' && isSpecial(move) && ((mine && field.ablFlareBoostMine) || (opp && field.ablFlareBoostOpp))) mod *= 1.5;
+    if (
+      ability === 'Flash Fire' &&
+      moveType === 'Fire' &&
+      ((mine && field.ablFlashFireMine) || (opp && field.ablFlashFireOpp))
+    ) {
+      mod *= 1.5;
+    }
 
     if (ability === 'Solar Power' && isSpecial(move) && w === 'sun') mod *= 1.5;
     if (ability === 'Tough Claws' && isPhysical(move) && move.isDirect) mod *= 1.3;
@@ -467,9 +480,10 @@
     return mod;
   }
 
-  function getDefenderAbilityDamageMod(defender, moveType, move, typeEffectiveness) {
+  function getDefenderAbilityDamageMod(defender, moveType, move, typeEffectiveness, field) {
     const ability = defender.ability || '';
     let mod = 1;
+    const f = field || {};
 
     if (ability === 'Thick Fat' && (moveType === 'Fire' || moveType === 'Ice')) mod *= 0.5;
     if ((ability === 'Filter' || ability === 'Solid Rock' || ability === 'Prism Armor') && typeEffectiveness > 1) mod *= 0.75;
@@ -481,7 +495,7 @@
     if (
       (ability === 'Multiscale' || ability === 'Shadow Shield') &&
       typeEffectiveness > 0 &&
-      field.assumeMultiscaleTargetsFullHp !== false
+      f.assumeMultiscaleTargetsFullHp !== false
     ) {
       mod *= 0.5;
     }
@@ -552,6 +566,19 @@
     if (ability === 'Slush Rush' && isSnowWeather(field)) speed *= 2;
     if (ability === 'Surge Surfer' && tr === 'electric') speed *= 2;
 
+    if (ability === 'Unburden') {
+      if (side === 'attacker' && field.ablUnburdenMine) speed *= 2;
+      if (side === 'defender' && field.ablUnburdenOpp) speed *= 2;
+    }
+    if (ability === 'Quick Feet') {
+      if (side === 'attacker' && field.ablQuickFeetMine) speed = Math.floor(speed * 1.5);
+      if (side === 'defender' && field.ablQuickFeetOpp) speed = Math.floor(speed * 1.5);
+    }
+    if (ability === 'Slow Start') {
+      if (side === 'attacker' && field.ablSlowStartMine) speed = Math.floor(speed * 0.5);
+      if (side === 'defender' && field.ablSlowStartOpp) speed = Math.floor(speed * 0.5);
+    }
+
     if (build.item === 'Choice Scarf') speed = Math.floor(speed * 1.5);
     if (field[side === 'attacker' ? 'attackerTailwind' : 'defenderTailwind']) speed *= 2;
     return Math.floor(speed);
@@ -591,11 +618,25 @@
     if (isPhysical(move) && (atkAb === 'Huge Power' || atkAb === 'Pure Power')) {
       attackStat = Math.floor(attackStat * 2);
     }
+    if (atkAb === 'Slow Start') {
+      if (offenseSide === 'mine' && field.ablSlowStartMine) attackStat = Math.floor(attackStat * 0.5);
+      if (offenseSide === 'opp' && field.ablSlowStartOpp) attackStat = Math.floor(attackStat * 0.5);
+    }
+    if (atkAb === 'Defeatist') {
+      if (offenseSide === 'mine' && field.ablDefeatistMine) attackStat = Math.floor(attackStat * 0.5);
+      if (offenseSide === 'opp' && field.ablDefeatistOpp) attackStat = Math.floor(attackStat * 0.5);
+    }
 
     let defenseStat = Math.max(1, Math.floor(defenseBase * stageMultiplier(defenseStage)));
     const defAbForStat = defender.ability || '';
     if (defAbForStat === 'Fur Coat' && isPhysical(move)) {
       defenseStat = Math.floor(defenseStat * 2);
+    }
+    const marvelActive =
+      (offenseSide === 'mine' && defAbForStat === 'Marvel Scale' && field.ablMarvelScaleOpp) ||
+      (offenseSide === 'opp' && defAbForStat === 'Marvel Scale' && field.ablMarvelScaleMine);
+    if (marvelActive && isPhysical(move)) {
+      defenseStat = Math.floor(defenseStat * 1.5);
     }
 
     defenseStat = applySandSpDefBoost(defenseStat, defender, field, move);
@@ -611,7 +652,7 @@
     effectivePower = applyTechnicianPower(attacker, move, effectivePower);
 
     const defTypes = defenderTypesForBattle(defender, field);
-    const typeEffectiveness = getTypeEffectivenessWithAbilities(
+    let typeEffectiveness = getTypeEffectivenessWithAbilities(
       moveType,
       defTypes,
       atkAb,
@@ -619,13 +660,23 @@
       move
     );
 
+    const defFlash = defender.ability || '';
+    if (
+      moveType === 'Fire' &&
+      !moldBreakerLike(atkAb) &&
+      defFlash === 'Flash Fire' &&
+      ((offenseSide === 'mine' && field.ablFlashFireOpp) || (offenseSide === 'opp' && field.ablFlashFireMine))
+    ) {
+      typeEffectiveness = 0;
+    }
+
     const stab = getStabMultiplier(attacker, moveType);
     const weather = getWeatherModifier(field, moveType);
     const terrainAtk = getTerrainAttackModifier(field, moveType);
     const item = getItemModifier(attacker, moveType, move);
-    const atkAbility = getAttackerAbilityDamageMod(attacker, moveType, move, field, typeEffectiveness);
+    const atkAbility = getAttackerAbilityDamageMod(attacker, moveType, move, field, typeEffectiveness, offenseSide);
     const spreadMod = getSpreadModifier(move, field);
-    const defAbility = getDefenderAbilityDamageMod(defender, moveType, move, typeEffectiveness);
+    const defAbility = getDefenderAbilityDamageMod(defender, moveType, move, typeEffectiveness, field);
 
     const baseDamage = Math.floor(Math.floor(((22 * effectivePower * attackStat) / defenseStat) / 50) + 2);
     const modifier = stab * typeEffectiveness * weather * terrainAtk * item * atkAbility * spreadMod * defAbility;

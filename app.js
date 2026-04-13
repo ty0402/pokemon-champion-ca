@@ -153,7 +153,26 @@
       /** 我方打对手时：对手场上有光墙/反射壁 */
       defenderScreen: false,
       /** 对手打我方时：我方场上有光墙/反射壁 */
-      attackerScreen: false
+      attackerScreen: false,
+      /** 条件类特性（见中间「条件类特性」面板） */
+      ablUnburdenMine: false,
+      ablUnburdenOpp: false,
+      ablQuickFeetMine: false,
+      ablQuickFeetOpp: false,
+      ablGutsBurnMine: false,
+      ablGutsBurnOpp: false,
+      ablToxicBoostMine: false,
+      ablToxicBoostOpp: false,
+      ablFlareBoostMine: false,
+      ablFlareBoostOpp: false,
+      ablFlashFireMine: false,
+      ablFlashFireOpp: false,
+      ablMarvelScaleMine: false,
+      ablMarvelScaleOpp: false,
+      ablDefeatistMine: false,
+      ablDefeatistOpp: false,
+      ablSlowStartMine: false,
+      ablSlowStartOpp: false
     },
     /** null = 对手性格沿用右侧模板；否则为手动选择的性格 */
     defenderSpeedNatureOverride: null,
@@ -665,6 +684,93 @@
     return meta.species.startsWith('Mega ') || megaStoneItemNames.has(set.item);
   }
 
+  const ALL_ABILITY_TRIGGER_FIELD_KEYS = [
+    'ablUnburdenMine',
+    'ablUnburdenOpp',
+    'ablQuickFeetMine',
+    'ablQuickFeetOpp',
+    'ablGutsBurnMine',
+    'ablGutsBurnOpp',
+    'ablToxicBoostMine',
+    'ablToxicBoostOpp',
+    'ablFlareBoostMine',
+    'ablFlareBoostOpp',
+    'ablFlashFireMine',
+    'ablFlashFireOpp',
+    'ablMarvelScaleMine',
+    'ablMarvelScaleOpp',
+    'ablDefeatistMine',
+    'ablDefeatistOpp',
+    'ablSlowStartMine',
+    'ablSlowStartOpp'
+  ];
+
+  function abilityTriggerPanelSig(myBuild, oppBuild) {
+    return `${myBuild.ability}|${oppBuild.ability}|${!!state.attackerMegaBySlot[state.selectedSlot]}|${!!state.defenderMegaActive}|${state.selectedSlot}|${state.selectedMeta}|${state.selectedSet}`;
+  }
+
+  function paintAbilityTriggerPanel(myBuild, oppBuild) {
+    const el = document.getElementById('abilityTriggerWrap');
+    const markSig = () => {
+      state._ablTriggerSig = abilityTriggerPanelSig(myBuild, oppBuild);
+    };
+    if (!el) {
+      markSig();
+      return;
+    }
+    const pairs = [];
+    if (myBuild.ability === 'Unburden') pairs.push(['ablUnburdenMine', '我方·轻装已发动（如道具已消耗，速度×2）']);
+    if (oppBuild.ability === 'Unburden') pairs.push(['ablUnburdenOpp', '对方·轻装已发动（速度×2）']);
+    if (myBuild.ability === 'Quick Feet') pairs.push(['ablQuickFeetMine', '我方·飞毛腿（异常时速度×1.5）']);
+    if (oppBuild.ability === 'Quick Feet') pairs.push(['ablQuickFeetOpp', '对方·飞毛腿（异常时速度×1.5）']);
+    if (myBuild.ability === 'Guts') pairs.push(['ablGutsBurnMine', '我方·毅力（烧伤时物攻×1.5）']);
+    if (oppBuild.ability === 'Guts') pairs.push(['ablGutsBurnOpp', '对方·毅力（烧伤时物攻×1.5）']);
+    if (myBuild.ability === 'Toxic Boost') pairs.push(['ablToxicBoostMine', '我方·中毒激升（中毒时物攻×1.5）']);
+    if (oppBuild.ability === 'Toxic Boost') pairs.push(['ablToxicBoostOpp', '对方·中毒激升（物攻×1.5）']);
+    if (myBuild.ability === 'Flare Boost') pairs.push(['ablFlareBoostMine', '我方·受热激升（烧伤时特攻×1.5）']);
+    if (oppBuild.ability === 'Flare Boost') pairs.push(['ablFlareBoostOpp', '对方·受热激升（特攻×1.5）']);
+    if (myBuild.ability === 'Flash Fire') pairs.push(['ablFlashFireMine', '我方·引火已激活（火招威力×1.5；受火系时免伤）']);
+    if (oppBuild.ability === 'Flash Fire') pairs.push(['ablFlashFireOpp', '对方·引火已激活']);
+    if (myBuild.ability === 'Marvel Scale') pairs.push(['ablMarvelScaleMine', '我方·神奇鳞片（异常时物理端物防×1.5）']);
+    if (oppBuild.ability === 'Marvel Scale') pairs.push(['ablMarvelScaleOpp', '对方·神奇鳞片（异常时物理端物防×1.5）']);
+    if (myBuild.ability === 'Defeatist') pairs.push(['ablDefeatistMine', '我方·软弱（HP≤½ 时输出×0.5）']);
+    if (oppBuild.ability === 'Defeatist') pairs.push(['ablDefeatistOpp', '对方·软弱（输出×0.5）']);
+    if (myBuild.ability === 'Slow Start') pairs.push(['ablSlowStartMine', '我方·慢启动惩罚（物攻与速度×0.5）']);
+    if (oppBuild.ability === 'Slow Start') pairs.push(['ablSlowStartOpp', '对方·慢启动惩罚']);
+
+    const activeAblKeys = new Set(pairs.map(([k]) => k));
+    for (const k of ALL_ABILITY_TRIGGER_FIELD_KEYS) {
+      if (!activeAblKeys.has(k)) state.field[k] = false;
+    }
+
+    if (!pairs.length) {
+      el.style.display = 'none';
+      el.innerHTML = '';
+      markSig();
+      return;
+    }
+    el.style.display = 'block';
+    el.innerHTML = `
+      <p class="small-title" style="margin:0 0 6px;">条件类特性</p>
+      <p class="small-text" style="margin:0 0 8px;">与天气无关、依赖状态或道具消耗；仅当对位精灵带对应特性时出现，勾选后与速度/伤害同步。</p>
+      <div class="toggle-grid">
+        ${pairs
+          .map(
+            ([key, label]) => `
+        <label class="toggle"><span>${label}</span><input type="checkbox" data-abl-trigger="${key}" ${state.field[key] ? 'checked' : ''} /></label>`
+          )
+          .join('')}
+      </div>
+    `;
+    el.querySelectorAll('input[data-abl-trigger]').forEach((input) => {
+      input.addEventListener('change', () => {
+        state.field[input.dataset.ablTrigger] = input.checked;
+        refreshWorkbenchCalcs();
+      });
+    });
+    markSig();
+  }
+
   function getWorkbenchBuilds() {
     const myRaw = { ...state.team[state.selectedSlot] };
     const myCalc = finalizeAttackerBuildForCalc(myRaw);
@@ -709,6 +815,8 @@
   function refreshWorkbenchCalcs() {
     if (!getFilteredMetaIndexes().length) return;
     const { myBuild, oppBuild } = getWorkbenchBuilds();
+    const ablSig = abilityTriggerPanelSig(myBuild, oppBuild);
+    if (state._ablTriggerSig !== ablSig) paintAbilityTriggerPanel(myBuild, oppBuild);
     const mySpeed = engine.calcSpeed(myBuild, state.field, 'attacker');
     const oppSpeed = engine.calcSpeed(oppBuild, state.field, 'defender');
     const relation = relationText(mySpeed, oppSpeed);
@@ -746,6 +854,11 @@
       document.getElementById('matchupSubtitle').textContent = '当前筛选没有匹配结果。';
       document.getElementById('speedWorkbench').innerHTML = '<div class="info-row"><strong>提示</strong><span>清空右侧筛选后继续查看速度线。</span></div>';
       document.getElementById('damagePanel').innerHTML = '<p class="small-text">清空右侧筛选后继续查看伤害计算。</p>';
+      const ablEmpty = document.getElementById('abilityTriggerWrap');
+      if (ablEmpty) {
+        ablEmpty.style.display = 'none';
+        ablEmpty.innerHTML = '';
+      }
       return;
     }
 
@@ -820,6 +933,8 @@
         </div>
       </div>
     `;
+
+    paintAbilityTriggerPanel(myBuild, oppBuild);
 
     const megaWrap = document.getElementById('defenderMegaWrap');
     if (megaWrap) {
