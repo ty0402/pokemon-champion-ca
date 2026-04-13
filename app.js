@@ -9,6 +9,92 @@
   const items = data.items;
   const maxStatPoints = data.statPointCap;
 
+  const megaStoneItemNames = new Set(
+    items.filter((item) => /ite(\s[XY])?$/.test(item.name)).map((item) => item.name)
+  );
+
+  const MEGA_SPECIES_TO_STONE = {
+    'Mega Abomasnow': 'Abomasite',
+    'Mega Absol': 'Absolite',
+    'Mega Aerodactyl': 'Aerodactylite',
+    'Mega Aggron': 'Aggronite',
+    'Mega Alakazam': 'Alakazite',
+    'Mega Altaria': 'Altarianite',
+    'Mega Ampharos': 'Ampharosite',
+    'Mega Audino': 'Audinite',
+    'Mega Banette': 'Banettite',
+    'Mega Beedrill': 'Beedrillite',
+    'Mega Blastoise': 'Blastoisinite',
+    'Mega Camerupt': 'Cameruptite',
+    'Mega Chandelure': 'Chandelurite',
+    'Mega Charizard X': 'Charizardite X',
+    'Mega Charizard Y': 'Charizardite Y',
+    'Mega Chesnaught': 'Chesnaughtite',
+    'Mega Chimecho': 'Chimechite',
+    'Mega Clefable': 'Clefablite',
+    'Mega Crabominable': 'Crabominite',
+    'Mega Delphox': 'Delphoxite',
+    'Mega Dragonite': 'Dragoninite',
+    'Mega Drampa': 'Drampanite',
+    'Mega Emboar': 'Emboarite',
+    'Mega Excadrill': 'Excadrite',
+    'Mega Feraligatr': 'Feraligite',
+    'Mega Floette': 'Floettite',
+    'Mega Froslass': 'Froslassite',
+    'Mega Gallade': 'Galladite',
+    'Mega Garchomp': 'Garchompite',
+    'Mega Gardevoir': 'Gardevoirite',
+    'Mega Gengar': 'Gengarite',
+    'Mega Glalie': 'Glalitite',
+    'Mega Glimmora': 'Glimmoranite',
+    'Mega Golurk': 'Golurkite',
+    'Mega Greninja': 'Greninjite',
+    'Mega Gyarados': 'Gyaradosite',
+    'Mega Hawlucha': 'Hawluchanite',
+    'Mega Heracross': 'Heracronite',
+    'Mega Houndoom': 'Houndoominite',
+    'Mega Kangaskhan': 'Kangaskhanite',
+    'Mega Lopunny': 'Lopunnite',
+    'Mega Lucario': 'Lucarionite',
+    'Mega Manectric': 'Manectite',
+    'Mega Medicham': 'Medichamite',
+    'Mega Meganium': 'Meganiumite',
+    'Mega Meowstic (Female)': 'Meowsticite',
+    'Mega Meowstic (Male)': 'Meowsticite',
+    'Mega Pidgeot': 'Pidgeotite',
+    'Mega Pinsir': 'Pinsirite',
+    'Mega Sableye': 'Sablenite',
+    'Mega Scizor': 'Scizorite',
+    'Mega Scovillain': 'Scovillainite',
+    'Mega Sharpedo': 'Sharpedonite',
+    'Mega Skarmory': 'Skarmorite',
+    'Mega Slowbro': 'Slowbronite',
+    'Mega Starmie': 'Starminite',
+    'Mega Steelix': 'Steelixite',
+    'Mega Tyranitar': 'Tyranitarite',
+    'Mega Venusaur': 'Venusaurite',
+    'Mega Victreebel': 'Victreebelite'
+  };
+
+  function firstNonMegaItemName() {
+    return items.find((item) => !megaStoneItemNames.has(item.name))?.name || items[0]?.name || '';
+  }
+
+  function itemsForSpeciesDropdown(speciesName, currentItem) {
+    const stoneName = MEGA_SPECIES_TO_STONE[speciesName];
+    const nonMega = items.filter((item) => !megaStoneItemNames.has(item.name));
+    let list = nonMega;
+    if (stoneName) {
+      const stone = items.find((item) => item.name === stoneName);
+      if (stone) list = [stone, ...nonMega];
+    }
+    if (currentItem && !list.some((item) => item.name === currentItem)) {
+      const extra = items.find((item) => item.name === currentItem);
+      if (extra) list = [extra, ...list];
+    }
+    return list;
+  }
+
   const typeColors = {
     Normal: '#d5d8e4', Fire: '#ff9b68', Water: '#71b7ff', Electric: '#ffd166', Grass: '#80d18a', Ice: '#93e4ef',
     Fighting: '#f37b67', Poison: '#bf8bf4', Ground: '#d7b478', Flying: '#9cc8ff', Psychic: '#ff81af', Bug: '#9dce5d',
@@ -74,9 +160,10 @@
   function createBuild(speciesName) {
     const species = getSpecies(speciesName);
     const nature = getNature('Timid');
+    const stone = MEGA_SPECIES_TO_STONE[species.name];
     return {
       species: species.name,
-      item: items[0]?.name || '',
+      item: stone || firstNonMegaItemName(),
       ability: species.abilities[0] || '',
       nature: nature.name,
       statPoints: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -110,6 +197,10 @@
     const species = getSpecies(build.species);
     if (!species.abilities.includes(build.ability)) build.ability = species.abilities[0] || '';
     if (!naturesByName.has(build.nature)) build.nature = 'Timid';
+    const allowedItems = new Set(itemsForSpeciesDropdown(build.species, build.item).map((item) => item.name));
+    if (!allowedItems.has(build.item)) {
+      build.item = MEGA_SPECIES_TO_STONE[species.name] || firstNonMegaItemName();
+    }
     const moveNames = new Set(getSpeciesMoves(build.species).map((move) => move.name));
     build.moves = build.moves.map((name, index) => {
       if (moveNames.has(name)) return name;
@@ -145,8 +236,10 @@
     return getSpecies(speciesName).abilities.map((ability) => `<option value="${ability}" ${ability === current ? 'selected' : ''}>${localLabel(ability, abilityZh)}</option>`).join('');
   }
 
-  function renderItemOptions(current) {
-    return items.map((item) => `<option value="${item.name}" ${item.name === current ? 'selected' : ''}>${localLabel(item.name, itemZh)}</option>`).join('');
+  function renderItemOptions(speciesName, current) {
+    return itemsForSpeciesDropdown(speciesName, current)
+      .map((item) => `<option value="${item.name}" ${item.name === current ? 'selected' : ''}>${localLabel(item.name, itemZh)}</option>`)
+      .join('');
   }
 
   function renderMoveOptions(speciesName, current) {
@@ -239,7 +332,7 @@
           <select data-slot="${state.selectedSlot}" data-field="ability">${renderAbilityOptions(activeBuild.species, activeBuild.ability)}</select>
         </label>
         <label>道具
-          <select data-slot="${state.selectedSlot}" data-field="item">${renderItemOptions(activeBuild.item)}</select>
+          <select data-slot="${state.selectedSlot}" data-field="item">${renderItemOptions(activeBuild.species, activeBuild.item)}</select>
         </label>
       </div>
       <div class="field-grid six">
@@ -297,6 +390,9 @@
       build.species = event.target.value;
       build.ability = getSpecies(build.species).abilities[0] || '';
       build.moves = getDefaultMoves(build.species);
+      const stone = MEGA_SPECIES_TO_STONE[build.species];
+      if (stone) build.item = stone;
+      else if (megaStoneItemNames.has(build.item)) build.item = firstNonMegaItemName();
     } else if (field === 'nature' || field === 'ability' || field === 'item') {
       build[field] = event.target.value;
     } else if (field.startsWith('stat-')) {
