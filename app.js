@@ -25,13 +25,6 @@
     Modest: '内敛', Quiet: '冷静', Impish: '淘气', Naive: '天真', Hasty: '急躁'
   };
 
-  const SPEED_NATURES = [
-    { name: 'Jolly', zh: '爽朗' },
-    { name: 'Timid', zh: '胆小' },
-    { name: 'Naive', zh: '天真' },
-    { name: 'Hasty', zh: '急躁' }
-  ];
-
   const moveZh = zhMaps.moveZh || {};
 
   const state = {
@@ -52,8 +45,10 @@
       spreadDamage: true,
       defenderScreen: false
     },
-    /** null = 对手使用右侧模板中的性格；否则覆盖为指定加速性格（速度线与对位伤害一并重算） */
+    /** null = 对手性格沿用右侧模板；否则为手动选择的性格 */
     defenderSpeedNatureOverride: null,
+    /** null = 对手 Spe 点数沿用右侧模板；否则为速度区滑条值 */
+    defenderSpeOverride: null,
     team: []
   };
 
@@ -378,6 +373,8 @@
       node.addEventListener('click', () => {
         state.selectedMeta = Number(node.dataset.meta);
         state.selectedSet = 0;
+        state.defenderSpeedNatureOverride = null;
+        state.defenderSpeOverride = null;
         renderAll();
       });
     });
@@ -386,6 +383,8 @@
       node.addEventListener('click', (event) => {
         event.stopPropagation();
         state.selectedSet = Number(node.dataset.set);
+        state.defenderSpeedNatureOverride = null;
+        state.defenderSpeOverride = null;
         renderAll();
       });
     });
@@ -460,69 +459,23 @@
       .slice(0, 8);
   }
 
-  function renderWorkbench() {
-    if (!getFilteredMetaIndexes().length) {
-      document.getElementById('matchupTitle').textContent = '等待选择热门对手';
-      document.getElementById('matchupSubtitle').textContent = '当前筛选没有匹配结果。';
-      document.getElementById('mySpeedValue').textContent = '-';
-      document.getElementById('oppSpeedValue').textContent = '-';
-      document.getElementById('mySpeedTags').innerHTML = '';
-      document.getElementById('oppSpeedTags').innerHTML = '';
-      document.getElementById('speedPanel').innerHTML = '<div class="info-row"><strong>提示</strong><span>清空右侧筛选后继续查看速度线。</span></div>';
-      document.getElementById('damagePanel').innerHTML = '<p class="small-text">清空右侧筛选后继续查看伤害计算。</p>';
-      return;
-    }
+  function mergeOppWorkbench(oppRaw) {
+    const nature = state.defenderSpeedNatureOverride ?? oppRaw.nature;
+    const spe =
+      state.defenderSpeOverride != null
+        ? engine.clamp(Number(state.defenderSpeOverride), 0, maxStatPoints)
+        : oppRaw.statPoints.spe;
+    return { ...oppRaw, nature, statPoints: { ...oppRaw.statPoints, spe } };
+  }
 
+  function getWorkbenchBuilds() {
     const myBuild = hydrateBuild(state.team[state.selectedSlot]);
     const oppRaw = buildFromMeta(state.selectedMeta, state.selectedSet);
-    const oppMerged = state.defenderSpeedNatureOverride
-      ? { ...oppRaw, nature: state.defenderSpeedNatureOverride }
-      : oppRaw;
-    const oppBuild = hydrateBuild(oppMerged);
-    const mySpeed = engine.calcSpeed(myBuild, state.field, 'attacker');
-    const oppSpeed = engine.calcSpeed(oppBuild, state.field, 'defender');
-    const relation = relationText(mySpeed, oppSpeed);
+    const oppBuild = hydrateBuild(mergeOppWorkbench(oppRaw));
+    return { myBuild, oppBuild, oppRaw };
+  }
 
-    document.getElementById('matchupTitle').textContent = `${localLabel(myBuild.speciesData.name, speciesZh)} vs ${localLabel(oppBuild.speciesData.name, speciesZh)}`;
-    const setName = translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name);
-    const oppNatureNote = state.defenderSpeedNatureOverride
-      ? ` · 对手性格按速度区手动设为 ${localLabel(state.defenderSpeedNatureOverride, natureZh)}`
-      : '';
-    document.getElementById('matchupSubtitle').textContent = `当前对手模板：${setName}${oppNatureNote}`;
-    document.getElementById('mySpeedValue').textContent = String(mySpeed);
-    document.getElementById('oppSpeedValue').textContent = String(oppSpeed);
-    document.getElementById('mySpeedTags').innerHTML = `<span class="tag-chip">${localLabel(myBuild.nature, natureZh)}</span><span class="tag-chip">Spe ${myBuild.statPoints.spe}</span>${state.field.attackerTailwind ? '<span class="tag-chip good">顺风</span>' : ''}`;
-    document.getElementById('oppSpeedTags').innerHTML = `<span class="tag-chip">${localLabel(oppBuild.nature, natureZh)}</span><span class="tag-chip">Spe ${oppBuild.statPoints.spe}</span>${state.field.defenderTailwind ? '<span class="tag-chip warn">顺风</span>' : ''}`;
-
-    const defenderPickValue = state.defenderSpeedNatureOverride || '';
-    document.getElementById('speedPanel').innerHTML = `
-      <p class="small-text" style="margin:0 0 12px;line-height:1.65;"><strong>先手</strong>：${relation}</p>
-      <p class="small-text" style="margin:0 0 10px;color:var(--muted);">有效速度数值见上方卡片；改性格后速度线与对位伤害会一起刷新。</p>
-      <div class="toolbar" style="margin-bottom:12px;align-items:center;">
-        <span class="small-text" style="color:var(--muted);white-space:nowrap;">我方加速性格</span>
-        ${SPEED_NATURES.map(({ name, zh }) => `<button type="button" class="btn-secondary" data-speed-nature-attacker="${name}">${zh}</button>`).join('')}
-      </div>
-      <label class="small-text" style="display:grid;gap:6px;color:var(--muted);">对手速度性格
-        <select id="defenderSpeedNaturePick" style="color:var(--text);">
-          <option value="" ${defenderPickValue === '' ? 'selected' : ''}>使用右侧模板</option>
-          ${SPEED_NATURES.map(({ name, zh }) => `<option value="${name}" ${defenderPickValue === name ? 'selected' : ''}>${zh}</option>`).join('')}
-        </select>
-      </label>
-    `;
-
-    document.querySelectorAll('[data-speed-nature-attacker]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.team[state.selectedSlot].nature = btn.dataset.speedNatureAttacker;
-        ensureValidBuild(state.team[state.selectedSlot]);
-        renderAll();
-      });
-    });
-    const defenderPick = document.getElementById('defenderSpeedNaturePick');
-    defenderPick.addEventListener('change', () => {
-      state.defenderSpeedNatureOverride = defenderPick.value || null;
-      renderAll();
-    });
-
+  function paintDamagePanel(myBuild, oppBuild) {
     const myResults = myBuild.moves.map((name) => engine.calcMoveDamage(myBuild, oppBuild, movesByName.get(name), state.field));
     const oppResults = oppBuild.moves.map((name) => engine.calcMoveDamage(oppBuild, myBuild, movesByName.get(name), state.field));
     const bestMove = myResults.filter((row) => row.max > 0).sort((a, b) => b.percentMax - a.percentMax)[0];
@@ -577,6 +530,113 @@
         ` : '<p class="small-text">该宝可梦暂无可计算的关键招式。</p>'}
       </section>
     `;
+  }
+
+  function refreshWorkbenchCalcs() {
+    if (!getFilteredMetaIndexes().length) return;
+    const { myBuild, oppBuild } = getWorkbenchBuilds();
+    const mySpeed = engine.calcSpeed(myBuild, state.field, 'attacker');
+    const oppSpeed = engine.calcSpeed(oppBuild, state.field, 'defender');
+    const relation = relationText(mySpeed, oppSpeed);
+    const myEl = document.getElementById('wbMySpeed');
+    if (!myEl) return;
+    myEl.textContent = String(mySpeed);
+    document.getElementById('wbOppSpeed').textContent = String(oppSpeed);
+    document.getElementById('wbRelation').textContent = relation;
+    const tpl = buildFromMeta(state.selectedMeta, state.selectedSet);
+    const effSpe = state.defenderSpeOverride != null ? state.defenderSpeOverride : tpl.statPoints.spe;
+    const ra = document.getElementById('wbAttackerSpeReadout');
+    const rd = document.getElementById('wbDefenderSpeReadout');
+    if (ra) ra.textContent = String(state.team[state.selectedSlot].statPoints.spe);
+    if (rd) rd.textContent = String(effSpe);
+    paintDamagePanel(myBuild, oppBuild);
+    const speInput = document.querySelector(`input[data-slot="${state.selectedSlot}"][data-field="stat-spe"]`);
+    if (speInput) speInput.value = String(state.team[state.selectedSlot].statPoints.spe);
+  }
+
+  function renderWorkbench() {
+    if (!getFilteredMetaIndexes().length) {
+      document.getElementById('matchupTitle').textContent = '等待选择热门对手';
+      document.getElementById('matchupSubtitle').textContent = '当前筛选没有匹配结果。';
+      document.getElementById('speedWorkbench').innerHTML = '<div class="info-row"><strong>提示</strong><span>清空右侧筛选后继续查看速度线。</span></div>';
+      document.getElementById('damagePanel').innerHTML = '<p class="small-text">清空右侧筛选后继续查看伤害计算。</p>';
+      return;
+    }
+
+    const { myBuild, oppBuild, oppRaw } = getWorkbenchBuilds();
+    const mySpeed = engine.calcSpeed(myBuild, state.field, 'attacker');
+    const oppSpeed = engine.calcSpeed(oppBuild, state.field, 'defender');
+    const relation = relationText(mySpeed, oppSpeed);
+
+    document.getElementById('matchupTitle').textContent = `${localLabel(myBuild.speciesData.name, speciesZh)} vs ${localLabel(oppBuild.speciesData.name, speciesZh)}`;
+    const setName = translateSetName(data.metaSets[state.selectedMeta].sets[state.selectedSet].name);
+    const oppTouched = state.defenderSpeedNatureOverride != null || state.defenderSpeOverride != null;
+    document.getElementById('matchupSubtitle').textContent = `当前对手模板：${setName}${oppTouched ? ' · 对手在速度区已微调' : ''}`;
+
+    const mySpe = state.team[state.selectedSlot].statPoints.spe;
+    const effSpe = state.defenderSpeOverride != null ? state.defenderSpeOverride : oppRaw.statPoints.spe;
+    const effNature = state.defenderSpeedNatureOverride ?? oppRaw.nature;
+    const natureOpts = data.natures
+      .map((n) => `<option value="${n.name}" ${n.name === effNature ? 'selected' : ''}>${localLabel(n.name, natureZh)}</option>`)
+      .join('');
+
+    document.getElementById('speedWorkbench').innerHTML = `
+      <div class="speed-workbench-grid">
+        <div class="speed-workbench-card">
+          <span class="small-text">我方有效速度</span>
+          <p class="wb-speed-num" id="wbMySpeed">${mySpeed}</p>
+          <div class="chip-row">
+            ${state.field.attackerTailwind ? '<span class="tag-chip good">顺风</span>' : ''}
+            <span class="tag-chip" style="opacity:0.9;">性格：${localLabel(myBuild.nature, natureZh)}（左侧队伍）</span>
+          </div>
+          <div class="speed-slider-row">
+            <label>Spe 点数（0–${maxStatPoints}）</label>
+            <input type="range" class="wb-spe-range" id="wbAttackerSpe" min="0" max="${maxStatPoints}" step="1" value="${mySpe}" />
+            <span class="wb-spe-readout" id="wbAttackerSpeReadout">${mySpe}</span>
+          </div>
+        </div>
+        <div class="speed-workbench-card">
+          <span class="small-text">对手有效速度</span>
+          <p class="wb-speed-num" id="wbOppSpeed">${oppSpeed}</p>
+          <div class="chip-row">${state.field.defenderTailwind ? '<span class="tag-chip warn">顺风</span>' : ''}</div>
+          <label class="speed-slider-row" style="margin:0;">
+            <span style="color:var(--muted);font-size:0.82rem;font-weight:600;">性格（默认右侧模板）</span>
+            <select id="wbDefenderNature">${natureOpts}</select>
+          </label>
+          <div class="speed-slider-row">
+            <label>Spe 点数（0–${maxStatPoints}）</label>
+            <input type="range" class="wb-spe-range" id="wbDefenderSpe" min="0" max="${maxStatPoints}" step="1" value="${effSpe}" />
+            <span class="wb-spe-readout" id="wbDefenderSpeReadout">${effSpe}</span>
+          </div>
+        </div>
+      </div>
+      <p class="small-text" style="margin:12px 0 0;line-height:1.65;"><strong>先手</strong>：<span id="wbRelation">${relation}</span></p>
+      <p class="small-text" style="margin:8px 0 0;color:var(--muted);">拖动 Spe 或修改对手性格会刷新速度与下方伤害；切换右侧模板会恢复对手默认性格与 Spe。</p>
+    `;
+
+    const sw = document.getElementById('speedWorkbench');
+    sw.oninput = (e) => {
+      if (e.target.id === 'wbAttackerSpe') {
+        const v = engine.clamp(Number(e.target.value), 0, maxStatPoints);
+        state.team[state.selectedSlot].statPoints.spe = v;
+        ensureValidBuild(state.team[state.selectedSlot]);
+        refreshWorkbenchCalcs();
+      } else if (e.target.id === 'wbDefenderSpe') {
+        const tpl = buildFromMeta(state.selectedMeta, state.selectedSet);
+        const v = engine.clamp(Number(e.target.value), 0, maxStatPoints);
+        state.defenderSpeOverride = v === tpl.statPoints.spe ? null : v;
+        refreshWorkbenchCalcs();
+      }
+    };
+    sw.onchange = (e) => {
+      if (e.target.id === 'wbDefenderNature') {
+        const tpl = buildFromMeta(state.selectedMeta, state.selectedSet);
+        state.defenderSpeedNatureOverride = e.target.value === tpl.nature ? null : e.target.value;
+        renderAll();
+      }
+    };
+
+    paintDamagePanel(myBuild, oppBuild);
   }
 
   function renderDamageRow(result) {

@@ -108,6 +108,17 @@
 
     .summary-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .summary-card strong { font-size: 1.4rem; }
+
+    .speed-workbench-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+    .speed-workbench-card {
+      border: 1px solid var(--line); border-radius: 18px; background: var(--panel-soft);
+      padding: 14px 16px; display: grid; gap: 10px;
+    }
+    .speed-workbench-card .wb-speed-num { font-size: 1.4rem; font-weight: 800; margin: 0; }
+    .speed-slider-row { display: grid; gap: 6px; }
+    .speed-slider-row label { color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+    input[type="range"].wb-spe-range { width: 100%; accent-color: var(--accent); height: 28px; }
+    .wb-spe-readout { font-size: 0.85rem; color: var(--text); font-weight: 700; }
     .info-row, .damage-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
     .info-row { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 8px 0; }
     .info-row:last-child { border-bottom: 0; }
@@ -122,7 +133,7 @@
 
     @media (max-width: 1220px) { .layout { grid-template-columns: 1fr; } }
     @media (max-width: 760px) {
-      .field-grid, .field-grid.six, .summary-grid, .toggle-grid { grid-template-columns: 1fr; }
+      .field-grid, .field-grid.six, .summary-grid, .toggle-grid, .speed-workbench-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -212,22 +223,9 @@
             </div>
           </div>
 
-          <div class="summary-grid">
-            <div class="summary-card">
-              <span class="small-text">我方有效速度</span>
-              <strong id="mySpeedValue">-</strong>
-              <div id="mySpeedTags" class="chip-row"></div>
-            </div>
-            <div class="summary-card">
-              <span class="small-text">对手有效速度</span>
-              <strong id="oppSpeedValue">-</strong>
-              <div id="oppSpeedTags" class="chip-row"></div>
-            </div>
-          </div>
-
           <div class="section">
             <h3 style="margin:0;">速度线</h3>
-            <div id="speedPanel"></div>
+            <div id="speedWorkbench"></div>
           </div>
 
           <div class="section">
