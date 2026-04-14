@@ -1,5 +1,5 @@
 window.APP_DATA = {
-  "generatedAt": "2026-04-13T17:12:11.598Z",
+  "generatedAt": "2026-04-14T03:43:21.568Z",
   "megaSpeciesToStone": {
     "Mega Abomasnow": "Abomasite",
     "Mega Absol": "Absolite",
@@ -75,6 +75,7 @@ window.APP_DATA = {
     "inferredNote": "Game8 roster article lists 269 launch-available Pokemon; the builder schema exposes 276 selectable entries including alternate forms and Mega entries used by the team builder."
   },
   "statPointCap": 32,
+  "statPointTotalCap": 66,
   "topMeta": [
     {
       "rank": "S",
@@ -82,55 +83,27 @@ window.APP_DATA = {
     },
     {
       "rank": "S",
-      "name": "Sneasler"
-    },
-    {
-      "rank": "S",
-      "name": "Garchomp"
-    },
-    {
-      "rank": "A+",
       "name": "Kingambit"
     },
     {
       "rank": "A+",
-      "name": "Sinistcha"
+      "name": "Garchomp"
     },
     {
       "rank": "A+",
-      "name": "Whimsicott"
+      "name": "Espathra"
     },
     {
       "rank": "A+",
-      "name": "Charizard"
-    },
-    {
-      "rank": "A+",
-      "name": "Gengar"
-    },
-    {
-      "rank": "A+",
-      "name": "Eternal Flower Floette"
-    },
-    {
-      "rank": "A+",
-      "name": "Tyranitar"
-    },
-    {
-      "rank": "A+",
-      "name": "Wash Rotom"
-    },
-    {
-      "rank": "A",
-      "name": "Pelipper"
-    },
-    {
-      "rank": "A",
-      "name": "Archaludon"
-    },
-    {
-      "rank": "A",
       "name": "Dragonite"
+    },
+    {
+      "rank": "A+",
+      "name": "Glimmora"
+    },
+    {
+      "rank": "A+",
+      "name": "Torkoal"
     },
     {
       "rank": "A",
@@ -138,23 +111,23 @@ window.APP_DATA = {
     },
     {
       "rank": "A",
-      "name": "Hatterene"
-    },
-    {
-      "rank": "A",
-      "name": "Glimmora"
-    },
-    {
-      "rank": "A",
-      "name": "Torkoal"
-    },
-    {
-      "rank": "A",
       "name": "Farigiraf"
     },
     {
       "rank": "A",
-      "name": "Espathra"
+      "name": "Whimsicott"
+    },
+    {
+      "rank": "A",
+      "name": "Pelipper"
+    },
+    {
+      "rank": "A",
+      "name": "Sneasler"
+    },
+    {
+      "rank": "A",
+      "name": "Tyranitar"
     }
   ],
   "species": [
@@ -29897,8 +29870,8 @@ window.APP_DATA = {
           "ability": "Intimidate",
           "nature": "Careful",
           "statPoints": {
-            "hp": 28,
-            "atk": 10,
+            "hp": 29,
+            "atk": 11,
             "def": 10,
             "spa": 0,
             "spd": 14,
@@ -29917,12 +29890,12 @@ window.APP_DATA = {
           "ability": "Intimidate",
           "nature": "Adamant",
           "statPoints": {
-            "hp": 12,
+            "hp": 14,
             "atk": 32,
-            "def": 4,
-            "spa": 0,
-            "spd": 8,
-            "spe": 4
+            "def": 5,
+            "spa": 1,
+            "spd": 9,
+            "spe": 5
           },
           "moves": [
             "Fake Out",
@@ -29935,7 +29908,7 @@ window.APP_DATA = {
     },
     {
       "species": "Sneasler",
-      "rank": "S",
+      "rank": "A",
       "sourceName": "Sneasler",
       "note": "Sneasler 是 Game8 现双打 S 档高速打点，Dire Claw 与 Unburden 让它既能开局抢节奏，也能残局收割。",
       "archetypes": [
@@ -29950,7 +29923,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 2,
-            "atk": 32,
+            "atk": 30,
             "def": 2,
             "spa": 0,
             "spd": 0,
@@ -29989,7 +29962,7 @@ window.APP_DATA = {
           "ability": "Unburden",
           "nature": "Adamant",
           "statPoints": {
-            "hp": 32,
+            "hp": 30,
             "atk": 32,
             "def": 2,
             "spa": 0,
@@ -30043,9 +30016,9 @@ window.APP_DATA = {
           "ability": "Rough Skin",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -30064,7 +30037,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 12,
-            "atk": 32,
+            "atk": 28,
             "def": 2,
             "spa": 0,
             "spd": 0,
@@ -30101,7 +30074,7 @@ window.APP_DATA = {
     },
     {
       "species": "Kingambit",
-      "rank": "A+",
+      "rank": "S",
       "sourceName": "Kingambit",
       "note": "Kingambit 是当前最稳的残局威胁之一，既能吃威吓反打，也能靠高耐久维持中盘存在感。",
       "archetypes": [
@@ -30116,7 +30089,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 24,
-            "atk": 32,
+            "atk": 30,
             "def": 0,
             "spa": 0,
             "spd": 12,
@@ -30135,9 +30108,9 @@ window.APP_DATA = {
           "ability": "Defiant",
           "nature": "Adamant",
           "statPoints": {
-            "hp": 16,
+            "hp": 17,
             "atk": 32,
-            "def": 8,
+            "def": 9,
             "spa": 0,
             "spd": 8,
             "spe": 0
@@ -30155,9 +30128,9 @@ window.APP_DATA = {
           "ability": "Supreme Overlord",
           "nature": "Adamant",
           "statPoints": {
-            "hp": 8,
+            "hp": 9,
             "atk": 32,
-            "def": 4,
+            "def": 5,
             "spa": 0,
             "spd": 8,
             "spe": 12
@@ -30207,8 +30180,8 @@ window.APP_DATA = {
           "ability": "Hospitality",
           "nature": "Modest",
           "statPoints": {
-            "hp": 20,
-            "atk": 0,
+            "hp": 21,
+            "atk": 1,
             "def": 8,
             "spa": 24,
             "spd": 12,
@@ -30227,7 +30200,7 @@ window.APP_DATA = {
           "ability": "Hospitality",
           "nature": "Bold",
           "statPoints": {
-            "hp": 32,
+            "hp": 30,
             "atk": 0,
             "def": 20,
             "spa": 8,
@@ -30245,7 +30218,7 @@ window.APP_DATA = {
     },
     {
       "species": "Whimsicott",
-      "rank": "A+",
+      "rank": "A",
       "sourceName": "Whimsicott",
       "note": "Whimsicott 仍然是顺风与节奏控制最稳定的先发位，Prankster 支持能让高爆发队更容易过线。",
       "archetypes": [
@@ -30258,11 +30231,11 @@ window.APP_DATA = {
           "ability": "Prankster",
           "nature": "Timid",
           "statPoints": {
-            "hp": 2,
-            "atk": 0,
-            "def": 2,
-            "spa": 24,
-            "spd": 0,
+            "hp": 4,
+            "atk": 1,
+            "def": 3,
+            "spa": 25,
+            "spd": 1,
             "spe": 32
           },
           "moves": [
@@ -30278,11 +30251,11 @@ window.APP_DATA = {
           "ability": "Prankster",
           "nature": "Timid",
           "statPoints": {
-            "hp": 20,
-            "atk": 0,
-            "def": 8,
-            "spa": 0,
-            "spd": 0,
+            "hp": 22,
+            "atk": 1,
+            "def": 9,
+            "spa": 1,
+            "spd": 1,
             "spe": 32
           },
           "moves": [
@@ -30298,8 +30271,8 @@ window.APP_DATA = {
           "ability": "Prankster",
           "nature": "Timid",
           "statPoints": {
-            "hp": 18,
-            "atk": 0,
+            "hp": 19,
+            "atk": 1,
             "def": 10,
             "spa": 0,
             "spd": 4,
@@ -30337,7 +30310,7 @@ window.APP_DATA = {
             "hp": 2,
             "atk": 0,
             "def": 2,
-            "spa": 32,
+            "spa": 30,
             "spd": 0,
             "spe": 32
           },
@@ -30357,7 +30330,7 @@ window.APP_DATA = {
             "hp": 10,
             "atk": 0,
             "def": 2,
-            "spa": 32,
+            "spa": 30,
             "spd": 0,
             "spe": 24
           },
@@ -30377,7 +30350,7 @@ window.APP_DATA = {
             "hp": 12,
             "atk": 0,
             "def": 2,
-            "spa": 28,
+            "spa": 20,
             "spd": 8,
             "spe": 24
           },
@@ -30412,7 +30385,7 @@ window.APP_DATA = {
             "def": 8,
             "spa": 20,
             "spd": 0,
-            "spe": 32
+            "spe": 26
           },
           "moves": [
             "Shadow Ball",
@@ -30450,7 +30423,7 @@ window.APP_DATA = {
             "hp": 8,
             "atk": 0,
             "def": 4,
-            "spa": 28,
+            "spa": 26,
             "spd": 0,
             "spe": 28
           },
@@ -30479,7 +30452,7 @@ window.APP_DATA = {
             "hp": 8,
             "atk": 0,
             "def": 4,
-            "spa": 32,
+            "spa": 26,
             "spd": 0,
             "spe": 28
           },
@@ -30496,8 +30469,8 @@ window.APP_DATA = {
           "ability": "Fairy Aura",
           "nature": "Calm",
           "statPoints": {
-            "hp": 24,
-            "atk": 0,
+            "hp": 25,
+            "atk": 1,
             "def": 6,
             "spa": 20,
             "spd": 14,
@@ -30530,7 +30503,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 20,
-            "atk": 32,
+            "atk": 28,
             "def": 6,
             "spa": 0,
             "spd": 12,
@@ -30550,7 +30523,7 @@ window.APP_DATA = {
           "nature": "Jolly",
           "statPoints": {
             "hp": 8,
-            "atk": 32,
+            "atk": 26,
             "def": 0,
             "spa": 0,
             "spd": 0,
@@ -30570,7 +30543,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 20,
-            "atk": 32,
+            "atk": 28,
             "def": 6,
             "spa": 0,
             "spd": 12,
@@ -30603,8 +30576,8 @@ window.APP_DATA = {
           "ability": "Levitate",
           "nature": "Calm",
           "statPoints": {
-            "hp": 28,
-            "atk": 0,
+            "hp": 29,
+            "atk": 1,
             "def": 10,
             "spa": 14,
             "spd": 12,
@@ -30624,8 +30597,8 @@ window.APP_DATA = {
           "nature": "Bold",
           "statPoints": {
             "hp": 32,
-            "atk": 0,
-            "def": 16,
+            "atk": 1,
+            "def": 17,
             "spa": 8,
             "spd": 8,
             "spe": 0
@@ -30654,8 +30627,8 @@ window.APP_DATA = {
           "ability": "Drizzle",
           "nature": "Bold",
           "statPoints": {
-            "hp": 24,
-            "atk": 0,
+            "hp": 25,
+            "atk": 1,
             "def": 14,
             "spa": 8,
             "spd": 8,
@@ -30675,10 +30648,10 @@ window.APP_DATA = {
           "nature": "Calm",
           "statPoints": {
             "hp": 32,
-            "atk": 0,
-            "def": 6,
-            "spa": 12,
-            "spd": 12,
+            "atk": 1,
+            "def": 7,
+            "spa": 13,
+            "spd": 13,
             "spe": 0
           },
           "moves": [
@@ -30710,7 +30683,7 @@ window.APP_DATA = {
             "hp": 24,
             "atk": 0,
             "def": 8,
-            "spa": 32,
+            "spa": 26,
             "spd": 8,
             "spe": 0
           },
@@ -30727,7 +30700,7 @@ window.APP_DATA = {
           "ability": "Stamina",
           "nature": "Modest",
           "statPoints": {
-            "hp": 28,
+            "hp": 22,
             "atk": 0,
             "def": 8,
             "spa": 24,
@@ -30745,7 +30718,7 @@ window.APP_DATA = {
     },
     {
       "species": "Dragonite",
-      "rank": "A",
+      "rank": "A+",
       "sourceName": "Dragonite",
       "note": "Dragonite 在当前 A 档里靠 Extreme Speed、Multiscale 和高覆盖维持很强的残局与转场质量。",
       "archetypes": [
@@ -30761,7 +30734,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 20,
-            "atk": 32,
+            "atk": 24,
             "def": 4,
             "spa": 0,
             "spd": 8,
@@ -30781,7 +30754,7 @@ window.APP_DATA = {
           "nature": "Jolly",
           "statPoints": {
             "hp": 8,
-            "atk": 32,
+            "atk": 26,
             "def": 0,
             "spa": 0,
             "spd": 0,
@@ -30801,7 +30774,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 20,
-            "atk": 32,
+            "atk": 24,
             "def": 4,
             "spa": 0,
             "spd": 8,
@@ -30834,7 +30807,7 @@ window.APP_DATA = {
             "hp": 24,
             "atk": 0,
             "def": 8,
-            "spa": 32,
+            "spa": 26,
             "spd": 8,
             "spe": 0
           },
@@ -30851,7 +30824,7 @@ window.APP_DATA = {
           "ability": "Torrent",
           "nature": "Modest",
           "statPoints": {
-            "hp": 28,
+            "hp": 18,
             "atk": 0,
             "def": 8,
             "spa": 28,
@@ -30886,7 +30859,7 @@ window.APP_DATA = {
             "hp": 24,
             "atk": 0,
             "def": 6,
-            "spa": 32,
+            "spa": 28,
             "spd": 8,
             "spe": 0
           },
@@ -30903,7 +30876,7 @@ window.APP_DATA = {
           "ability": "Magic Bounce",
           "nature": "Quiet",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 0,
             "def": 8,
             "spa": 24,
@@ -30921,7 +30894,7 @@ window.APP_DATA = {
     },
     {
       "species": "Glimmora",
-      "rank": "A",
+      "rank": "A+",
       "sourceName": "Glimmora",
       "note": "Glimmora 在当前环境里的价值主要来自速攻特攻与铺场双模，能为很多快攻队提供额外残局压力。",
       "archetypes": [
@@ -30958,7 +30931,7 @@ window.APP_DATA = {
             "hp": 4,
             "atk": 0,
             "def": 0,
-            "spa": 32,
+            "spa": 30,
             "spd": 0,
             "spe": 32
           },
@@ -30993,7 +30966,7 @@ window.APP_DATA = {
     },
     {
       "species": "Torkoal",
-      "rank": "A",
+      "rank": "A+",
       "sourceName": "Torkoal",
       "note": "Torkoal 仍是伪空间和晴天核的基础件，Eruption 与天气控制让它在面对中速队时非常直接。",
       "archetypes": [],
@@ -31007,7 +30980,7 @@ window.APP_DATA = {
             "hp": 24,
             "atk": 0,
             "def": 12,
-            "spa": 32,
+            "spa": 22,
             "spd": 8,
             "spe": 0
           },
@@ -31024,7 +30997,7 @@ window.APP_DATA = {
           "ability": "Drought",
           "nature": "Quiet",
           "statPoints": {
-            "hp": 32,
+            "hp": 18,
             "atk": 0,
             "def": 16,
             "spa": 20,
@@ -31053,7 +31026,7 @@ window.APP_DATA = {
           "ability": "Armor Tail",
           "nature": "Quiet",
           "statPoints": {
-            "hp": 28,
+            "hp": 20,
             "atk": 0,
             "def": 10,
             "spa": 24,
@@ -31073,7 +31046,7 @@ window.APP_DATA = {
           "ability": "Armor Tail",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 0,
             "def": 12,
             "spa": 8,
@@ -31091,7 +31064,7 @@ window.APP_DATA = {
     },
     {
       "species": "Espathra",
-      "rank": "A",
+      "rank": "A+",
       "sourceName": "Espathra",
       "note": "Espathra 在速度滚雪球与特耐突破上都很有威胁，面对缺少恶系压制的队伍会非常难挡。",
       "archetypes": [],
@@ -31105,7 +31078,7 @@ window.APP_DATA = {
             "hp": 4,
             "atk": 0,
             "def": 0,
-            "spa": 32,
+            "spa": 30,
             "spd": 0,
             "spe": 32
           },
@@ -31122,7 +31095,7 @@ window.APP_DATA = {
           "ability": "Speed Boost",
           "nature": "Timid",
           "statPoints": {
-            "hp": 20,
+            "hp": 10,
             "atk": 0,
             "def": 8,
             "spa": 20,
@@ -31153,12 +31126,12 @@ window.APP_DATA = {
         {
           "name": "Sand Offense Excadrill",
           "item": "Focus Sash",
-          "ability": "Mold Breaker",
+          "ability": "Sand Rush",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31176,9 +31149,9 @@ window.APP_DATA = {
           "ability": "Piercing Drill",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31208,8 +31181,8 @@ window.APP_DATA = {
           "ability": "Cursed Body",
           "nature": "Timid",
           "statPoints": {
-            "hp": 0,
-            "atk": 0,
+            "hp": 1,
+            "atk": 1,
             "def": 4,
             "spa": 28,
             "spd": 0,
@@ -31228,8 +31201,8 @@ window.APP_DATA = {
           "ability": "Snow Warning",
           "nature": "Timid",
           "statPoints": {
-            "hp": 0,
-            "atk": 0,
+            "hp": 1,
+            "atk": 1,
             "def": 4,
             "spa": 28,
             "spd": 0,
@@ -31260,7 +31233,7 @@ window.APP_DATA = {
           "ability": "Sand Stream",
           "nature": "Impish",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 12,
             "def": 20,
             "spa": 0,
@@ -31323,7 +31296,7 @@ window.APP_DATA = {
           "ability": "Levitate",
           "nature": "Modest",
           "statPoints": {
-            "hp": 28,
+            "hp": 18,
             "atk": 0,
             "def": 8,
             "spa": 24,
@@ -31352,22 +31325,22 @@ window.APP_DATA = {
       "sets": [
         {
           "name": "Swift Swim Basculegion",
-          "item": "Choice Scarf",
-          "ability": "Adaptability",
-          "nature": "Jolly",
+          "item": "Focus Sash",
+          "ability": "Swift Swim",
+          "nature": "Adamant",
           "statPoints": {
             "hp": 0,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
-            "spd": 0,
+            "spd": 1,
             "spe": 32
           },
           "moves": [
             "Wave Crash",
             "Last Respects",
-            "Aqua Jet",
-            "Protect"
+            "Ice Fang",
+            "Aqua Jet"
           ]
         }
       ]
@@ -31390,7 +31363,7 @@ window.APP_DATA = {
             "hp": 20,
             "atk": 0,
             "def": 4,
-            "spa": 32,
+            "spa": 14,
             "spd": 4,
             "spe": 24
           },
@@ -31419,9 +31392,9 @@ window.APP_DATA = {
           "ability": "Pressure",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31439,9 +31412,9 @@ window.APP_DATA = {
           "ability": "Tough Claws",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31473,7 +31446,7 @@ window.APP_DATA = {
             "hp": 8,
             "atk": 0,
             "def": 0,
-            "spa": 32,
+            "spa": 26,
             "spd": 0,
             "spe": 32
           },
@@ -31493,7 +31466,7 @@ window.APP_DATA = {
             "hp": 8,
             "atk": 0,
             "def": 0,
-            "spa": 32,
+            "spa": 26,
             "spd": 0,
             "spe": 32
           },
@@ -31521,9 +31494,9 @@ window.APP_DATA = {
           "ability": "Unburden",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31541,9 +31514,9 @@ window.APP_DATA = {
           "ability": "No Guard",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31573,8 +31546,8 @@ window.APP_DATA = {
           "ability": "Protean",
           "nature": "Timid",
           "statPoints": {
-            "hp": 0,
-            "atk": 0,
+            "hp": 1,
+            "atk": 1,
             "def": 0,
             "spa": 32,
             "spd": 0,
@@ -31593,8 +31566,8 @@ window.APP_DATA = {
           "ability": "Protean",
           "nature": "Timid",
           "statPoints": {
-            "hp": 0,
-            "atk": 0,
+            "hp": 1,
+            "atk": 1,
             "def": 0,
             "spa": 32,
             "spd": 0,
@@ -31625,8 +31598,8 @@ window.APP_DATA = {
           "ability": "Natural Cure",
           "nature": "Timid",
           "statPoints": {
-            "hp": 0,
-            "atk": 0,
+            "hp": 1,
+            "atk": 1,
             "def": 4,
             "spa": 28,
             "spd": 0,
@@ -31645,8 +31618,8 @@ window.APP_DATA = {
           "ability": "Huge Power",
           "nature": "Timid",
           "statPoints": {
-            "hp": 0,
-            "atk": 0,
+            "hp": 1,
+            "atk": 1,
             "def": 4,
             "spa": 28,
             "spd": 0,
@@ -31677,7 +31650,7 @@ window.APP_DATA = {
           "ability": "Overgrow",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 0,
             "def": 12,
             "spa": 8,
@@ -31697,7 +31670,7 @@ window.APP_DATA = {
           "ability": "Mega Sol",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 0,
             "def": 12,
             "spa": 8,
@@ -31728,9 +31701,9 @@ window.APP_DATA = {
           "ability": "Pressure",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31757,7 +31730,7 @@ window.APP_DATA = {
           "ability": "Earth Eater",
           "nature": "Careful",
           "statPoints": {
-            "hp": 32,
+            "hp": 22,
             "atk": 8,
             "def": 18,
             "spa": 0,
@@ -31789,7 +31762,7 @@ window.APP_DATA = {
           "ability": "Drizzle",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 30,
             "atk": 0,
             "def": 10,
             "spa": 8,
@@ -31821,7 +31794,7 @@ window.APP_DATA = {
           "ability": "Mirror Armor",
           "nature": "Impish",
           "statPoints": {
-            "hp": 32,
+            "hp": 22,
             "atk": 12,
             "def": 20,
             "spa": 0,
@@ -31853,9 +31826,9 @@ window.APP_DATA = {
           "ability": "Clear Body",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -31884,7 +31857,7 @@ window.APP_DATA = {
           "ability": "Magic Guard",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 0,
             "def": 12,
             "spa": 8,
@@ -31904,7 +31877,7 @@ window.APP_DATA = {
           "ability": "Magic Bounce",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 26,
             "atk": 0,
             "def": 12,
             "spa": 8,
@@ -31936,7 +31909,7 @@ window.APP_DATA = {
           "nature": "Jolly",
           "statPoints": {
             "hp": 12,
-            "atk": 32,
+            "atk": 18,
             "def": 4,
             "spa": 0,
             "spd": 0,
@@ -31971,9 +31944,9 @@ window.APP_DATA = {
           "ability": "Tough Claws",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 8,
+            "hp": 9,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 24
@@ -32005,9 +31978,9 @@ window.APP_DATA = {
           "ability": "Sand Force",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 12,
+            "hp": 13,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 20
@@ -32038,9 +32011,9 @@ window.APP_DATA = {
           "ability": "Sand Stream",
           "nature": "Adamant",
           "statPoints": {
-            "hp": 16,
+            "hp": 17,
             "atk": 32,
-            "def": 4,
+            "def": 5,
             "spa": 0,
             "spd": 8,
             "spe": 4
@@ -32068,7 +32041,7 @@ window.APP_DATA = {
           "nature": "Adamant",
           "statPoints": {
             "hp": 20,
-            "atk": 32,
+            "atk": 26,
             "def": 12,
             "spa": 0,
             "spd": 8,
@@ -32099,7 +32072,7 @@ window.APP_DATA = {
             "hp": 8,
             "atk": 0,
             "def": 4,
-            "spa": 32,
+            "spa": 30,
             "spd": 0,
             "spe": 24
           },
@@ -32126,7 +32099,7 @@ window.APP_DATA = {
           "nature": "Jolly",
           "statPoints": {
             "hp": 12,
-            "atk": 32,
+            "atk": 30,
             "def": 4,
             "spa": 0,
             "spd": 0,
@@ -32157,7 +32130,7 @@ window.APP_DATA = {
           "ability": "Thick Fat",
           "nature": "Calm",
           "statPoints": {
-            "hp": 32,
+            "hp": 18,
             "atk": 0,
             "def": 12,
             "spa": 16,
@@ -32186,9 +32159,9 @@ window.APP_DATA = {
           "ability": "Pure Power",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 0,
+            "hp": 1,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 32
@@ -32215,9 +32188,9 @@ window.APP_DATA = {
           "ability": "Aerilate",
           "nature": "Jolly",
           "statPoints": {
-            "hp": 8,
+            "hp": 9,
             "atk": 32,
-            "def": 0,
+            "def": 1,
             "spa": 0,
             "spd": 0,
             "spe": 24

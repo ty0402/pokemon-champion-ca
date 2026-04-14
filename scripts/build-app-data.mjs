@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const root = '/Users/taoye/Documents/Playground/pokemon-personality-team';
+const __filename = fileURLToPath(import.meta.url);
+const root = path.resolve(path.dirname(__filename), '..');
 const dataDir = path.join(root, 'data');
 
 const teamBuilder = JSON.parse(fs.readFileSync(path.join(dataDir, 'game8-team-builder-727.json'), 'utf8'));
@@ -13,6 +15,8 @@ const launchCounts = rosterPage.match(/Regular Pokemon<\/th>\s*<td[^>]*>(\d+)<\/
 const allPokemon = teamBuilder.pokemonsArraySchema.pokemons;
 const moveMap = new Map(teamBuilder.movesArraySchema.moves.map((move) => [move.id, move]));
 const usedMoveIds = new Set();
+const STAT_KEYS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
+const TOTAL_STAT_POINT_CAP = 66;
 
 for (const pokemon of allPokemon) {
   for (const moveId of pokemon.movesArraySchema.moveIds) usedMoveIds.add(moveId);
@@ -71,9 +75,9 @@ const items = teamBuilder.itemsArraySchema.items
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const doublesTierRanks = {
-  S: ['Incineroar', 'Sneasler', 'Garchomp'],
-  'A+': ['Kingambit', 'Sinistcha', 'Whimsicott', 'Charizard', 'Gengar', 'Eternal Flower Floette', 'Tyranitar', 'Wash Rotom'],
-  A: ['Pelipper', 'Archaludon', 'Dragonite', 'Primarina', 'Hatterene', 'Glimmora', 'Torkoal', 'Farigiraf', 'Espathra']
+  S: ['Incineroar', 'Kingambit'],
+  'A+': ['Garchomp', 'Espathra', 'Dragonite', 'Glimmora', 'Torkoal'],
+  A: ['Primarina', 'Farigiraf', 'Whimsicott', 'Pelipper', 'Sneasler', 'Tyranitar']
 };
 
 const topMeta = Object.entries(doublesTierRanks).flatMap(([rank, names]) => names.map((name) => ({ rank, name })));
@@ -124,7 +128,7 @@ const metaSets = [
   },
   {
     species: 'Sneasler',
-    rank: 'S',
+    rank: 'A',
     sourceName: 'Sneasler',
     note: 'Sneasler 是 Game8 现双打 S 档高速打点，Dire Claw 与 Unburden 让它既能开局抢节奏，也能残局收割。',
     archetypes: extractMovesetLabels('Sneasler'),
@@ -148,7 +152,7 @@ const metaSets = [
   },
   {
     species: 'Kingambit',
-    rank: 'A+',
+    rank: 'S',
     sourceName: 'Kingambit',
     note: 'Kingambit 是当前最稳的残局威胁之一，既能吃威吓反打，也能靠高耐久维持中盘存在感。',
     archetypes: extractMovesetLabels('Kingambit'),
@@ -172,7 +176,7 @@ const metaSets = [
   },
   {
     species: 'Whimsicott',
-    rank: 'A+',
+    rank: 'A',
     sourceName: 'Whimsicott',
     note: 'Whimsicott 仍然是顺风与节奏控制最稳定的先发位，Prankster 支持能让高爆发队更容易过线。',
     archetypes: extractMovesetLabels('Whimsicott'),
@@ -263,7 +267,7 @@ const metaSets = [
   },
   {
     species: 'Dragonite',
-    rank: 'A',
+    rank: 'A+',
     sourceName: 'Dragonite',
     note: 'Dragonite 在当前 A 档里靠 Extreme Speed、Multiscale 和高覆盖维持很强的残局与转场质量。',
     archetypes: extractMovesetLabels('Dragonite'),
@@ -296,7 +300,7 @@ const metaSets = [
   },
   {
     species: 'Glimmora',
-    rank: 'A',
+    rank: 'A+',
     sourceName: 'Glimmora',
     note: 'Glimmora 在当前环境里的价值主要来自速攻特攻与铺场双模，能为很多快攻队提供额外残局压力。',
     archetypes: extractMovesetLabels('Glimmora'),
@@ -307,7 +311,7 @@ const metaSets = [
   },
   {
     species: 'Torkoal',
-    rank: 'A',
+    rank: 'A+',
     sourceName: 'Torkoal',
     note: 'Torkoal 仍是伪空间和晴天核的基础件，Eruption 与天气控制让它在面对中速队时非常直接。',
     archetypes: extractMovesetLabels('Torkoal'),
@@ -329,7 +333,7 @@ const metaSets = [
   },
   {
     species: 'Espathra',
-    rank: 'A',
+    rank: 'A+',
     sourceName: 'Espathra',
     note: 'Espathra 在速度滚雪球与特耐突破上都很有威胁，面对缺少恶系压制的队伍会非常难挡。',
     archetypes: extractMovesetLabels('Espathra'),
@@ -345,7 +349,7 @@ const metaSets = [
     note: '扩展热门池：来自当前 Best Teams 与 build 索引，高频出现在沙暴和中速进攻队。',
     archetypes: extractMovesetLabels('Excadrill'),
     sets: [
-      { name: 'Sand Offense Excadrill', item: 'Focus Sash', ability: 'Mold Breaker', nature: 'Jolly', statPoints: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, moves: ['Earthquake', 'Iron Head', 'Rock Slide', 'Protect'] }
+      { name: 'Sand Offense Excadrill', item: 'Focus Sash', ability: 'Sand Rush', nature: 'Jolly', statPoints: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, moves: ['Earthquake', 'Iron Head', 'Rock Slide', 'Protect'] }
     ]
   },
   {
@@ -395,7 +399,7 @@ const metaSets = [
     note: '扩展热门池：水鬼双属性和先制水流喷射让它在雨队和收残局里都很有威胁。',
     archetypes: extractMovesetLabels('Basculegion (Male)'),
     sets: [
-      { name: 'Swift Swim Basculegion', item: 'Choice Scarf', ability: 'Adaptability', nature: 'Jolly', statPoints: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, moves: ['Wave Crash', 'Last Respects', 'Aqua Jet', 'Protect'] }
+      { name: 'Swift Swim Basculegion', item: 'Focus Sash', ability: 'Swift Swim', nature: 'Adamant', statPoints: { hp: 0, atk: 32, def: 1, spa: 0, spd: 1, spe: 32 }, moves: ['Wave Crash', 'Last Respects', 'Ice Fang', 'Aqua Jet'] }
     ]
   },
   {
@@ -660,6 +664,51 @@ for (const meta of metaSets) {
   }
 }
 
+function statPointTotal(statPoints) {
+  return STAT_KEYS.reduce((sum, key) => sum + (Number(statPoints?.[key]) || 0), 0);
+}
+
+function normalizeStatPointsToCap(raw) {
+  const points = Object.fromEntries(STAT_KEYS.map((key) => [key, Math.max(0, Math.min(32, Number(raw?.[key]) || 0))]));
+  let total = statPointTotal(points);
+  if (total === TOTAL_STAT_POINT_CAP) return points;
+
+  if (total > TOTAL_STAT_POINT_CAP) {
+    let overflow = total - TOTAL_STAT_POINT_CAP;
+    const reduceOrder = [...STAT_KEYS].sort((a, b) => points[b] - points[a]);
+    for (const key of reduceOrder) {
+      if (overflow <= 0) break;
+      const cut = Math.min(points[key], overflow);
+      points[key] -= cut;
+      overflow -= cut;
+    }
+    total = statPointTotal(points);
+  }
+
+  if (total < TOTAL_STAT_POINT_CAP) {
+    let need = TOTAL_STAT_POINT_CAP - total;
+    const addOrder = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
+    let cursor = 0;
+    while (need > 0) {
+      const key = addOrder[cursor % addOrder.length];
+      if (points[key] < 32) {
+        points[key] += 1;
+        need -= 1;
+      }
+      cursor += 1;
+      if (cursor > 5000) break;
+    }
+  }
+
+  return points;
+}
+
+for (const meta of metaSets) {
+  for (const set of meta.sets) {
+    set.statPoints = normalizeStatPointsToCap(set.statPoints);
+  }
+}
+
 const payload = {
   generatedAt: new Date().toISOString(),
   megaSpeciesToStone: MEGA_SPECIES_TO_STONE,
@@ -674,6 +723,7 @@ const payload = {
     inferredNote: 'Game8 roster article lists 269 launch-available Pokemon; the builder schema exposes 276 selectable entries including alternate forms and Mega entries used by the team builder.'
   },
   statPointCap: 32,
+  statPointTotalCap: TOTAL_STAT_POINT_CAP,
   topMeta,
   species,
   moves: legalMoves,
@@ -694,6 +744,9 @@ for (const meta of metaSets) {
     if (!natureNames.has(set.nature)) throw new Error(`Unknown nature: ${meta.species} -> ${set.nature}`);
     for (const move of set.moves) {
       if (!moveNames.has(move)) throw new Error(`Unknown move: ${meta.species} -> ${move}`);
+    }
+    if (statPointTotal(set.statPoints) !== TOTAL_STAT_POINT_CAP) {
+      throw new Error(`Invalid stat total: ${meta.species} -> ${set.name} (${statPointTotal(set.statPoints)})`);
     }
   }
 }

@@ -30,6 +30,8 @@
   const naturesByName = new Map(data.natures.map((entry) => [entry.name, entry]));
   const items = data.items;
   const maxStatPoints = data.statPointCap;
+  const totalStatPointCap = data.statPointTotalCap || 66;
+  const STAT_KEYS = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
 
   const megaStoneItemNames = new Set(
     items.filter((item) => /ite(\s[XY])?$/.test(item.name)).map((item) => item.name)
@@ -204,6 +206,36 @@
     return getSpeciesMoves(speciesName).slice(0, 4).map((move) => move.name);
   }
 
+  function statPointTotal(statPoints) {
+    return STAT_KEYS.reduce((sum, key) => sum + (Number(statPoints?.[key]) || 0), 0);
+  }
+
+  function clampAndRebalanceStatPoints(raw, changedKey) {
+    const points = Object.fromEntries(
+      STAT_KEYS.map((key) => [key, engine.clamp(Number(raw?.[key]) || 0, 0, maxStatPoints)])
+    );
+    let total = statPointTotal(points);
+    if (total <= totalStatPointCap) return points;
+
+    let overflow = total - totalStatPointCap;
+    const order = [
+      ...STAT_KEYS.filter((key) => key !== changedKey),
+      ...(changedKey && STAT_KEYS.includes(changedKey) ? [changedKey] : [])
+    ];
+    for (const key of order) {
+      if (overflow <= 0) break;
+      const cut = Math.min(points[key], overflow);
+      points[key] -= cut;
+      overflow -= cut;
+    }
+    total = statPointTotal(points);
+    if (total > totalStatPointCap && changedKey && STAT_KEYS.includes(changedKey)) {
+      const cut = Math.min(points[changedKey], total - totalStatPointCap);
+      points[changedKey] -= cut;
+    }
+    return points;
+  }
+
   function createBuild(speciesName) {
     const species = getSpecies(speciesName);
     const nature = getNature('Timid');
@@ -253,6 +285,7 @@
       if (moveNames.has(name)) return name;
       return getSpeciesMoves(build.species)[index]?.name || getSpeciesMoves(build.species)[0]?.name || '';
     });
+    build.statPoints = clampAndRebalanceStatPoints(build.statPoints);
   }
 
   function attackerMegaDefaultForBuild(build) {
@@ -412,12 +445,13 @@
         </label>
       </div>
       <div class="field-grid six">
-        ${['hp', 'atk', 'def', 'spa', 'spd', 'spe'].map((stat) => `
+        ${STAT_KEYS.map((stat) => `
           <label>${stat.toUpperCase()} 点数
             <input type="number" min="0" max="${maxStatPoints}" step="1" value="${activeBuild.statPoints[stat]}" data-slot="${state.selectedSlot}" data-field="stat-${stat}" />
           </label>
         `).join('')}
       </div>
+      <p class="small-text">点数合计：${statPointTotal(activeBuild.statPoints)} / ${totalStatPointCap}（单项上限 ${maxStatPoints}）</p>
       <div class="field-grid">
         ${[0, 1, 2, 3].map((moveIndex) => `
           <label>招式 ${moveIndex + 1}
@@ -488,6 +522,7 @@
     } else if (field.startsWith('stat-')) {
       const stat = field.split('-')[1];
       build.statPoints[stat] = engine.clamp(Number(event.target.value) || 0, 0, maxStatPoints);
+      build.statPoints = clampAndRebalanceStatPoints(build.statPoints, stat);
     } else if (field.startsWith('move-')) {
       build.moves[Number(field.split('-')[1])] = event.target.value;
     }
@@ -601,6 +636,29 @@
     if (attackerSpeed > defenderSpeed) return '常规情况下我方先手';
     if (attackerSpeed < defenderSpeed) return '常规情况下对手先手';
     return '双方同速';
+  }
+
+  function getSpeedModifierChips(build, side) {
+    const chips = [];
+    const ability = build.ability || '';
+    const weather = state.field.weather || 'none';
+    const terrain = state.field.terrain || 'none';
+    const prefix = side === 'attacker' ? 'Mine' : 'Opp';
+
+    if (ability === 'Chlorophyll' && weather === 'sun') chips.push('叶绿素×2');
+    if (ability === 'Swift Swim' && weather === 'rain') chips.push('悠游自如×2');
+    if (ability === 'Sand Rush' && weather === 'sand') chips.push('拨沙×2');
+    if (ability === 'Slush Rush' && weather === 'snow') chips.push('拨雪×2');
+    if (ability === 'Surge Surfer' && terrain === 'electric') chips.push('冲浪之尾×2');
+
+    if (ability === 'Unburden' && state.field[`ablUnburden${prefix}`]) chips.push('轻装×2');
+    if (ability === 'Quick Feet' && state.field[`ablQuickFeet${prefix}`]) chips.push('飞毛腿×1.5');
+    if (ability === 'Slow Start' && state.field[`ablSlowStart${prefix}`]) chips.push('慢启动×0.5');
+
+    if (build.item === 'Choice Scarf') chips.push('讲究围巾×1.5');
+    if (state.field[side === 'attacker' ? 'attackerTailwind' : 'defenderTailwind']) chips.push('顺风×2');
+    if (state.field.trickRoom) chips.push('戏法空间（只改变先手顺序）');
+    return chips;
   }
 
   /** 从热门模板汇总「变化/功能」向招式，不做伤害计算 */
@@ -903,6 +961,8 @@
     const mySpe = state.team[state.selectedSlot].statPoints.spe;
     const effSpe = state.defenderSpeOverride != null ? state.defenderSpeOverride : oppRaw.statPoints.spe;
     const effNature = state.defenderSpeedNatureOverride ?? oppRaw.nature;
+    const attackerChips = getSpeedModifierChips(myBuild, 'attacker');
+    const defenderChips = getSpeedModifierChips(oppBuild, 'defender');
     const natureOpts = data.natures
       .map((n) => `<option value="${n.name}" ${n.name === effNature ? 'selected' : ''}>${localLabel(n.name, natureZh)}</option>`)
       .join('');
@@ -914,7 +974,7 @@
           <span class="small-text">我方有效速度</span>
           <p class="wb-speed-num" id="wbMySpeed">${mySpeed}</p>
           <div class="wb-chip-slot chip-row">
-            ${state.field.attackerTailwind ? '<span class="tag-chip good">顺风</span>' : ''}
+            ${attackerChips.length ? attackerChips.map((txt) => `<span class="tag-chip good">${txt}</span>`).join('') : '<span class="small-text">无额外速度倍率</span>'}
           </div>
           <div class="wb-nature-block">
             <span class="wb-field-label">性格</span>
@@ -935,7 +995,7 @@
           <span class="small-text">对手有效速度</span>
           <p class="wb-speed-num" id="wbOppSpeed">${oppSpeed}</p>
           <div class="wb-chip-slot chip-row">
-            ${state.field.defenderTailwind ? '<span class="tag-chip warn">顺风</span>' : ''}
+            ${defenderChips.length ? defenderChips.map((txt) => `<span class="tag-chip warn">${txt}</span>`).join('') : '<span class="small-text">无额外速度倍率</span>'}
           </div>
           <div class="wb-nature-block">
             <span class="wb-field-label">性格（默认右侧模板）</span>
